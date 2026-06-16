@@ -1,6 +1,55 @@
 /* ============================================
    MOJEHOME.SK - CUSTOM CSS
    ============================================ */
+/* ===== CENOVKA - čistý dizajn ===== */
+
+/* Odstrániť šedé/oranžové pozadia */
+.prices.in-discount,
+.prices.in-discount .discount-side,
+.prices.in-discount .price-side {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Cena normálne čierna */
+.prices.in-discount .price-side,
+.prices.in-discount .price-side * {
+    color: #222222 !important;
+    font-weight: 700 !important;
+    font-size: 1.1em !important;
+}
+
+/* Zľava - červený kruh pozicionovaný na obrázok */
+.product {
+    position: relative !important;
+}
+
+.prices.in-discount .discount-side {
+    position: absolute !important;
+    bottom: 120px !important;
+    left: 12px !important;
+    background: #FF4552 !important;
+    color: #FFFFFF !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    z-index: 2 !important;
+    padding: 0 !important;
+}
+
+.prices.in-discount .discount-side * {
+    color: #FFFFFF !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
 
 
 /* ===== HEADER - texty 14px ===== */
