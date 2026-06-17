@@ -1,5 +1,3 @@
-<style>
-
 /* ===== NAJPREDÁVANEJŠIE - vertikálny layout ===== */
 #productsTop.products-inline {
     display: flex !important;
@@ -7,44 +5,36 @@
     flex-wrap: wrap !important;
     gap: 16px !important;
 }
-
 #productsTop .product {
     flex-direction: column !important;
     flex: 1 1 calc(33% - 16px) !important;
     align-items: flex-start !important;
 }
-
 #productsTop .product .p {
     flex-direction: column !important;
     width: 100% !important;
 }
-
 #productsTop .product .image {
     width: 100% !important;
     margin-bottom: 8px !important;
 }
-
 #productsTop .product .image img {
     width: 100% !important;
     height: 180px !important;
     object-fit: contain !important;
 }
 
+/* ===== SLICK ŠÍPKY ===== */
 .slick-arrow::after {
     background: transparent !important;
     background-color: transparent !important;
 }
-
-
-
-/* ===== SIVÉ POZADIE - len na kategóriových stránkach ===== */
 button.slick-arrow {
     background: transparent !important;
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
 }
-
 button.slick-arrow:hover,
 button.slick-arrow:focus {
     background: transparent !important;
@@ -52,6 +42,8 @@ button.slick-arrow:focus {
     border: none !important;
     box-shadow: none !important;
 }
+
+/* ===== SIVÉ POZADIE - len na kategóriových stránkach ===== */
 body.type-category #content-wrapper,
 body.type-category .content-wrapper-in,
 body.type-category .content-wrapper,
@@ -59,19 +51,18 @@ body.type-category .overall-wrapper,
 body.type-category {
     background-color: #FAFAFA !important;
 }
-
 body.type-category .product {
     background: #ffffff !important;
     box-shadow: 0 2px 10px rgba(0,0,0,0.07) !important;
     border: none !important;
     border-radius: 12px !important;
 }
-
 body.type-category .product:hover {
     box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
     transform: translateY(-2px) !important;
 }
 
+/* ===== TOP LIŠTA ===== */
 .top-info-bar {
     background-color: #6FBF8F;
     color: #FFFFFF;
@@ -86,24 +77,17 @@ body.type-category .product:hover {
     padding: 0 12px;
     box-sizing: border-box;
 }
-
 .top-info-bar span {
     text-align: center;
     line-height: 36px;
 }
-
 @media (max-width: 767px) {
     .top-info-bar {
         display: none !important;
     }
 }
 
-/* ========================================
-   Propojení produktů - Obrázky
-   Generováno: 16. 4. 2026
-   ======================================== */
-
-/* Tvar a velikost obrázků */
+/* ===== PROPOJENÍ PRODUKTŮ - Obrázky ===== */
 .c-product-interconnection-detail-params__products.is-type--photos span.item-type-img {
     width: 65px !important;
     height: 65px !important;
@@ -111,106 +95,62 @@ body.type-category .product:hover {
     border: 2px solid transparent !important;
     transition: all 0.2s ease !important;
 }
-
-/* Mezera mezi položkami */
 .c-product-interconnection-detail-params__products.is-type--photos {
     gap: 10px !important;
 }
-
-/* Aktivní volba - rámeček */
 .c-product-interconnection-detail-params__products.is-type--photos a.is-current span.item-type-img {
-    border: 1px solid #fcfcfcff !important;
+    border: 1px solid #fcfcfc !important;
 }
-
-/* Odstranění výchozí ikony fajfky */
 .c-product-interconnection-detail-params__products a.is-current .item-type-img:before {
     display: none !important;
 }
-
-/* Skrytí popisku */
 .c-product-interconnection-detail-params__products.is-type--photos .item-label {
     display: none !important;
 }
-
-/* Hover efekt - zvětšení */
 .c-product-interconnection-detail-params__products.is-type--photos a:hover span.item-type-img {
     transform: scale(1.15) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
-<style>
-/* ========================================
-   Propojení produktů - Velikosti (Box)
-   Generováno: 4. 5. 2026
-   ======================================== */
-
-/* Vzhled boxu */
+/* ===== PROPOJENÍ PRODUKTŮ - Veľkosti ===== */
 .c-product-interconnection-detail-params__products.is-type--numbers.is-display--box span.item-type-numbers {
     border-radius: 5px !important;
-    
-    
     transition: all 0.2s ease !important;
-}
-
-/* Mezera mezi položkami */
-.c-product-interconnection-detail-params__products.is-type--numbers {
-    gap: 8px !important;
-}
-
-/* Font v boxíkách */
-.c-product-interconnection-detail-params__products.is-type--numbers.is-display--box span.item-type-numbers {
     font-weight: 600 !important;
-    
-}
-
-/* Výchozí stav - barvy */
-.c-product-interconnection-detail-params__products.is-type--numbers.is-display--box span.item-type-numbers {
     background-color: #f3f4f6 !important;
     color: #374151 !important;
 }
-
-/* Aktivní volba - barvy */
+.c-product-interconnection-detail-params__products.is-type--numbers {
+    gap: 8px !important;
+}
 .c-product-interconnection-detail-params__products.is-type--numbers a.is-current span.item-type-numbers {
     background-color: #b9c0c6 !important;
-    color: rgba(0, 0, 0, 1)  !important;
+    color: rgba(0, 0, 0, 1) !important;
     box-shadow: none !important;
 }
-
-/* Odstranění podtržení odkazu */
 .c-product-interconnection-detail-params__products.is-type--numbers a {
     text-decoration: none !important;
 }
-
-/* Hover efekt - barvy aktivní volby */
 .c-product-interconnection-detail-params__products.is-type--numbers a:not(.is-current):hover span.item-type-numbers {
     background-color: #b9c0c6 !important;
     color: rgba(0, 0, 0, 1) !important;
     transform: translateY(-2px) !important;
 }
-</style>
 
-
-<style>
-
-/* ===== HEADER - texty 14px ===== */
+/* ===== HEADER - navigácia ===== */
 #navigation ul.menu-level-1 > li > a {
     font-size: 1.1em !important;
 }
-
-/* Položka "Akcia" červená farba */
 .menu-item-826 > a,
 .menu-item-826 > a b {
     color: #FF4552 !important;
 }
-
 .menu-item-826 > a:hover,
 .menu-item-826 > a:hover b {
     color: #FF4552 !important;
     opacity: 0.85;
 }
-</style>
 
-<style>
 /* ===== BUTTON "Do košíka" + btn-primary ===== */
 button.btn.btn-cart.add-to-cart-button,
 button.btn.btn-primary,
@@ -225,23 +165,20 @@ a.btn.btn-primary {
     box-shadow: none !important;
     outline: none !important;
 }
-
 button.btn.btn-cart.add-to-cart-button span,
 button.btn.btn-primary,
 button.btn.btn-primary span {
-    color: #000000ff !important;
+    color: #000000 !important;
     text-decoration: none !important;
     border-bottom: none !important;
 }
-
 .p-tools a.btn.btn-primary,
 .p-tools a.btn.btn-primary:link,
 .p-tools a.btn.btn-primary:visited,
 .p-tools a.btn.btn-primary:hover,
 .p-tools a.btn.btn-primary:active {
-    color: #000000ff !important;
+    color: #000000 !important;
 }
-
 button.btn.btn-cart.add-to-cart-button::after,
 button.btn.btn-cart.add-to-cart-button::before,
 button.btn.btn-primary::after,
@@ -251,7 +188,6 @@ a.btn.btn-primary::before {
     display: none !important;
     border: none !important;
 }
-
 button.btn.btn-cart.add-to-cart-button:hover,
 button.btn.btn-primary:hover,
 a.btn.btn-primary:hover {
@@ -259,7 +195,6 @@ a.btn.btn-primary:hover {
     background: #FF4552 !important;
     text-decoration: none !important;
 }
-
 button.btn.btn-cart.add-to-cart-button:active,
 button.btn.btn-cart.add-to-cart-button:focus,
 button.btn.btn-primary:active,
@@ -270,24 +205,18 @@ a.btn.btn-primary:focus {
     box-shadow: none !important;
     outline: none !important;
 }
-</style>    
 
-<style>  
 /* ===== CENA PRODUKTU ===== */
 .prices .price.price-final strong {
     font-size: 1.4em !important;
 }
-</style>  
 
-<style> 
-/* ===== NÁZVY PRODUKTOV V KOŠÍKU - čierna farba ===== */
+/* ===== NÁZVY PRODUKTOV V KOŠÍKU ===== */
 .cart-item-name a.main-link,
 .cart-item-name a.main-link:link,
 .cart-item-name a.main-link:visited {
     color: #000000 !important;
 }
-
 .cart-item-name a.main-link:hover {
     color: #FF4552 !important;
 }
-</style>
