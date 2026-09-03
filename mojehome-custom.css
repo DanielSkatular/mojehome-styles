@@ -6,7 +6,602 @@
 /* =====================================================
    Dizajnové tokeny — adaptované na mojehome.sk farby
    ===================================================== */
+
+
+/*=====================================================
+CURRENT
+ =====================================================*/
+@font-face {
+  font-family: DokoSans;
+  src: url(https://www.mojehome.sk/user/documents/upload/Fonts/DokoSans/DokoSans-Regular.woff2);
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: DokoSans;
+  src: url(https://www.mojehome.sk/user/documents/upload/Fonts/DokoSans/DokoSans-Regular.woff2);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: DokoSans;
+  src: url(https://www.mojehome.sk/user/documents/upload/Fonts/DokoSans/DokoSans-Bold.woff2);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: DokoSans;
+  src: url(https://www.mojehome.sk/user/documents/upload/Fonts/DokoSans/DokoSans-Bold.woff2);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: DokoSans;
+  src: url(https://www.mojehome.sk/user/documents/upload/Fonts/DokoSans/DokoSans-Black.woff2);
+  font-weight: 900;
+}
+
 :root {
+  --color-custom-1: #efe8d8;
+  --color-custom-1-hover: #dacaa4;
+  --color-custom-2: #ff4552;
+  --color-custom-3: #343b3f;
+  --template-headings-font: 'DokoSans';
+}
+
+* {
+  font-family: DokoSans, sans-serif;
+}
+
+.products-block.products .product .p .name {
+  line-height: 1.8em;
+}
+
+html,
+body,
+.eshopHeader .external-fonts-loaded body,
+.external-fonts-loaded,
+div,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.external-fonts-loaded ol.cart-header,
+.external-fonts-loaded .next-step,
+.external-fonts-loaded .price-wrapper,
+.external-fonts-loaded .price-additional,
+.external-fonts-loaded .price-measure,
+.external-fonts-loaded .price-final,
+.external-fonts-loaded .price-save,
+.external-fonts-loaded .price-standard,
+.external-fonts-loaded .btn,
+.external-fonts-loaded .products .name,
+.external-fonts-loaded h1,
+.external-fonts-loaded h2,
+.external-fonts-loaded h3,
+.external-fonts-loaded h4,
+.external-fonts-loaded h5,
+.external-fonts-loaded h6,
+.external-fonts-loaded .h1,
+.external-fonts-loaded .h2,
+.external-fonts-loaded .h3,
+.external-fonts-loaded .h4,
+.external-fonts-loaded .h5,
+.external-fonts-loaded .h6,
+.external-fonts-loaded .cart-table .main-link,
+.external-fonts-loaded .cart-related-name {
+  font-family: DokoSans, sans-serif !important;
+}
+
+body {
+  font-size: 16px;
+}
+
+iframe,
+video {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+a.btn {
+  color: #000 !important;
+}
+
+.btn.btn-primary,
+.button,
+.products .product .btn,
+.products .product button,
+.unveil-button,
+a.btn,
+form button:not(.decrease),
+input.btn {
+  color: #000;
+}
+
+.homepage-group-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.homepage-box.welcome-wrapper h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 650px) {
+  h1,
+  h2,
+  h3 {
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .homepage-group-title {
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .homepage-box.welcome-wrapper h1 {
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  .products-block.products .product .p .name {
+    line-height: 1.8em;
+  }
+}
+
+homepage-group-title homepage-products-heading-2 h4 {
+  font-size: 20px;
+}
+
+cat-1506,
+#cat-3413,
+#cat-4977 {
+  display: none;
+}
+
+[data-micro='name'][data-testid='productCardName'] {
+  font-size: 24px;
+}
+
+.body footer .container.footer-bottom .copyright .podpis {
+  display: none;
+}
+
+.product-top .p-final-price-wrapper.in-discount .price-side {
+  background-color: #fb9b2a;
+}
+
+.products-block.products .product .flags.flags-default {
+  max-width: 100%;
+}
+
+.flags .flag {
+  display: flex;
+  align-items: center;
+}
+
+.flags .flag.flag-action {
+  background: #ff8fa4 !important;
+  color: inherit;
+}
+
+.flags .flag.flag-new {
+  background: #9c9cdd !important;
+  color: inherit;
+}
+
+.flags .flag.flag-tip {
+  background: #17c37b !important;
+  color: inherit;
+}
+
+.products-block.products .product .prices.in-discount .price-side {
+  background: #fb9b2a;
+}
+
+body footer .container.footer-bottom .copyright .podpis {
+  display: none;
+}
+
+/*Header*/
+#header .site-name img {
+  max-height: 65px;
+  vertical-align: middle;
+}
+@media only screen and (max-width: 767px) {
+  #header .site-name img {
+    max-height: 40px;
+  }
+}
+
+/*Benefits*/
+.benefitBanner .benefitBanner__item .benefitBanner__title {
+  font-weight: bold;
+}
+.benefitBanner .benefitBanner__item .benefitBanner__data {
+  margin-top: 5px;
+}
+
+/*newsletter*/
+.newsletter,
+footer .custom-footer > div.newsletter {
+  background: var(--color-custom-1);
+  background-image: none;
+}
+
+.newsletter form label a,
+footer .custom-footer > div.newsletter form label a {
+  font-weight: bold;
+}
+
+.newsletter form .form-control,
+footer .custom-footer > div.newsletter form .form-control {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+footer .custom-footer > div.newsletter form .form-control::placeholder {
+  font-weight: bold;
+}
+
+.newsletter form button,
+footer .custom-footer > div.newsletter form button {
+  background: var(--color-custom-3);
+  color: #fff;
+  border: none;
+  height: 50px;
+  margin: 8px;
+}
+
+.newsletter form button:hover,
+footer .custom-footer > div.newsletter form button:hover {
+  background: #000;
+}
+
+/*homepage blog*/
+.homepage-blog-wrapper.blog-wrapper .news-item .image img,
+.homepage-blog-wrapper .news-wrapper .news-item .image img,
+.hp-news.blog-wrapper .news-item .image img,
+.hp-news .news-wrapper .news-item .image img,
+.type-posts-listing.blog-wrapper .news-item .image img,
+.type-posts-listing .news-wrapper .news-item .image img {
+  object-fit: contain;
+}
+
+.homepage-box.welcome-wrapper h1 {
+  font-size: 2.2em;
+}
+
+@media screen and (max-width: 650px) {
+  .homepage-box.welcome-wrapper h1 {
+    font-size: 1.8em;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .type-index .body-banners .extended-banner-texts .extended-banner-title,
+  .type-index .body-banners .extended-banner-texts .extended-banner-text,
+  .middle-banners-wrapper
+    .banner-wrapper
+    a
+    .extended-banner-texts
+    .extended-banner-title,
+  .middle-banners-wrapper
+    .banner-wrapper
+    a
+    .extended-banner-texts
+    .extended-banner-text {
+    max-width: 100%;
+    text-align: left;
+  }
+}
+
+.middle-banners-wrapper .banner-wrapper a:hover img,
+.type-index .body-banners .banner-wrapper a:hover img {
+  /* transform: translateY(-10px) !important; */
+  transform: scale(0.97) !important;
+  transition: 0.5s !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .homepage-blog-wrapper.blog-wrapper .news-item .image a:hover img,
+  .homepage-blog-wrapper .news-wrapper .news-item .image a:hover img,
+  .hp-news.blog-wrapper .news-item .image a:hover img,
+  .hp-news .news-wrapper .news-item .image a:hover img,
+  .type-posts-listing.blog-wrapper .news-item .image a:hover img,
+  .type-posts-listing .news-wrapper .news-item .image a:hover img {
+    transform: none;
+  }
+}
+
+/*homepage additional*/
+.h4.homepage-group-title:before,
+h4.homepage-group-title:before {
+  background-color: var(--color-custom-1);
+}
+.type-index .products:before {
+  background-color: var(--color-custom-1);
+}
+
+.hp-categories
+  .hp-categories-posts
+  .news-wrapper
+  .news-item:hover
+  .text
+  .title {
+  color: var(--color-custom-2);
+}
+
+/*footer*/
+
+body footer .container.footer-bottom #signature img {
+  width: 45px;
+}
+
+footer .footer-contacts .contact-box li > .cellphone a,
+footer .footer-contacts .contact-box li > .mail a {
+  font-weight: bold;
+}
+
+footer .footer-contacts .contact-box li .mail:before {
+  display: none;
+}
+
+footer .footer-contacts .contact-box li .cellphone:before {
+  display: none;
+}
+
+footer .footer-socials {
+  /* display: none; */
+}
+
+footer .site-name > a {
+  display: none;
+}
+
+.footer-contacts-label {
+  font-size: 2.6rem;
+  margin: 0.3em 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .footer-contacts-label {
+    font-size: 2em;
+  }
+}
+
+/*breadcrumb*/
+.breadcrumbs-wrapper:before,
+body.blank-mode .container.breadcrumbs-wrapper:before {
+  background-color: var(--color-custom-1);
+}
+.one-column-body .category-title:before,
+.one-column-body.type-detail h1:before,
+.one-column-body.type-page h1:before {
+  background-color: var(--color-custom-1);
+}
+
+/*category products*/
+.category-title,
+.in-klient h1,
+h1 {
+  font-weight: bold;
+}
+
+.type-category .subcategories.with-image li,
+.type-category .subcategories li {
+  border: 3px solid var(--color-custom-1) !important;
+}
+
+/*product detail*/
+
+.type-detail .benefitBanner:before {
+  background: none;
+}
+
+.type-detail .products-related-header:before {
+  background-color: var(--color-custom-1);
+}
+
+.type-detail .products-related-header + #productsAlternative:before,
+.type-detail .products-related-header + .products-block:before {
+  background-color: var(--color-custom-1);
+}
+
+.product-top .add-to-cart button.add-to-cart-button {
+  background-color: var(--color-custom-1);
+  color: #000;
+}
+
+/*instagram section*/
+#dklab_instagram_widget_heading {
+  padding: 10px 0 25px 0;
+}
+/*cart*/
+.fixed-cart-line .fcl-form .btn {
+  color: #000;
+}
+.advancedOrder__buttons .next-step-back {
+  color: #000 !important;
+}
+.cart-content .discount-coupon form .btn {
+  background: var(--color-custom-1);
+  color: #000;
+}
+.cart-content .discount-coupon form .btn:hover {
+  background: var(--color-custom-2);
+  color: #000;
+}
+
+.cart-content .cart-header li.active a span,
+.cart-content .cart-header li.active strong span {
+  color: #000;
+}
+
+.cart-table .remove-item:hover {
+  background: none;
+}
+
+.cart-content .next-step.next-step--cart a {
+  color: #000;
+}
+
+.cart-inner:not(.cart-empty) .cart-row .col-md-4 .next-step-finish:after,
+.cart-inner:not(.cart-empty) .cart-row .col-md-4 .next-step-forward:after {
+  background: url(https://www.mojehome.sk/user/documents/upload/Ikonky/cart-right.svg)
+    no-repeat 50%;
+}
+
+.cart-content .next-step a,
+.cart-content .next-step button {
+  color: #000;
+}
+
+.cart-content .cart-header li.completed a span,
+.cart-content .cart-header li.completed strong span {
+  color: #000 !important;
+}
+
+.cart-content .order-summary .cart-items .cart-item .cart-item-name a {
+  color: var(--color-custom-2);
+}
+
+.cart-widget.popup-widget #continue-order-button:before {
+  background-image: url(https://cdn.myshoptet.com/usr/shoptet.tomashlad.eu/user/documents/extras/carbon/img/icons/cart.svg);
+}
+
+input[type='checkbox']:checked + label:after,
+input[type='radio']:checked + label:after {
+  background-color: var(--color-custom-2) !important;
+  background-image: url(https://www.mojehome.sk/user/documents/upload/icons/checkbox-checked.svg?v4);
+}
+
+/*search*/
+#header .search-form fieldset button {
+  background-color: var(--color-custom-3);
+}
+#header .search-form fieldset button:hover {
+  background-color: #000;
+}
+
+/*registration*/
+#register-form .btn-login {
+  background: var(--color-custom-1);
+}
+
+/*icons*/
+#header .search-form .search-toggle {
+  background-image: url('https://www.mojehome.sk/user/documents/upload/icons/search.svg');
+  background-size: 22px;
+}
+
+@media only screen and (max-width: 767px) {
+  #header .header-top .responsive-tools a[data-target='search']:before {
+    background-image: url('https://www.mojehome.sk/user/documents/upload/icons/search.svg');
+  }
+}
+
+#header .header-top .top-nav-button-account:before,
+#header .header-top .top-nav-button-login:before {
+  background-image: url('https://www.mojehome.sk/user/documents/upload/icons/user.svg');
+  background-size: 22px;
+}
+
+#header .navigation-buttons .btn.cart-count:before {
+  background-image: url('https://www.mojehome.sk/user/documents/upload/icons/cart.svg');
+  background-size: 24px;
+}
+
+#header .navigation-buttons .btn.cart-count i {
+  border: none;
+  background-color: var(--color-custom-2) !important;
+  color: var(--color-custom-1);
+  left: 15px;
+  top: -7px;
+  font-size: 13px;
+}
+
+#carousel .carousel-socials .footer-socials .facebook a:before,
+footer .footer-socials .facebook a:before {
+  background: url('https://www.mojehome.sk/user/documents/upload/icons/fb.svg');
+}
+
+#carousel .carousel-socials .footer-socials .instagram a:before,
+footer .footer-socials .instagram a:before {
+  background: url('https://www.mojehome.sk/user/documents/upload/icons/instagram.svg');
+}
+
+#carousel .carousel-socials .footer-socials .youtube a:before,
+footer .footer-socials .youtube a:before {
+  background: url('https://www.mojehome.sk/user/documents/upload/icons/youtube.svg');
+}
+
+.cart-content .extra.delivery:before {
+  background: url('https://www.mojehome.sk/user/documents/upload/icons/truck.svg')
+    no-repeat center;
+  content: '';
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.cart-content .discount-coupon:before {
+  background: url('https://www.mojehome.sk/user/documents/upload/icons/percent.svg');
+}
+
+#checkoutContent .cart-content .co-box.co-delivery-method h4:before {
+  background: url('https://www.mojehome.sk/user/documents/upload/icons/truck.svg')
+    no-repeat 50%;
+}
+
+#checkoutContent .cart-content .co-box.co-payment-method h4:before {
+  background: url('https://www.mojehome.sk/user/documents/upload/icons/wallet.svg')
+    no-repeat 50%;
+}
+
+#checkoutContent .cart-content .co-box.co-contact-information h4:before {
+  background: url('https://www.mojehome.sk/user/documents/upload/icons/user.svg')
+    no-repeat 50%;
+}
+
+#checkoutContent .cart-content .co-box.co-billing-address h4:before,
+#checkoutContent .cart-content .co-box.co-shipping-address h4:before {
+  background: url('https://www.mojehome.sk/user/documents/upload/icons/marker.svg')
+    no-repeat 50%;
+}
+
+.delivery-line .shipping-options:before {
+  background-image: url('https://www.mojehome.sk/user/documents/upload/icons/truck.svg');
+  width: 22px;
+  height: 22px;
+  background-size: 22px;
+}
+
+
+
+:root {
+
+/*=====================================================
+NEW
+ =====================================================*/
+   
   /* Existujúce premenné z mojehome.sk — zachované */
   --color-custom-1:       #efe8d8;
   --color-custom-1-hover: #dacaa4;
