@@ -225,6 +225,12 @@
     if (!w || w.querySelector('.m-blog-title')) return;
     var c = w.querySelector('.banners-content') || w.firstElementChild;
     if (c) c.parentNode.insertBefore(el('h2', 'm-blog-title', 'Tipy, príbehy a inšpirácie'), c);
+    /* blog až za posledný produktový pás (Shoptet ho dáva medzi obsahové bloky) */
+    var bands = document.querySelectorAll('.m-band');
+    var last = bands[bands.length - 1];
+    var top = last;
+    while (top && top.parentNode && top.parentNode !== w.parentNode) top = top.parentNode;
+    if (top && top.parentNode === w.parentNode && top !== w) w.parentNode.insertBefore(w, top.nextSibling);
   }
   function homepage2() {
     if (!document.body.classList.contains('type-index')) return;

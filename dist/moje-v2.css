@@ -798,3 +798,36 @@ html.m2 body { overflow-x: clip; }
   .type-detail .shp-tabs { overflow-x: auto; }
   .type-detail .add-to-cart .add-to-cart-button { font-size: 17px !important; padding: 0 16px !important; }
 }
+
+/* v0.3.1 – opravy po kontrole */
+.m-cats { margin-left: calc(50% - 50vw) !important; margin-right: calc(50% - 50vw) !important; padding: 80px max(56px, calc(50vw - 744px)); }
+.m-story { padding: 64px max(56px, calc(50vw - 744px)); }
+.m-band--brand .m-band__deco { display: none !important; }
+.m-spot__img { aspect-ratio: 2060 / 790; }
+.type-index .middle-banners-wrapper .banners-content { grid-template-columns: repeat(auto-fit, minmax(240px, 330px)) !important; justify-content: center; }
+.type-index .middle-banners-wrapper .extended-banner-title,
+.type-index .middle-banners-wrapper .extended-banner-text { position: static !important; background: none !important; padding: 0 !important; width: auto !important; transform: none !important; }
+@media (max-width: 991px) {
+  .m-cats { padding: 48px 16px; }
+  .m-story { padding: 40px 16px; }
+  .type-index .middle-banners-wrapper .banners-content { grid-template-columns: 1fr 1fr !important; }
+}
+.type-category .sidebar-left .sidebar-inner { padding: 0 !important; margin: 0 !important; width: auto !important; }
+.type-category #filters .filter-label { display: block !important; }
+.type-category #filters .filter-count { margin-left: 4px; }
+.type-detail .p-detail-inner .m-pdp-head h1 { font: 700 40px/48px var(--m-font) !important; }
+.type-detail .add-to-cart .quantity .decrease { order: -1; }
+.type-detail .add-to-cart .quantity .increase, .type-detail .add-to-cart .quantity .decrease {
+  display: inline-flex !important; align-items: center; justify-content: center; padding: 0 !important; font-size: 0 !important; cursor: pointer;
+}
+.type-detail .add-to-cart .quantity .increase::before, .type-detail .add-to-cart .quantity .decrease::before {
+  content: "+" !important; font: 700 18px/1 var(--m-font) !important; color: #000; position: static !important; background: none !important; width: auto !important; height: auto !important; transform: none !important;
+}
+.type-detail .add-to-cart .quantity .decrease::before { content: "−" !important; }
+.type-detail .add-to-cart .quantity .increase::after, .type-detail .add-to-cart .quantity .decrease::after { display: none !important; }
+.type-detail .add-to-cart .add-to-cart-button::before { display: none !important; }
+@media (max-width: 991px) { .type-detail .p-detail-inner .m-pdp-head h1 { font-size: 26px !important; line-height: 32px !important; } }
+.benefitBanner.position--benefitProduct {
+  margin: 48px 0 0 !important; padding: 40px 0 !important;
+  box-shadow: 0 0 0 100vmax var(--m-cream); clip-path: inset(0 -100vmax);
+}
