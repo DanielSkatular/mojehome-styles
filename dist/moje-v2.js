@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.3.4) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.5) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -29,11 +29,17 @@
 
   /* ---------- hlavné CSS z rovnakej verzie ---------- */
   if (BASE && !document.getElementById('m2-css')) {
-    var link = document.createElement('link');
-    link.id = 'm2-css';
-    link.rel = 'stylesheet';
-    link.href = BASE + 'moje-v2.css';
-    head.appendChild(link);
+    /* počas parsovania hlavičky blokujúco (Shoptet potom meria menu a záložky už s našimi štýlmi) */
+    if (document.readyState === 'loading') {
+      document.write('<link id="m2-css" rel="stylesheet" href="' + BASE + 'moje-v2.css">');
+    }
+    if (!document.getElementById('m2-css')) {
+      var link = document.createElement('link');
+      link.id = 'm2-css';
+      link.rel = 'stylesheet';
+      link.href = BASE + 'moje-v2.css';
+      head.appendChild(link);
+    }
   }
 
   function ready(fn) {
@@ -279,8 +285,57 @@
     if (flags.length) {
       head.appendChild(el('div', 'm-pdp-flags', Array.prototype.map.call(flags, function (f) { return '<span>' + txt(f) + '</span>'; }).join('')));
     }
+    var br = document.querySelector('.p-detail-info a[href*="/znacka/"]');
+    if (br) {
+      var bn = txt(br.querySelector('span')) || txt(br).replace(/^Značka:\s*/, '');
+      var ba = el('a', 'm-pdp-brand', bn);
+      ba.href = br.getAttribute('href');
+      head.appendChild(ba);
+      br.parentNode.style.display = 'none';
+    }
     head.appendChild(h1);
     info.insertBefore(head, info.firstChild);
+    tabsFix();
+  }
+
+  /* ---------- v0.5: všetky záložky na detaile (Shoptet skrýva „Značka“ do menu) ---------- */
+  function tabsFix() {
+    var vis = document.getElementById('p-detail-tabs');
+    var hid = document.querySelector('.shp-tabs-row .hidden-links');
+    if (!vis || !hid) return;
+    while (hid.firstElementChild) vis.appendChild(hid.firstElementChild);
+  }
+  var tabsTimer;
+  window.addEventListener('resize', function () { clearTimeout(tabsTimer); tabsTimer = setTimeout(tabsFix, 400); });
+  window.addEventListener('load', function () { setTimeout(tabsFix, 300); });
+
+  /* ---------- v0.5: obrázky podkategórií (v Shoptete sú len biele zástupné obrázky) ---------- */
+  function subcatImages() {
+    var links = document.querySelectorAll('.subcategories li a');
+    Array.prototype.forEach.call(links, function (a) {
+      var img = a.querySelector('.image img');
+      if (!img || !/banner-biela/.test(img.getAttribute('src') || '')) return;
+      var key = 'm2sc:' + a.getAttribute('href');
+      var set = function (u) {
+        img.removeAttribute('srcset');
+        img.removeAttribute('data-src');
+        img.src = u;
+        a.classList.add('m-sc-photo');
+      };
+      var c = null;
+      try { c = localStorage.getItem(key); } catch (e) {}
+      if (c) { set(c); return; }
+      if (!window.fetch || !window.DOMParser) return;
+      fetch(a.href, { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
+        var d = new DOMParser().parseFromString(t, 'text/html');
+        var p = d.querySelector('#products .product img') || d.querySelector('.products-page .product img');
+        if (!p) return;
+        var u = p.getAttribute('data-src') || p.getAttribute('src');
+        if (!u || /^data:/.test(u)) return;
+        try { localStorage.setItem(key, u); } catch (e) {}
+        set(u);
+      }).catch(function () {});
+    });
   }
 
   ready(function () {
@@ -290,6 +345,7 @@
     homepage2();
     category();
     filtersBtn();
+    subcatImages();
     pdp();
     newsletter();
     footer();
