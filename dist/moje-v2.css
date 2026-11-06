@@ -858,3 +858,27 @@ html.m2 body { overflow-x: clip; }
 }
 .type-detail .browse-p { text-align: center; }
 .type-detail .browse-p .p-all { background: #fff !important; border: var(--m-border) !important; border-radius: 999px !important; font: 700 16px/20px var(--m-font) !important; color: #000 !important; padding: 12px 28px !important; }
+
+/* v0.3.4 – kategória na mobile: tlačidlo filtrov, podkategórie ako zoznam */
+.m-filter-btn { display: none; }
+@media (max-width: 991px) {
+  body.type-category:not(.m-filters-open) .filters-wrapper { display: none !important; }
+  .m-filter-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin: 0 0 24px;
+    background: #fff; border: var(--m-border); border-radius: 999px; padding: 12px 20px;
+    font: 700 16px/20px var(--m-font); color: #000; cursor: pointer;
+  }
+  .m-filter-btn::before {
+    content: ""; width: 20px; height: 20px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M4 6h16M7 12h10M10 18h4'/%3E%3C/svg%3E") center/20px no-repeat;
+  }
+  .m-filter-btn span { background: var(--m-wine); color: #fff; border-radius: 999px; min-width: 22px; height: 22px; font-size: 13px; line-height: 22px; padding: 0 6px; }
+  .m-filters-open .m-filter-btn { background: var(--m-lime); }
+  .type-category .subcategories.with-image li { flex: 1 1 100% !important; }
+  .type-category .subcategories.with-image li a { flex-direction: row !important; justify-content: flex-start; align-items: center; text-align: left; padding: 12px 14px !important; font-size: 14px !important; line-height: 18px !important; }
+  .type-category .subcategories .image { display: none !important; }
+  .type-category #filters .filter-sections { padding: 0 !important; }
+  .type-category #filters .slider-wrapper { border-bottom: var(--m-border) !important; border-radius: 16px !important; margin-bottom: 16px !important; padding-bottom: 24px !important; }
+  .type-category #filters .slider-wrapper + #price-filter-form + .filter-sections > .filter-section-boolean.filter-section-boolean,
+  .type-category #filters .filter-sections > .filter-section-boolean.filter-section-boolean { border-top: var(--m-border) !important; border-radius: 16px !important; padding-top: 16px !important; }
+}

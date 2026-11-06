@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.3.2) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.3.4) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -254,6 +254,20 @@
     if (sb) sb.style.setProperty('--m-deco-sidebar', 'url("' + ASSETS + 'cmaranica-bordova-01.svg")');
   }
 
+  /* ---------- v0.3.4: tlačidlo filtrov na mobile ---------- */
+  function filtersBtn() {
+    if (!document.body.classList.contains('type-category') || document.querySelector('.m-filter-btn')) return;
+    var h = document.getElementById('category-header');
+    if (!h || !document.querySelector('.filters-wrapper')) return;
+    var b = el('button', 'm-filter-btn', 'Filtrovať produkty');
+    b.type = 'button';
+    var n = document.querySelectorAll('#filters input:checked').length;
+    if (n) b.insertAdjacentHTML('beforeend', ' <span>' + n + '</span>');
+    b.addEventListener('click', function () { document.body.classList.toggle('m-filters-open'); });
+    h.parentNode.insertBefore(b, h.nextSibling);
+  }
+  document.addEventListener('ShoptetDOMPageContentLoaded', function () { filtersBtn(); });
+
   /* ---------- v0.3: detail produktu ---------- */
   function pdp() {
     if (!document.body.classList.contains('type-detail')) return;
@@ -275,6 +289,7 @@
     homepage();
     homepage2();
     category();
+    filtersBtn();
     pdp();
     newsletter();
     footer();
