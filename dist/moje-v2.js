@@ -1,23 +1,49 @@
 /* MOJE WEB 2.0 — loader + doplnky DOM pre Shoptet šablónu 11
-   V Shoptete stačí 1 riadok (bez defer, v Záhlaví):
+   V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
-   Skript hneď pripojí moje-v2.css z rovnakej verzie, DOM úpravy spraví po načítaní stránky. */
+   Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
+   DOM úpravy spraví po načítaní stránky. */
 (function () {
   'use strict';
   var BASE = (document.currentScript && document.currentScript.src || '').replace(/[^/]*$/, '');
   var ASSETS = BASE.replace(/dist\/$/, '') + 'assets/';
+  var FONTS = '/user/documents/upload/Fonts/';
+  var head = document.head;
 
+  /* ---------- fonty: z vlastnej domény e-shopu (licencia, CORS) ---------- */
+  if (!document.getElementById('m2-fonts')) {
+    var ff = function (w, file) {
+      return '@font-face{font-family:"DokoSans";src:url(' + FONTS + 'DokoSans/' + file + '.woff2) format("woff2");font-weight:' + w + ';font-display:swap}';
+    };
+    var st = document.createElement('style');
+    st.id = 'm2-fonts';
+    st.textContent = ff(300, 'DokoSans-Light') + ff(400, 'DokoSans-Regular') + ff(500, 'DokoSans-Medium') +
+      ff('600 700', 'DokoSans-Bold') + ff('800 900', 'DokoSans-Black');
+    head.appendChild(st);
+    var neulis = document.createElement('link');
+    neulis.rel = 'stylesheet';
+    neulis.href = FONTS + 'moje-neulis.css';
+    head.appendChild(neulis);
+  }
+
+  /* ---------- hlavné CSS z rovnakej verzie ---------- */
   if (BASE && !document.getElementById('m2-css')) {
     var link = document.createElement('link');
     link.id = 'm2-css';
     link.rel = 'stylesheet';
     link.href = BASE + 'moje-v2.css';
-    document.head.appendChild(link);
+    head.appendChild(link);
   }
 
   function ready(fn) {
     if (document.readyState !== 'loading') fn();
     else document.addEventListener('DOMContentLoaded', fn);
+  }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html) e.innerHTML = html;
+    return e;
   }
 
   var ICONS = {
@@ -26,6 +52,16 @@
     ig: '<svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#000"/></svg>'
   };
 
+  /* ---------- logo ---------- */
+  function headerLogo() {
+    var img = document.querySelector('#header .site-name img');
+    if (!img || img.dataset.m2) return;
+    var probe = new Image();
+    probe.onload = function () { img.src = probe.src; img.dataset.m2 = '1'; };
+    probe.src = ASSETS + 'logo-bordova.svg';
+  }
+
+  /* ---------- pätička ---------- */
   function footer() {
     var f = document.getElementById('footer');
     if (!f || f.querySelector('.m-footer')) return;
@@ -49,26 +85,66 @@
         '</div>' +
       '</div>' +
       '<p class="m-footer__secure">Bezpečný nákup – možnosť vrátenia do 14 dní.</p>';
-    var rows = f.querySelector('.footer-rows') || f;
-    rows.insertAdjacentHTML('afterbegin', html);
-
-    var mark = document.createElement('div');
-    mark.className = 'm-footer-mark';
-    mark.innerHTML = '<img src="' + ASSETS + 'logo-mark-footer.svg" alt="" onerror="this.parentNode.remove()">';
+    (f.querySelector('.footer-rows') || f).insertAdjacentHTML('afterbegin', html);
+    var mark = el('div', 'm-footer-mark', '<img src="' + ASSETS + 'logo-bordova.svg" alt="" onerror="this.parentNode.remove()">');
     f.appendChild(mark);
   }
 
-  function headerLogo() {
-    var img = document.querySelector('#header .site-name img');
-    if (!img || img.dataset.m2) return;
-    var probe = new Image();
-    probe.onload = function () { img.src = probe.src; img.dataset.m2 = '1'; };
-    probe.src = ASSETS + 'logo-header.svg';
+  /* ---------- newsletter nad pätičkou ---------- */
+  function newsletter() {
+    var form = document.getElementById('formNewsletterWidget');
+    var f = document.getElementById('footer');
+    if (!form || !f || document.querySelector('.m-newsletter')) return;
+    var wrap = el('div', 'm-newsletter-wrap',
+      '<div class="m-newsletter"><div class="m-newsletter__copy">' +
+        '<p class="m-newsletter__title">Prihláste sa na odber newslettera</p>' +
+        '<p class="m-newsletter__text">Vložením e-mailu súhlasíte s podmienkami <a href="/podmienky-ochrany-osobnych-udajov/">ochrany osobných údajov</a>.</p>' +
+      '</div></div>');
+    wrap.firstChild.appendChild(form);
+    var input = form.querySelector('input[type=email], input[name=email]');
+    if (input && !input.placeholder) input.placeholder = 'Vaša e-mailová adresa';
+    f.parentNode.insertBefore(wrap, f);
+  }
+
+  /* ---------- homepage: pásy, dekorácie, značky ---------- */
+  var DECO = [
+    { file: 'cmaranica-bordova-01.svg', side: 'left' },
+    { file: 'cmaranica-zelena-10.svg', side: 'right' },
+    { file: 'cmaranica-bordova-13.svg', side: 'left' }
+  ];
+  function homepage() {
+    if (!document.body.classList.contains('type-index')) return;
+    var titles = document.querySelectorAll('.homepage-group-title');
+    var bands = [];
+    Array.prototype.forEach.call(titles, function (t, i) {
+      var list = t.nextElementSibling;
+      if (!list || !list.classList.contains('products-block') || t.closest('.m-band')) return;
+      var band = el('section', 'm-band ' + (i % 2 === 0 ? 'm-band--cream' : 'm-band--white'));
+      t.parentNode.insertBefore(band, t);
+      band.appendChild(t);
+      band.appendChild(list);
+      var d = DECO[i % DECO.length];
+      band.insertAdjacentHTML('afterbegin', '<img class="m-band__deco m-band__deco--' + d.side + '" src="' + ASSETS + d.file + '" alt="" aria-hidden="true">');
+      bands.push(band);
+    });
+    if (bands[0] && !document.querySelector('.m-brands')) {
+      var brands = el('section', 'm-brands',
+        '<div class="m-brands__lead"><img src="' + ASSETS + 'logo-bordova.svg" alt="Moje"><span>je oficiálny predajca značiek:</span></div>' +
+        '<div class="m-brands__logos">' +
+          '<a href="/amuse/"><img src="/user/categories/thumb/logo-amuse-eps-black.png" alt="Amuse"></a>' +
+          '<a href="/tupperware/"><img src="/user/categories/thumb/tupperware-logo.png" alt="Tupperware"></a>' +
+          '<a href="/koziol/"><img src="/user/categories/thumb/koziol-logo.png" alt="Koziol"></a>' +
+          '<a href="/dopper/"><img src="/user/categories/thumb/dopper-logo.png" alt="Dopper"></a>' +
+        '</div>');
+      bands[0].parentNode.insertBefore(brands, bands[0].nextSibling);
+    }
   }
 
   ready(function () {
     document.documentElement.classList.add('m2');
-    footer();
     headerLogo();
+    homepage();
+    newsletter();
+    footer();
   });
 })();
