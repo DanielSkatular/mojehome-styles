@@ -484,3 +484,317 @@ html.m2 body { overflow-x: clip; }
   .m-newsletter__title { font-size: 26px !important; line-height: 32px !important; }
   .m-newsletter form { width: 100%; min-width: 0; }
 }
+
+/* =====================================================================
+   11. HOMEPAGE – hero, hodnoty, kategórie, príbeh, značka, blog (v0.3)
+   ===================================================================== */
+.m-hero-band {
+  background: var(--m-lime);
+  margin-left: calc(50% - 50vw) !important; margin-right: calc(50% - 50vw) !important;
+  padding: 24px max(16px, calc(50vw - 800px)) 40px;
+}
+.type-index .before-carousel .banners-row,
+.type-index .before-carousel #carousel,
+.type-index .before-carousel .next-to-carousel-banners { display: none !important; }
+.type-index .before-carousel { padding: 0 !important; margin: 0 !important; background: transparent !important; }
+.m-hero { display: grid; grid-template-columns: 920fr 600fr; gap: 24px; height: 368px; max-width: 1544px; margin: 0 auto; }
+.m-hero__side { display: grid; grid-template-rows: 1fr 1fr; gap: 24px; min-height: 0; }
+.m-hero__card {
+  display: block; position: relative; overflow: hidden; min-height: 0;
+  background: #fff; border: var(--m-border); border-radius: var(--m-radius);
+  transition: transform .15s ease;
+}
+.m-hero__card:hover { transform: translateY(-3px); }
+.m-hero__card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.m-hero__arrow {
+  position: absolute; right: 20px; bottom: 20px; width: 46px; height: 46px; border-radius: 50%;
+  background: var(--m-wine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center/24px no-repeat;
+}
+.m-values { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 32px; margin: 24px auto 0; max-width: 1544px; }
+.m-values span { display: inline-flex; align-items: center; gap: 8px; font: 500 15px/20px var(--m-font); color: #000; text-transform: capitalize; }
+.m-values span::before {
+  content: ""; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--m-wine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/12px no-repeat;
+}
+
+/* Vyhľadajte podľa kategórie */
+.m-cats { padding: 80px 0; position: relative; }
+.m-cats__title { font: 700 48px/56px var(--m-font-head) !important; text-align: center; margin: 0 0 48px !important; color: #000; }
+.m-cats__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px; position: relative; z-index: 1; }
+.m-cat {
+  display: flex; flex-direction: column; background: #fff; border: var(--m-border); border-radius: var(--m-radius);
+  overflow: hidden; text-decoration: none !important; transition: transform .15s ease;
+}
+.m-cat:hover { transform: translateY(-3px); }
+.m-cat__img { height: 160px; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.m-cat__img img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.m-cat__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px 16px; }
+.m-cat__name { font: 700 20px/24px var(--m-font); color: var(--m-ink); }
+.m-cat__arrow {
+  flex: none; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--m-wine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center/20px no-repeat;
+}
+
+/* Príbeh – limetkový pás (obsah z uvítacieho textu Shoptetu) */
+.type-index .welcome-wrapper.homepage-box { display: none !important; }
+.m-story {
+  position: relative; overflow: hidden;
+  margin-left: calc(50% - 50vw) !important; margin-right: calc(50% - 50vw) !important;
+  background: var(--m-lime); padding: 64px max(16px, calc(50vw - 744px));
+}
+.m-story__in { display: flex; align-items: center; justify-content: space-between; gap: 40px; position: relative; z-index: 1; }
+.m-story__logo { width: 120px; flex: none; }
+.m-story__copy { flex: 1; max-width: 760px; }
+.m-story__title { font: 700 36px/42px var(--m-font-head) !important; color: var(--m-wine) !important; margin: 0 0 12px !important; }
+.m-story__text { font: 500 17px/26px var(--m-font) !important; color: #000 !important; margin: 0 !important; }
+.m-btn-pill {
+  display: inline-flex; align-items: center; gap: 16px; flex: none;
+  background: #fff; border: var(--m-border); border-radius: 999px; padding: 8px 8px 8px 24px;
+  font: 700 16px/20px var(--m-font); color: #000 !important; text-decoration: none !important;
+}
+.m-btn-pill::after {
+  content: ""; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--m-wine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center/20px no-repeat;
+}
+.m-story__deco { position: absolute; right: -40px; top: -60px; height: 140%; opacity: .55; z-index: 0; pointer-events: none; }
+
+/* Značka v centre pozornosti (tretí produktový pás) */
+.m-band--brand { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+.m-band--brand .homepage-group-title { display: none !important; }
+.m-spot { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 24px; }
+.m-spot__logo { max-width: 260px; max-height: 64px; object-fit: contain; object-position: left; }
+.m-spot__text { font: 400 16px/26px var(--m-font) !important; color: #000 !important; margin: 0 !important; }
+.m-spot__link { font: 700 16px/20px var(--m-font); color: #000 !important; text-decoration: none !important; display: inline-flex; align-items: center; gap: 8px; }
+.m-spot__link::after { content: "›"; color: var(--m-wine); font-size: 24px; }
+.m-spot__img { width: 100%; aspect-ratio: 692 / 600; object-fit: cover; border: var(--m-border); border-radius: var(--m-radius); }
+@media (min-width: 992px) {
+  .m-band--brand .products-block.products:not(.products-list-mode) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .m-band--brand .products-block .product:nth-child(n+5) { display: none !important; }
+}
+
+/* Blog – Tipy, príbehy a inšpirácie (stredné bannery Shoptetu) */
+.type-index .middle-banners-wrapper { background: #fff !important; padding: 80px 0 !important; }
+.m-blog-title { font: 700 48px/56px var(--m-font-head) !important; text-align: center; margin: 0 0 48px !important; color: #000; }
+.type-index .middle-banners-wrapper .banners-content { display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; margin: 0 !important; }
+.type-index .middle-banners-wrapper .banners-content > div { width: auto !important; max-width: none !important; padding: 0 !important; float: none !important; }
+.type-index .middle-banners-wrapper .banner-wrapper a { display: flex !important; flex-direction: column; gap: 16px; text-decoration: none !important; }
+.type-index .middle-banners-wrapper .banner-wrapper img {
+  width: 100% !important; height: auto !important; aspect-ratio: 1 / 1; object-fit: cover;
+  border: var(--m-border); border-radius: var(--m-radius);
+}
+.type-index .middle-banners-wrapper .extended-banner-texts { position: static !important; background: none !important; padding: 0 !important; transform: none !important; display: block !important; opacity: 1 !important; }
+.type-index .middle-banners-wrapper .extended-banner-title { display: block; font: 700 22px/26px var(--m-font-head) !important; color: #000 !important; margin-bottom: 8px; }
+.type-index .middle-banners-wrapper .extended-banner-text { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; font: 400 14px/20px var(--m-font) !important; color: #333 !important; }
+.type-index .middle-banners-wrapper .banner-wrapper a::after { content: "Čítajte viac ›"; font: 700 14px/20px var(--m-font); color: #000; }
+
+/* =====================================================================
+   12. KATEGÓRIA – filtre, podkategórie, triedenie (v0.3)
+   ===================================================================== */
+.breadcrumbs { font: 500 14px/18px var(--m-font) !important; padding: 20px 0 !important; }
+.breadcrumbs a { color: #000 !important; text-decoration: underline !important; text-underline-offset: 3px; }
+.breadcrumbs .navigation-bullet { font-size: 0 !important; margin: 0 10px !important; }
+.breadcrumbs .navigation-bullet::before { content: "→"; font-size: 16px; color: #000; }
+.breadcrumbs span:last-child, .breadcrumbs [itemprop=name]:last-child { font-weight: 700; }
+
+@media (min-width: 992px) {
+  .type-category .sidebar-left {
+    background: var(--m-cream); padding: 40px 24px !important; border-radius: 0 24px 24px 0;
+    position: relative; overflow: hidden;
+  }
+  .type-category .sidebar-left::after {
+    content: ""; position: absolute; left: -100px; bottom: -60px; width: 420px; height: 560px; pointer-events: none;
+    background: var(--m-deco-sidebar, none) center/contain no-repeat; opacity: .95;
+  }
+}
+.type-category .sidebar-inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 24px; }
+.type-category .sidebar .box { background: transparent !important; border: 0 !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
+.type-category .sidebar .pageElement__heading { display: none !important; }
+/* vyhľadávanie */
+.type-category .box-search .search-form fieldset {
+  display: flex; align-items: center; background: #fff; border: var(--m-border) !important; border-radius: 999px; padding: 6px 6px 6px 18px !important; margin: 0;
+}
+.type-category .box-search input.js-search-input { flex: 1; border: 0 !important; box-shadow: none !important; background: transparent !important; font: 400 16px/20px var(--m-font) !important; height: auto !important; padding: 8px 0 !important; }
+.type-category .box-search button {
+  width: 40px !important; height: 40px !important; min-width: 40px; border-radius: 50% !important; border: 0 !important; padding: 0 !important; font-size: 0 !important; color: transparent !important;
+  background: var(--m-wine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='9' r='6'/%3E%3Cpath d='m18 18-4.5-4.5'/%3E%3C/svg%3E") center/20px no-repeat !important;
+}
+/* boxy filtrov */
+.type-category #filters .slider-wrapper,
+.type-category #filters .filter-section {
+  background: #fff; border: var(--m-border) !important; border-radius: 16px; padding: 16px !important; margin: 0 0 24px !important;
+}
+.type-category #filters .slider-wrapper { margin-bottom: 0 !important; border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: 0 !important; padding-bottom: 32px !important; }
+.type-category #filters .slider-wrapper + #price-filter-form + .filter-sections > .filter-section-boolean:first-child,
+.type-category #filters .filter-section-boolean { border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; border-top: 0 !important; padding-top: 0 !important; }
+.type-category #filters h4 {
+  font: 500 16px/18px var(--m-font) !important; color: #6f6f6f !important; letter-spacing: .8px; text-transform: uppercase !important;
+  margin: 0 0 12px !important; padding: 0 0 8px !important; border-bottom: 1px solid #e4e4e4;
+}
+.type-category #filters .slider-header { display: flex; justify-content: space-between; font: 700 16px/20px var(--m-font); color: var(--m-ink); margin-bottom: 8px; }
+.type-category #filters .ui-slider { height: 2px !important; background: #000 !important; border: 0 !important; margin: 18px 12px 8px !important; }
+.type-category #filters .ui-slider-range { background: #000 !important; }
+.type-category #filters .ui-slider-handle {
+  width: 24px !important; height: 24px !important; top: -11px !important; margin-left: -12px !important; border-radius: 50% !important;
+  background: #fff !important; border: 0 !important; box-shadow: 0 0 3px rgba(0,0,0,.25) !important; cursor: grab;
+}
+.type-category #filters .ui-slider-handle:last-child { background: var(--m-wine) !important; }
+.type-category #filters fieldset > div { margin: 0 0 8px !important; display: flex; align-items: center; }
+.type-category #filters input[type=checkbox] { position: absolute; opacity: 0; pointer-events: none; }
+.type-category #filters .filter-label {
+  position: relative; display: flex; align-items: center; gap: 10px; padding: 0 0 0 26px !important; margin: 0 !important;
+  font: 400 16px/22px var(--m-font) !important; color: #000 !important; cursor: pointer; background: none !important; border: 0 !important;
+}
+.type-category #filters .filter-label::before {
+  content: "" !important; position: absolute; left: 0; top: 3px; width: 16px; height: 16px; border: 2px solid #000; border-radius: 3px; background: #fff; display: block !important;
+}
+.type-category #filters input:checked + .filter-label { font-weight: 700 !important; }
+.type-category #filters input:checked + .filter-label::before {
+  background: #000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/11px no-repeat;
+}
+.type-category #filters .filter-label.disabled { opacity: .4; cursor: default; }
+.type-category #filters .filter-count { font-weight: 400; color: #6f6f6f; font-size: 14px; background: none !important; }
+.type-category #filters .filter-count::before { content: "("; } .type-category #filters .filter-count::after { content: ")"; }
+
+/* obsah kategórie */
+.type-category h1.category-title { font-size: 48px !important; line-height: 56px !important; margin: 24px 0 24px !important; }
+.type-category .category-perex, .type-category .category-perex * { font: 400 16px/24px var(--m-font) !important; color: #000 !important; }
+.type-category .subcategories.with-image {
+  display: flex !important; flex-wrap: wrap; margin: 32px 0 !important; padding: 0 !important;
+  border: var(--m-border); border-radius: 16px; overflow: hidden; background: #e4e4e4; gap: 3px;
+}
+.type-category .subcategories.with-image li {
+  flex: 1 1 120px; width: auto !important; max-width: none !important; padding: 0 !important; margin: 0 !important; list-style: none;
+  background: #fff;
+}
+.type-category .subcategories.with-image li a {
+  display: flex !important; flex-direction: column; align-items: center; gap: 8px; padding: 12px 8px !important; height: 100%;
+  text-align: center; font: 400 13px/16px var(--m-font) !important; color: #000 !important; text-decoration: none !important; border: 0 !important; background: #fff !important;
+}
+.type-category .subcategories.with-image li a:hover { background: var(--m-cream) !important; }
+.type-category .subcategories .image img { max-height: 48px; width: auto; }
+.type-category .category-header {
+  display: flex !important; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  border: var(--m-border); border-radius: 999px; padding: 8px 20px !important; margin: 0 0 40px !important; background: #fff !important;
+}
+.type-category .listSorting__controls { display: flex !important; flex-wrap: wrap; gap: 6px; margin: 0 !important; padding: 0 !important; }
+.type-category .listSorting__controls::before { content: "Zoradiť podľa:"; font: 400 14px/32px var(--m-font); margin-right: 6px; }
+.type-category .listSorting__control {
+  background: transparent !important; border: 0 !important; border-radius: 999px !important; padding: 4px 12px !important;
+  font: 500 13px/20px var(--m-font) !important; color: #000 !important;
+}
+.type-category .listSorting__control--current { background: var(--m-wine) !important; color: #fff !important; font-weight: 700 !important; }
+.type-category .listItemsTotal { font: 400 14px/20px var(--m-font) !important; }
+.type-category .listItemsTotal::before { content: "Počet položiek: "; }
+.type-category .listingControls { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 32px; }
+.type-category .loadMore__button {
+  background: transparent !important; border: 0 !important; text-decoration: underline !important; font: 500 14px/20px var(--m-font) !important; color: #000 !important;
+}
+.pagination__list { display: flex !important; align-items: center; gap: 12px; }
+.pagination__list a, .pagination__currentPage { font: 500 14px/20px var(--m-font) !important; color: #000 !important; background: transparent !important; border: 0 !important; }
+.pagination__currentPage { font-weight: 800 !important; }
+.goToTop__button, .type-category .itemsTotal { background: transparent !important; border: 0 !important; font: 500 14px/20px var(--m-font) !important; color: #000 !important; }
+
+/* =====================================================================
+   13. DETAIL PRODUKTU (v0.3)
+   ===================================================================== */
+.type-detail .p-detail-inner-header { display: none; }
+.type-detail .p-image-wrapper .p-image {
+  border: var(--m-border); border-radius: var(--m-radius); overflow: hidden; background: #fff; padding: 24px;
+}
+.type-detail .p-thumbnails-inner > div { display: flex; gap: 16px; }
+.type-detail .p-thumbnail { border: 2px solid transparent !important; border-radius: 12px !important; overflow: hidden; display: block; }
+.type-detail .p-thumbnail img { border-radius: 10px; }
+.type-detail .p-thumbnail.highlighted { border: 3px solid #000 !important; }
+.m-pdp-head { display: flex; flex-direction: column; gap: 8px; margin: 0 0 32px; }
+.m-pdp-head h1 { font: 700 40px/48px var(--m-font) !important; letter-spacing: -.4px; color: var(--m-ink) !important; margin: 0 !important; }
+.m-pdp-head .product-appendix { font-weight: 400; }
+.m-pdp-flags { display: flex; gap: 6px; flex-wrap: wrap; }
+.m-pdp-flags span { background: var(--m-wine); color: #fff; border-radius: 500px; padding: 2px 10px; font: 500 14px/20px "Inter", var(--m-font); }
+.type-detail .p-final-price-wrapper { display: flex !important; align-items: baseline; gap: 12px; margin: 24px 0 !important; }
+.type-detail .p-final-price-wrapper .price-final, .type-detail .p-final-price-wrapper .price-final-holder { font: 700 24px/24px var(--m-font) !important; color: var(--m-ink) !important; }
+.type-detail .p-final-price-wrapper .price-standard { font: 300 24px/24px var(--m-font) !important; text-decoration: line-through; color: var(--m-ink) !important; order: -1; }
+.type-detail .p-final-price-wrapper .price-measure, .type-detail .p-final-price-wrapper .price-side { display: none !important; }
+.type-detail .add-to-cart { display: flex !important; align-items: stretch; height: 48px; margin: 0 0 24px !important; }
+.type-detail .add-to-cart .quantity {
+  display: flex !important; align-items: center; gap: 4px; border: var(--m-border); border-right: 0; border-radius: 500px 0 0 500px; padding: 0 12px !important; background: #fff;
+}
+.type-detail .add-to-cart .quantity input.amount { width: 40px !important; border: 0 !important; box-shadow: none !important; text-align: center; font: 700 22px/24px "Inter", var(--m-font) !important; padding: 0 !important; background: transparent !important; }
+.type-detail .add-to-cart .quantity .increase, .type-detail .add-to-cart .quantity .decrease {
+  width: 26px !important; height: 26px !important; border: 2px solid #000 !important; border-radius: 50% !important; background: #fff !important; position: static !important; color: #000 !important;
+}
+.type-detail .add-to-cart .add-to-cart-button {
+  height: 48px !important; border-radius: 0 500px 500px 0 !important; padding: 0 24px !important; font: 500 22px/24px var(--m-font) !important;
+  display: inline-flex !important; align-items: center; gap: 10px; margin: 0 !important;
+}
+.type-detail .add-to-cart .add-to-cart-button::after {
+  content: ""; width: 26px; height: 26px; display: inline-block;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='21' r='1'/%3E%3Ccircle cx='20' cy='21' r='1'/%3E%3Cpath d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/%3E%3C/svg%3E") center/26px no-repeat;
+}
+.type-detail .availability-value { margin: 0 0 24px !important; display: flex; align-items: center; gap: 8px; }
+.type-detail .availability-label { background: var(--m-lime); color: #000 !important; border-radius: 500px; padding: 2px 16px; font: 500 16px/20px var(--m-font) !important; }
+.type-detail .availability-label * { color: #000 !important; }
+.type-detail .link-icons { display: flex !important; gap: 32px; margin: 0 0 24px !important; }
+.type-detail .link-icons .print, .type-detail .link-icons .share { display: none !important; }
+.type-detail .link-icon { font: 500 16px/24px var(--m-font) !important; color: #000 !important; text-decoration: none !important; }
+.type-detail .link-icon.chat { color: var(--m-wine) !important; }
+.type-detail .detail-parameters { margin: 0 0 24px !important; }
+.type-detail .detail-parameters th { font: 600 13px/18px "Inter", var(--m-font) !important; color: #6f6f6f !important; text-transform: uppercase; letter-spacing: .65px; padding: 6px 24px 6px 0 !important; }
+.type-detail .detail-parameters td { font: 500 16px/20px var(--m-font) !important; }
+/* varianty (prepojené produkty) */
+.c-product-interconnection-detail-params__products { display: flex !important; flex-wrap: wrap; gap: 8px !important; }
+.c-product-interconnection-detail-params__products.is-type--numbers span.item-type-numbers {
+  background: var(--m-lime) !important; color: #111 !important; border: 2px solid transparent !important; border-radius: 500px !important;
+  padding: 2px 13px 3px !important; font: 700 16px/20px var(--m-font) !important; transform: none !important;
+}
+.c-product-interconnection-detail-params__products.is-type--numbers a.is-current span.item-type-numbers { border-color: #000 !important; background: var(--m-lime) !important; }
+.c-product-interconnection-detail-params__products.is-type--photos span.item-type-img { border: 2px solid transparent !important; border-radius: 7px !important; }
+.c-product-interconnection-detail-params__products.is-type--photos a.is-current span.item-type-img { border: 2px solid #000 !important; }
+/* výhody na detaile */
+.benefitBanner.position--benefitProduct {
+  display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px;
+  margin: 48px calc(50% - 50vw) 0 !important; padding: 40px max(16px, calc(50vw - 744px)) !important; background: var(--m-cream) !important; border: 0 !important;
+}
+.benefitBanner.position--benefitProduct .benefitBanner__item { display: flex !important; flex-direction: column; align-items: center; text-align: center; gap: 12px; width: auto !important; max-width: none !important; border: 0 !important; padding: 0 !important; }
+.benefitBanner.position--benefitProduct .benefitBanner__title { font: 700 22px/26px var(--m-font-head) !important; color: #000 !important; }
+.benefitBanner.position--benefitProduct .benefitBanner__data { font: 400 14px/20px var(--m-font) !important; color: #000 !important; }
+/* záložky a popis */
+.type-detail .shp-tabs-wrapper { margin-top: 80px !important; }
+.type-detail .shp-tabs { display: flex !important; border-bottom: 1px solid #c4c4c4 !important; margin: 0 0 48px !important; }
+.type-detail .shp-tab { flex: 1; text-align: center; border: 0 !important; background: none !important; }
+.type-detail .shp-tab-link { display: block; padding: 12px 8px !important; font: 500 14px/20px var(--m-font) !important; color: #000 !important; border: 0 !important; border-bottom: 3px solid transparent !important; background: none !important; }
+.type-detail .shp-tab.active .shp-tab-link { border-bottom-color: #000 !important; font-weight: 700 !important; }
+.type-detail .description-inner { font: 400 16px/24px var(--m-font) !important; }
+.type-detail .description-inner h2, .type-detail .description-inner h3 { font-family: var(--m-font-head) !important; }
+.type-detail .description-inner table td, .type-detail .description-inner table th { border-top: 1px solid #000 !important; padding: 14px 16px 14px 0 !important; vertical-align: top; }
+/* súvisiace / podobné */
+.type-detail .products-related-header {
+  font: 700 48px/56px var(--m-font-head) !important; text-align: center; margin: 80px 0 48px !important; text-transform: none !important;
+}
+.type-detail .products-related.products-block:not(.products-list-mode) { display: grid !important; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 40px; }
+.type-detail .products-related .product { width: auto !important; max-width: none !important; padding: 0 !important; }
+.type-detail .browse-p { margin: 24px 0 !important; }
+
+@media (max-width: 991px) {
+  .m-hero { grid-template-columns: 1fr; height: auto; }
+  .m-hero__card--main { aspect-ratio: 2060 / 790; }
+  .m-hero__side { grid-template-rows: none; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .m-hero__side .m-hero__card { aspect-ratio: 2060 / 790; }
+  .m-hero__arrow { width: 36px; height: 36px; right: 12px; bottom: 12px; background-size: 18px; }
+  .m-values { gap: 8px 16px; }
+  .m-cats { padding: 48px 0; }
+  .m-cats__title, .m-blog-title, .type-detail .products-related-header { font-size: 30px !important; line-height: 36px !important; margin-bottom: 24px !important; }
+  .m-cats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .m-cat__img { height: 110px; }
+  .m-cat__name { font-size: 16px; }
+  .m-story__in { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .m-story__title { font-size: 26px !important; line-height: 32px !important; }
+  .m-band--brand { grid-template-columns: 1fr; }
+  .type-index .middle-banners-wrapper .banners-content { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .type-category h1.category-title { font-size: 32px !important; line-height: 38px !important; }
+  .type-category .category-header { border-radius: 20px; }
+  .m-pdp-head h1 { font-size: 26px !important; line-height: 32px !important; }
+  .benefitBanner.position--benefitProduct { grid-template-columns: 1fr 1fr; }
+  .type-detail .products-related.products-block:not(.products-list-mode) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .type-detail .shp-tabs { overflow-x: auto; }
+  .type-detail .add-to-cart .add-to-cart-button { font-size: 17px !important; padding: 0 16px !important; }
+}

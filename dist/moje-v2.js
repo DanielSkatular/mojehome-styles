@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.3) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -151,10 +151,119 @@
     }
   }
 
+  /* ---------- v0.3: homepage hero, kategórie, príbeh, značka, blog ---------- */
+  var SHOP = 'https://cdn.myshoptet.com/usr/www.mojehome.sk/user/';
+  var CATS = [
+    ['Skladovanie', '/skladovanie-potravin/', SHOP + 'shop/orig/1654-4_storage-jar-set-web.jpg'],
+    ['Varenie', '/kuchynske-pomocky/', SHOP + 'shop/orig/3562_dizajn-bez-nazvu--4.png'],
+    ['Na cesty', '/na-cesty/', SHOP + 'shop/orig/4127-5_dopper-termoflasa-580-ml-hneda.jpg'],
+    ['Pre deti', '/pre-deti/', SHOP + 'categories/orig/1723_desiatnik-rikko-ruzovy-web_background_removed.png'],
+    ['Značky', '/znacky/', ASSETS + 'logo-bordova.svg']
+  ];
+  function txt(node) { return node ? node.textContent.replace(/\s+/g, ' ').trim() : ''; }
+  function heroCard(item, main) {
+    var a = item.querySelector('a[href]');
+    var img = item.querySelector('img');
+    if (!img) return '';
+    var src = img.getAttribute('data-src') || img.currentSrc || img.src;
+    var open = a ? '<a class="m-hero__card' + (main ? ' m-hero__card--main' : '') + '" href="' + a.getAttribute('href') + '">' :
+      '<div class="m-hero__card' + (main ? ' m-hero__card--main' : '') + '">';
+    return open + '<img src="' + src + '" alt="' + (img.alt || '').replace(/"/g, '&quot;') + '">' +
+      (a ? '<span class="m-hero__arrow" aria-hidden="true"></span></a>' : '</div>');
+  }
+  function hero() {
+    var host = document.querySelector('.before-carousel');
+    if (!host || document.querySelector('.m-hero-band')) return;
+    var items = host.querySelectorAll('#carousel .item');
+    if (!items.length) return;
+    var linked = Array.prototype.filter.call(items, function (i) { return i.querySelector('a[href]'); });
+    var pick = (linked.length >= 3 ? linked : Array.prototype.slice.call(items)).slice(0, 3);
+    var html = '<div class="m-hero">' + heroCard(pick[0], true) +
+      (pick.length > 1 ? '<div class="m-hero__side">' + pick.slice(1).map(function (i) { return heroCard(i, false); }).join('') + '</div>' : '') +
+      '</div>';
+    var pills = document.querySelectorAll('.welcome .pills .pill');
+    if (pills.length) html += '<div class="m-values">' + Array.prototype.map.call(pills, function (p) { return '<span>' + txt(p) + '</span>'; }).join('') + '</div>';
+    host.appendChild(el('div', 'm-hero-band', html));
+  }
+  function cats(after) {
+    if (!after || document.querySelector('.m-cats')) return;
+    var html = '<h2 class="m-cats__title">Vyhľadajte podľa kategórie</h2><div class="m-cats__grid">' +
+      CATS.map(function (c) {
+        return '<a class="m-cat" href="' + c[1] + '"><span class="m-cat__img"><img src="' + c[2] + '" alt="" loading="lazy"></span>' +
+          '<span class="m-cat__foot"><span class="m-cat__name">' + c[0] + '</span><span class="m-cat__arrow" aria-hidden="true"></span></span></a>';
+      }).join('') + '</div>';
+    after.parentNode.insertBefore(el('section', 'm-cats', html), after.nextSibling);
+  }
+  function story(after) {
+    var w = document.querySelector('.welcome-wrapper .welcome');
+    if (!after || !w || document.querySelector('.m-story')) return;
+    var title = txt(w.querySelector('h1, h2'));
+    var lead = txt(w.querySelector('.lead, p'));
+    if (!title && !lead) return;
+    var html = '<img class="m-story__deco" src="' + ASSETS + 'cmaranica-bordova-09.svg" alt="" aria-hidden="true">' +
+      '<div class="m-story__in"><img class="m-story__logo" src="' + ASSETS + 'logo-bordova.svg" alt="Moje">' +
+      '<div class="m-story__copy"><p class="m-story__title">' + title + '</p><p class="m-story__text">' + lead + '</p></div>' +
+      '<a class="m-btn-pill" href="/kontakty/">Objavte viac</a></div>';
+    after.parentNode.insertBefore(el('section', 'm-story', html), after.nextSibling);
+  }
+  function brandSpot(band) {
+    if (!band || band.querySelector('.m-spot')) return;
+    var t = band.querySelector('.homepage-group-title');
+    var name = txt(t);
+    if (!/barebones/i.test(name)) return;
+    var slide = document.querySelector('#carousel .item a[href*="barebones"] img');
+    band.classList.add('m-band--brand');
+    var spot = el('div', 'm-spot',
+      '<img class="m-spot__logo" src="' + SHOP + 'categories/orig/barebones_logo_web.png" alt="Barebones">' +
+      '<p class="m-spot__text">Odolné vybavenie na záhradu, kemping a varenie pod holým nebom. Navrhnuté tak, aby vydržalo roky a vyzeralo dobre aj po nich.</p>' +
+      '<a class="m-spot__link" href="/znacka/barebones/">Pozrieť celú značku</a>' +
+      (slide ? '<img class="m-spot__img" src="' + (slide.getAttribute('data-src') || slide.src) + '" alt="" loading="lazy">' : ''));
+    band.insertBefore(spot, t ? t.nextSibling : band.firstChild);
+  }
+  function blog() {
+    var w = document.querySelector('.type-index .middle-banners-wrapper');
+    if (!w || w.querySelector('.m-blog-title')) return;
+    var c = w.querySelector('.banners-content') || w.firstElementChild;
+    if (c) c.parentNode.insertBefore(el('h2', 'm-blog-title', 'Tipy, príbehy a inšpirácie'), c);
+  }
+  function homepage2() {
+    if (!document.body.classList.contains('type-index')) return;
+    hero();
+    var bands = document.querySelectorAll('.m-band');
+    cats(document.querySelector('.m-brands') || bands[0]);
+    story(bands[1]);
+    brandSpot(bands[2]);
+    blog();
+  }
+
+  /* ---------- v0.3: kategória ---------- */
+  function category() {
+    var sb = document.querySelector('.type-category .sidebar-left');
+    if (sb) sb.style.setProperty('--m-deco-sidebar', 'url("' + ASSETS + 'cmaranica-bordova-01.svg")');
+  }
+
+  /* ---------- v0.3: detail produktu ---------- */
+  function pdp() {
+    if (!document.body.classList.contains('type-detail')) return;
+    var info = document.querySelector('.p-info-wrapper');
+    var h1 = document.querySelector('.p-detail-inner-header h1');
+    if (!info || !h1 || info.querySelector('.m-pdp-head')) return;
+    var head = el('div', 'm-pdp-head');
+    var flags = document.querySelectorAll('.p-detail .p-image-wrapper .flags .flag');
+    if (flags.length) {
+      head.appendChild(el('div', 'm-pdp-flags', Array.prototype.map.call(flags, function (f) { return '<span>' + txt(f) + '</span>'; }).join('')));
+    }
+    head.appendChild(h1);
+    info.insertBefore(head, info.firstChild);
+  }
+
   ready(function () {
     document.documentElement.classList.add('m2');
     headerLogo();
     homepage();
+    homepage2();
+    category();
+    pdp();
     newsletter();
     footer();
   });
