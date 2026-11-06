@@ -1046,3 +1046,24 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
   .type-category .subcategories .image img { width: 44px !important; height: 44px !important; }
   .type-category .subcategories.with-image li a { gap: 12px; }
 }
+
+/* v0.5.2 – záložky bez sivého pozadia, popis produktu (jj-*) v brand štýle */
+.type-detail .shp-tabs-holder, .type-detail .shp-tabs { background: transparent !important; overflow: visible !important; }
+.type-detail .shp-tabs-holder { height: auto !important; }
+.type-detail .basic-description > h3:first-child { font: 500 14px/18px var(--m-font) !important; letter-spacing: .8px; text-transform: uppercase; color: var(--m-muted) !important; margin: 0 0 16px !important; }
+.type-detail .jj-wrap, .type-detail .jj-wrap p, .type-detail .jj-wrap li, .type-detail .jj-wrap div { font-family: var(--m-font) !important; }
+.type-detail .jj-wrap h2 { font: 700 32px/38px var(--m-font-head) !important; color: #000 !important; margin: 12px 0 16px !important; }
+.type-detail .jj-wrap h3 { font: 700 24px/30px var(--m-font-head) !important; color: #000 !important; margin: 0 0 16px !important; }
+.type-detail .jj-wrap .jj-lead, .type-detail .jj-wrap .jj-text, .type-detail .jj-wrap p { font-size: 16px !important; line-height: 26px !important; color: #000 !important; }
+.type-detail .jj-eyebrow, .type-detail .jj-tag { background: var(--m-lime) !important; color: #000 !important; border: 0 !important; border-radius: 999px !important; padding: 3px 12px !important; font: 700 12px/18px var(--m-font) !important; letter-spacing: .4px; }
+.type-detail .jj-tags { gap: 8px !important; flex-wrap: wrap; }
+.type-detail .jj-media img { border: var(--m-border) !important; border-radius: var(--m-radius) !important; }
+.type-detail .jj-section { margin-top: 48px !important; }
+.type-detail .jj-tech-row { border-top: 1px solid #000 !important; border-bottom: 0 !important; padding: 12px 0 !important; background: transparent !important; }
+.type-detail .jj-tech-label, .type-detail .jj-care-label { font: 600 13px/18px var(--m-font) !important; text-transform: uppercase; letter-spacing: .65px; color: var(--m-muted) !important; }
+.type-detail .jj-tech-value, .type-detail .jj-care-text { font: 500 16px/22px var(--m-font) !important; color: #000 !important; }
+.type-detail .jj-care-list li { border-top: 1px solid #e4e4e4 !important; background: transparent !important; }
+@media (max-width: 991px) {
+  .type-detail .jj-wrap h2 { font-size: 26px !important; line-height: 32px !important; }
+  .type-detail .jj-wrap h3 { font-size: 20px !important; line-height: 26px !important; }
+}
