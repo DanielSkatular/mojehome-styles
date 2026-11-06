@@ -838,3 +838,23 @@ html.m2 body { overflow-x: clip; }
 .type-index .middle-banners-wrapper .banners-content::after { display: none !important; }
 .type-index .middle-banners-wrapper .extended-banner-title,
 .type-index .middle-banners-wrapper .extended-banner-text { box-shadow: none !important; }
+
+/* v0.3.3 – mobilná hlavička, pretečenie do šírky, súvisiace produkty */
+.m-band { overflow-x: clip; }
+.overall-wrapper { overflow-x: clip; }
+@media (max-width: 991px) {
+  .top-navigation-bar { display: block !important; background: var(--m-lime) !important; border: 0 !important; }
+  #header .site-name, #header .site-name a { width: auto !important; }
+  #header .site-name img { height: 46px !important; width: auto !important; max-height: none !important; max-width: none !important; }
+  .responsive-tools > a, .responsive-tools > a::before { color: #000 !important; }
+  .responsive-tools > a[data-target=navigation]::before { background: var(--m-wine) !important; color: #fff !important; }
+  #navigation .menu-level-1 > li > a, #navigation .menu-level-1 > li > a b { font: 700 18px/24px var(--m-font) !important; color: #000 !important; text-transform: none !important; }
+}
+@media (min-width: 992px) {
+  .type-detail .products-related .product.inactive { display: block !important; }
+  .type-detail .products-related:has(.product.inactive) .product:nth-child(n+6) { display: none !important; }
+  .type-detail .browse-p .p-prev, .type-detail .browse-p .p-next { display: none !important; }
+  .type-detail .p-detail:not(:has(.products-related .product:nth-child(6))) .browse-p { display: none !important; }
+}
+.type-detail .browse-p { text-align: center; }
+.type-detail .browse-p .p-all { background: #fff !important; border: var(--m-border) !important; border-radius: 999px !important; font: 700 16px/20px var(--m-font) !important; color: #000 !important; padding: 12px 28px !important; }
