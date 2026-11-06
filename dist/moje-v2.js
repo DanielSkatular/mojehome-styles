@@ -1,9 +1,19 @@
-/* MOJE WEB 2.0 — doplnky DOM pre Shoptet šablónu 11
-   Načítava sa s defer; nič nepredpokladá o jQuery. */
+/* MOJE WEB 2.0 — loader + doplnky DOM pre Shoptet šablónu 11
+   V Shoptete stačí 1 riadok (bez defer, v Záhlaví):
+   <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
+   Skript hneď pripojí moje-v2.css z rovnakej verzie, DOM úpravy spraví po načítaní stránky. */
 (function () {
   'use strict';
   var BASE = (document.currentScript && document.currentScript.src || '').replace(/[^/]*$/, '');
   var ASSETS = BASE.replace(/dist\/$/, '') + 'assets/';
+
+  if (BASE && !document.getElementById('m2-css')) {
+    var link = document.createElement('link');
+    link.id = 'm2-css';
+    link.rel = 'stylesheet';
+    link.href = BASE + 'moje-v2.css';
+    document.head.appendChild(link);
+  }
 
   function ready(fn) {
     if (document.readyState !== 'loading') fn();
