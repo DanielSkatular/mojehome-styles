@@ -8,6 +8,7 @@
   var BASE = (document.currentScript && document.currentScript.src || '').replace(/[^/]*$/, '');
   var ASSETS = BASE.replace(/dist\/$/, '') + 'assets/';
   var FONTS = '/user/documents/upload/Fonts/';
+  var BRANDS = 'https://cdn.myshoptet.com/usr/www.mojehome.sk/user/categories/thumb/';
   var head = document.head;
 
   /* ---------- fonty: z vlastnej domény e-shopu (licencia, CORS) ---------- */
@@ -100,9 +101,19 @@
         '<p class="m-newsletter__title">Prihláste sa na odber newslettera</p>' +
         '<p class="m-newsletter__text">Vložením e-mailu súhlasíte s podmienkami <a href="/podmienky-ochrany-osobnych-udajov/">ochrany osobných údajov</a>.</p>' +
       '</div></div>');
-    wrap.firstChild.appendChild(form);
+    var box = wrap.firstChild;
+    box.appendChild(form);
     var input = form.querySelector('input[type=email], input[name=email]');
-    if (input && !input.placeholder) input.placeholder = 'Vaša e-mailová adresa';
+    var btn = form.querySelector('button[type=submit]');
+    if (input) {
+      if (!input.placeholder) input.placeholder = 'Vaša e-mailová adresa';
+      var w = input.parentNode;
+      w.classList.add('m-newsletter__field');
+      if (btn) w.appendChild(btn);
+      var on = function () { box.classList.add('is-active'); };
+      input.addEventListener('focus', on);
+      input.addEventListener('input', on);
+    }
     f.parentNode.insertBefore(wrap, f);
   }
 
@@ -131,10 +142,10 @@
       var brands = el('section', 'm-brands',
         '<div class="m-brands__lead"><img src="' + ASSETS + 'logo-bordova.svg" alt="Moje"><span>je oficiálny predajca značiek:</span></div>' +
         '<div class="m-brands__logos">' +
-          '<a href="/amuse/"><img src="/user/categories/thumb/logo-amuse-eps-black.png" alt="Amuse"></a>' +
-          '<a href="/tupperware/"><img src="/user/categories/thumb/tupperware-logo.png" alt="Tupperware"></a>' +
-          '<a href="/koziol/"><img src="/user/categories/thumb/koziol-logo.png" alt="Koziol"></a>' +
-          '<a href="/dopper/"><img src="/user/categories/thumb/dopper-logo.png" alt="Dopper"></a>' +
+          '<a href="/amuse/"><img src="' + BRANDS + 'logo-amuse-eps-black.png" alt="Amuse"></a>' +
+          '<a href="/tupperware/"><img src="' + BRANDS + 'tupperware-logo.png" alt="Tupperware"></a>' +
+          '<a href="/koziol/"><img src="' + BRANDS + 'koziol-logo.png" alt="Koziol"></a>' +
+          '<a href="/dopper/"><img src="' + BRANDS + 'dopper-logo.png" alt="Dopper"></a>' +
         '</div>');
       bands[0].parentNode.insertBefore(brands, bands[0].nextSibling);
     }
