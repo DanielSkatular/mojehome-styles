@@ -453,7 +453,8 @@ html.m2 body { overflow-x: clip; }
   flex: 1; border: 0 !important; box-shadow: none !important; background: transparent !important;
   font: 400 15px/20px var(--m-font) !important; padding: 8px 0 !important; height: auto !important; min-width: 0; outline: 0;
 }
-.m-newsletter button[type=submit] {
+.m-newsletter .m-newsletter__field button[type=submit],
+.m-newsletter .m-newsletter__field button.btn.btn-primary {
   width: 40px !important; height: 40px !important; min-width: 40px; padding: 0 !important; border-radius: 50% !important; border: 0 !important;
   background: var(--m-wine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/20px no-repeat !important;
   font-size: 0 !important; color: transparent !important; box-shadow: none !important;
