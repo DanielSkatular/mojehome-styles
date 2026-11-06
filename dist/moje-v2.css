@@ -882,3 +882,116 @@ html.m2 body { overflow-x: clip; }
   .type-category #filters .slider-wrapper + #price-filter-form + .filter-sections > .filter-section-boolean.filter-section-boolean,
   .type-category #filters .filter-sections > .filter-section-boolean.filter-section-boolean { border-top: var(--m-border) !important; border-radius: 16px !important; padding-top: 16px !important; }
 }
+
+/* =====================================================================
+   14. ĎALŠIE STRÁNKY – košík a objednávka, blog, značka, textové stránky (v0.4)
+   ===================================================================== */
+body, input, button, select, textarea { font-family: var(--m-font); }
+
+/* --- košík a objednávka --- */
+body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .content-wrapper, .ordering-process .content-wrapper-in { background: var(--m-cream) !important; }
+.ordering-process .content-wrapper { padding-top: 32px !important; padding-bottom: 64px !important; }
+.ordering-process .cart-row { display: flex; flex-wrap: wrap; row-gap: 24px; }
+.ordering-process .cart-row > div > .cart-content {
+  background: #fff !important; border: var(--m-border) !important; border-radius: var(--m-radius) !important; padding: 24px !important; margin: 0 0 24px !important; box-shadow: none !important;
+}
+.ordering-process .cart-row .box, .ordering-process .cart-row .box-bg-default { background: transparent !important; border: 0 !important; padding: 0 !important; box-shadow: none !important; }
+.ordering-process .cart-content h2, .ordering-process .cart-content .h4 { font: 700 22px/28px var(--m-font-head) !important; color: #000 !important; text-transform: none !important; }
+/* kroky */
+.ordering-process .cart-header { border: 0 !important; margin: -8px 0 24px !important; }
+.ordering-process .cart-header .step, .ordering-process .cart-header .step a, .ordering-process .cart-header .step strong, .ordering-process .cart-header .step span {
+  color: #000 !important; font: 700 14px/20px var(--m-font) !important; text-transform: none !important; text-decoration: none !important; border-color: #e4e4e4 !important;
+}
+.ordering-process .cart-header .step.active strong, .ordering-process .cart-header .step.active a { border-bottom: 3px solid var(--m-wine) !important; }
+.ordering-process .cart-header .step span::before { border-color: #000 !important; color: #000 !important; background: #fff !important; font-weight: 700 !important; }
+.ordering-process .cart-header .step.active span::before { background: var(--m-wine) !important; border-color: var(--m-wine) !important; color: #fff !important; }
+.ordering-process .cart-header .step.completed span::before { background: var(--m-lime) !important; }
+/* tabuľka košíka */
+.ordering-process .cart-table td { border-color: #e4e4e4 !important; vertical-align: middle; }
+.ordering-process .cart-table .cart-p-image img { border-radius: 12px; }
+.ordering-process .cart-table .p-name a.main-link { font: 700 16px/20px var(--m-font) !important; color: var(--m-ink) !important; text-transform: none !important; }
+.ordering-process .cart-table .p-name .product-appendix { font-weight: 400; color: var(--m-muted) !important; }
+.ordering-process .cart-table .price-final { font: 700 16px/20px var(--m-font) !important; color: var(--m-ink) !important; }
+.ordering-process .availability-label { background: var(--m-lime); color: #000 !important; border-radius: 500px; padding: 2px 10px; font: 500 13px/18px var(--m-font) !important; }
+.ordering-process .quantity-form input.amount, .ordering-process .quantity-form input[type=number] { border: 2px solid #000 !important; border-radius: 999px !important; text-align: center; font-weight: 700; }
+.ordering-process .remove-item { color: var(--m-wine) !important; }
+/* kupón a doprava zdarma */
+.ordering-process .discount-coupon .input-group { display: flex !important; border: var(--m-border); border-radius: 999px; overflow: hidden; background: #fff; }
+.ordering-process .discount-coupon input.form-control { border: 0 !important; box-shadow: none !important; font: 400 15px/20px var(--m-font) !important; padding: 10px 18px !important; height: auto !important; }
+.ordering-process .discount-coupon button.btn { background: var(--m-wine) !important; color: #fff !important; border: 0 !important; border-radius: 999px !important; margin: 4px !important; padding: 6px 18px !important; font: 700 14px/20px var(--m-font) !important; text-transform: none !important; }
+.ordering-process .extra.delivery strong { color: var(--m-wine) !important; }
+.ordering-process .price-range, .ordering-process .price-range > * { background-color: var(--m-lime) !important; border-radius: 99px; }
+/* súhrn, ceny, tlačidlá */
+.ordering-process .price-wrapper .price-primary, .ordering-process .order-summary .price-primary { font-family: var(--m-font) !important; color: #000 !important; }
+.ordering-process .order-summary-item.price { border-top-color: #000 !important; }
+.ordering-process .next-step-back, .ordering-process .next-step-back span { color: #000 !important; text-decoration: underline !important; text-underline-offset: 3px; background: transparent !important; border: 0 !important; }
+.ordering-process .checkout-box > .btn, .ordering-process .checkout-box span.btn { background: var(--m-lime) !important; color: #000 !important; border: 0 !important; border-radius: 16px !important; font: 700 14px/20px var(--m-font) !important; }
+.ordering-process .contact-box a { color: var(--m-wine) !important; }
+/* doprava a platba */
+.ordering-process h2.order-icon::before { color: var(--m-wine) !important; }
+.ordering-process .shipping-billing-table label::before { border-color: #000 !important; }
+.ordering-process .shipping-billing-table label::after { background-color: var(--m-wine) !important; }
+.ordering-process .shipping-billing-table .radio-wrapper { border-color: #e4e4e4 !important; border-radius: 12px; }
+.ordering-process .shipping-billing-table .radio-wrapper.active { background: var(--m-cream) !important; }
+.ordering-process b.shipping-billing-name, .ordering-process .shipping-billing-name { color: #000 !important; font-family: var(--m-font) !important; text-transform: none !important; }
+.ordering-process .for-free { color: var(--m-wine) !important; }
+.ordering-process .question-tooltip { background-color: var(--m-wine) !important; border-color: var(--m-wine) !important; }
+.ordering-process .form-control { border: 2px solid #000 !important; border-radius: 12px !important; box-shadow: none !important; }
+.ordering-process .form-control:focus { border-color: var(--m-wine) !important; }
+
+/* --- blog: zoznam článkov --- */
+.type-posts-listing .sectionDescription h1 { font: 700 48px/56px var(--m-font-head) !important; text-align: center; margin: 24px 0 48px !important; }
+.type-posts-listing #newsWrapper { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 40px; max-width: 1200px; margin: 0 auto; }
+.type-posts-listing #newsWrapper::before, .type-posts-listing #newsWrapper::after { display: none !important; }
+.type-posts-listing .news-item { display: flex !important; flex-direction: column; gap: 16px; width: auto !important; margin: 0 !important; padding: 0 !important; border: 0 !important; float: none !important; }
+.type-posts-listing .news-item .image, .type-posts-listing .news-item .text { width: auto !important; max-width: none !important; padding: 0 !important; float: none !important; }
+.type-posts-listing .news-item .image img { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1; object-fit: cover; border: var(--m-border); border-radius: var(--m-radius); }
+.type-posts-listing .news-item .title { display: block; font: 700 24px/28px var(--m-font-head) !important; color: #000 !important; text-decoration: none !important; margin-bottom: 6px; }
+.type-posts-listing .news-item .title:hover { color: var(--m-wine) !important; }
+.type-posts-listing .news-item time { font: 500 13px/18px var(--m-font) !important; color: var(--m-muted) !important; }
+.type-posts-listing .news-item .description, .type-posts-listing .news-item .description p { font: 400 15px/22px var(--m-font) !important; color: #333 !important; }
+.type-posts-listing .news-item .description { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-top: 8px; }
+
+/* --- blog: článok --- */
+.type-post .news-item-detail > h1 { font: 700 40px/48px var(--m-font-head) !important; }
+.type-post .news-item-detail > time { font: 500 13px/18px var(--m-font) !important; color: var(--m-muted) !important; }
+.type-post .moje-blog-wrap, .type-post .moje-blog-wrap p, .type-post .moje-blog-wrap li { font-family: var(--m-font) !important; }
+.type-post .moje-blog-wrap h1, .type-post .moje-blog-wrap h2, .type-post .moje-blog-wrap h3 { font-family: var(--m-font-head) !important; font-weight: 700 !important; }
+.type-post .moje-blog-wrap img { border-radius: var(--m-radius); }
+.type-post .moje-blog-meta > *, .type-post .moje-blog-eyebrow { background: var(--m-lime) !important; color: #000 !important; border-radius: 999px !important; }
+
+/* --- stránka značky --- */
+.type-manufacturer-detail h1.category-title { font: 700 48px/56px var(--m-font-head) !important; }
+.type-manufacturer-detail .jj-brand-page, .type-manufacturer-detail .jj-brand-page p, .type-manufacturer-detail .jj-brand-page li { font-family: var(--m-font) !important; }
+.type-manufacturer-detail .jj-brand-page h2, .type-manufacturer-detail .jj-brand-page h3 { font-family: var(--m-font-head) !important; font-weight: 700 !important; color: #000 !important; }
+.type-manufacturer-detail .jj-brand-page .eyebrow, .type-manufacturer-detail .jj-brand-page .pill { background: var(--m-lime) !important; color: #000 !important; border: 0 !important; border-radius: 999px !important; font-family: var(--m-font) !important; }
+.type-manufacturer-detail .jj-brand-page .hover-media img { border: var(--m-border); border-radius: var(--m-radius) !important; }
+.type-manufacturer-detail .jj-brand-page .fact { background: #fff !important; border: var(--m-border) !important; border-radius: 16px !important; }
+.type-manufacturer-detail .category-header {
+  display: flex !important; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  border: var(--m-border); border-radius: 999px; padding: 8px 20px !important; margin: 48px 0 40px !important; background: #fff !important;
+}
+.type-manufacturer-detail .listSorting__controls { display: flex !important; flex-wrap: wrap; gap: 6px; margin: 0 !important; padding: 0 !important; }
+.type-manufacturer-detail .listSorting__controls::before { content: "Zoradiť podľa:"; font: 400 14px/32px var(--m-font); margin-right: 6px; }
+.type-manufacturer-detail .listSorting__control { background: transparent !important; border: 0 !important; border-radius: 999px !important; padding: 4px 12px !important; font: 500 13px/20px var(--m-font) !important; color: #000 !important; }
+.type-manufacturer-detail .listSorting__control--current { background: var(--m-wine) !important; color: #fff !important; font-weight: 700 !important; }
+.type-manufacturer-detail .listItemsTotal::before { content: "Počet položiek: "; }
+
+/* --- textové stránky (kontakty, podmienky…) --- */
+.type-page .pageArticleDetail { max-width: 860px; margin: 0 auto; }
+.type-page .pageArticleDetail h1 { font: 700 48px/56px var(--m-font-head) !important; margin: 24px 0 32px !important; }
+.type-page .pageArticleDetail h2 { font: 700 28px/34px var(--m-font-head) !important; margin: 40px 0 16px !important; }
+.type-page .pageArticleDetail h3 { font: 700 20px/26px var(--m-font) !important; }
+.type-page .pageArticleDetail p, .type-page .pageArticleDetail li, .type-page .pageArticleDetail td { font-size: 16px !important; line-height: 26px !important; font-family: var(--m-font) !important; }
+.type-page .pageArticleDetail img { border-radius: var(--m-radius); height: auto; }
+.type-page .pageArticleDetail a:not(.btn) { color: var(--m-wine) !important; text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 991px) {
+  .type-posts-listing #newsWrapper { grid-template-columns: 1fr 1fr; gap: 24px 12px; }
+  .type-posts-listing .news-item .title { font-size: 17px !important; line-height: 21px !important; }
+  .type-posts-listing .news-item .description { display: none; }
+  .type-posts-listing .sectionDescription h1, .type-page .pageArticleDetail h1, .type-manufacturer-detail h1.category-title { font-size: 32px !important; line-height: 38px !important; }
+  .type-post .news-item-detail > h1 { font-size: 26px !important; line-height: 32px !important; }
+  .type-manufacturer-detail .category-header { border-radius: 20px; }
+  .ordering-process .cart-row > div > .cart-content { padding: 16px !important; border-radius: 16px !important; }
+}
