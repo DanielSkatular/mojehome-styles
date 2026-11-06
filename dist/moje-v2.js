@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.5) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.5.1) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -314,7 +314,7 @@
     var links = document.querySelectorAll('.subcategories li a');
     Array.prototype.forEach.call(links, function (a) {
       var img = a.querySelector('.image img');
-      if (!img || !/banner-biela/.test(img.getAttribute('src') || '')) return;
+      if (!img || !/banner-biela/.test((img.getAttribute('src') || '') + ' ' + (img.getAttribute('data-src') || ''))) return;
       var key = 'm2sc:' + a.getAttribute('href');
       var set = function (u) {
         img.removeAttribute('srcset');
@@ -346,6 +346,7 @@
     category();
     filtersBtn();
     subcatImages();
+    window.addEventListener('load', subcatImages);
     pdp();
     newsletter();
     footer();
