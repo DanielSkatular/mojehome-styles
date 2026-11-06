@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.3) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.3.2) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -172,18 +172,24 @@
       (a ? '<span class="m-hero__arrow" aria-hidden="true"></span></a>' : '</div>');
   }
   function hero() {
+    var car = document.querySelector('#carousel');
+    if (!car || document.querySelector('.m-hero-band')) return;
     var host = document.querySelector('.before-carousel');
-    if (!host || document.querySelector('.m-hero-band')) return;
-    var items = host.querySelectorAll('#carousel .item');
+    var row = car.closest('.banners-row') || car;
+    var items = car.querySelectorAll('.item');
     if (!items.length) return;
     var linked = Array.prototype.filter.call(items, function (i) { return i.querySelector('a[href]'); });
     var pick = (linked.length >= 3 ? linked : Array.prototype.slice.call(items)).slice(0, 3);
     var html = '<div class="m-hero">' + heroCard(pick[0], true) +
       (pick.length > 1 ? '<div class="m-hero__side">' + pick.slice(1).map(function (i) { return heroCard(i, false); }).join('') + '</div>' : '') +
       '</div>';
-    var pills = document.querySelectorAll('.welcome .pills .pill');
+    var pillBox = document.querySelector('.welcome .pills') || document.querySelector('.jj-brand .pills');
+    var pills = pillBox ? pillBox.querySelectorAll('.pill') : [];
     if (pills.length) html += '<div class="m-values">' + Array.prototype.map.call(pills, function (p) { return '<span>' + txt(p) + '</span>'; }).join('') + '</div>';
-    host.appendChild(el('div', 'm-hero-band', html));
+    var band = el('div', 'm-hero-band', html);
+    if (host) host.appendChild(band);
+    else row.parentNode.insertBefore(band, row);
+    row.classList.add('m-hide');
   }
   function cats(after) {
     if (!after || document.querySelector('.m-cats')) return;

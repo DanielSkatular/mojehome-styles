@@ -831,3 +831,10 @@ html.m2 body { overflow-x: clip; }
   margin: 48px 0 0 !important; padding: 40px 0 !important;
   box-shadow: 0 0 0 100vmax var(--m-cream); clip-path: inset(0 -100vmax);
 }
+
+/* v0.3.2 */
+.m-hide { display: none !important; }
+.type-index .middle-banners-wrapper .banners-content::before,
+.type-index .middle-banners-wrapper .banners-content::after { display: none !important; }
+.type-index .middle-banners-wrapper .extended-banner-title,
+.type-index .middle-banners-wrapper .extended-banner-text { box-shadow: none !important; }
