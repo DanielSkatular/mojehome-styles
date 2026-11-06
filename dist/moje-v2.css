@@ -5,13 +5,9 @@
    Vypnutie: odstrániť <link> na tento súbor z HTML kódov.
    ===================================================================== */
 
-/* ---------- 1. Fonty ---------- */
-/* Doko Sans: najprv z /fonts (jsDelivr, funguje na každej doméne), záloha z mojehome.sk */
-@font-face { font-family: "DokoSans"; src: url(../fonts/DokoSans-Regular.woff2) format("woff2"), url(https://www.mojehome.sk/user/documents/upload/Fonts/DokoSans/DokoSans-Regular.woff2) format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "DokoSans"; src: url(../fonts/DokoSans-Bold.woff2) format("woff2"), url(https://www.mojehome.sk/user/documents/upload/Fonts/DokoSans/DokoSans-Bold.woff2) format("woff2"); font-weight: 500 700; font-display: swap; }
-@font-face { font-family: "DokoSans"; src: url(../fonts/DokoSans-Black.woff2) format("woff2"), url(https://www.mojehome.sk/user/documents/upload/Fonts/DokoSans/DokoSans-Black.woff2) format("woff2"); font-weight: 800 900; font-display: swap; }
-/* Neulis (nadpisy) – súbor doplníme do /fonts; dovtedy sa použije DokoSans Black */
-@font-face { font-family: "Neulis"; src: url(../fonts/Neulis-Bold.woff2) format("woff2"); font-weight: 700; font-display: swap; }
+/* ---------- 1. Fonty ----------
+   @font-face vkladá moje-v2.js z domény e-shopu (/user/documents/upload/Fonts/…),
+   aby fonty neboli vo verejnom repozitári a nenarážali na CORS. */
 
 /* ---------- 2. Tokeny ---------- */
 :root {
@@ -360,6 +356,8 @@ h1, .h1 {
 
 /* ---------- 9. Mobil ---------- */
 @media (max-width: 991px) {
+  #header, #header .header-top, #header .navigation-wrapper { background: var(--m-lime) !important; }
+  .products-block.products .product .p .name { text-align: left !important; }
   .homepage-group-title,
   .homepage-group-title.h4 { font-size: 30px !important; line-height: 36px !important; margin: 48px 0 24px !important; }
   .products-block.products:not(.products-list-mode) {
@@ -381,12 +379,66 @@ h1, .h1 {
   #footer .m-footer-mark { width: 180px; height: 180px; right: -24px; bottom: -24px; }
 }
 
+/* =====================================================================
+   10. HOMEPAGE (v0.2)
+   ===================================================================== */
+html.m2 body { overflow-x: clip; }
+
+/* Pás výhod */
+.benefitBanner.position--benefitHomepage {
+  display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px;
+  padding: 56px 0 !important; margin: 0 !important; border: 0 !important; background: transparent !important;
+}
+.benefitBanner .benefitBanner__item {
+  display: flex !important; flex-direction: column; align-items: center; text-align: center; gap: 16px;
+  width: auto !important; max-width: none !important; padding: 0 !important; border: 0 !important;
+}
+.benefitBanner .benefitBanner__picture { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; margin: 0 !important; }
+.benefitBanner .benefitBanner__picture img { max-width: 56px; max-height: 56px; width: auto; height: auto; }
+.benefitBanner .benefitBanner__title {
+  display: block; font: 700 22px/28px var(--m-font-head) !important; color: #000 !important; margin-bottom: 8px;
+}
+.benefitBanner .benefitBanner__data { font: 400 14px/20px var(--m-font) !important; color: #000 !important; }
+
+/* Pásy sekcií cez celú šírku (vytvára moje-v2.js) */
+.m-band {
+  position: relative; isolation: isolate;
+  margin-left: calc(50% - 50vw) !important; margin-right: calc(50% - 50vw) !important;
   padding: 80px max(16px, calc(50vw - 744px)) !important;
+}
 @media (min-width: 992px) { .m-band { padding-left: max(56px, calc(50vw - 744px)) !important; padding-right: max(56px, calc(50vw - 744px)) !important; } }
+.m-band--cream { background: var(--m-cream); }
+.m-band--white { background: #fff; }
+.m-band .homepage-group-title { margin-top: 0 !important; position: relative; z-index: 1; }
+.m-band .products-block { position: relative; z-index: 1; }
 .m-band__deco { position: absolute; z-index: 0; pointer-events: none; width: auto !important; max-width: none !important; }
 .m-band__deco--left { left: -120px; top: 20px; height: 760px; transform: rotate(-8deg); }
 .m-band__deco--right { right: -80px; top: 60px; height: 560px; transform: rotate(10deg); }
+
+/* Pás „oficiálny predajca značiek“ */
+.m-brands {
+  margin-left: calc(50% - 50vw) !important; margin-right: calc(50% - 50vw) !important;
+  background: var(--m-lime);
+  padding: 56px 16px;
+  display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap;
+}
+.m-brands__lead { display: flex; align-items: center; gap: 16px; font: 500 22px/28px var(--m-font); color: var(--m-wine); }
+.m-brands__lead img { width: 72px; height: auto; }
+.m-brands__logos { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; justify-content: center; }
+.m-brands__logos a { display: inline-flex; }
 .m-brands__logos img { height: 72px; width: auto; mix-blend-mode: multiply; transition: transform .15s; }
+.m-brands__logos a:hover img { transform: scale(1.05); }
+
+/* Newsletter box nad pätičkou */
+.m-newsletter-wrap { padding: 80px 16px; background: #fff; }
+.m-newsletter {
+  max-width: 1488px; margin: 0 auto; position: relative;
+  background: var(--m-blue); border: var(--m-border); border-radius: 999px;
+  padding: 40px 56px; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+}
+.m-newsletter__title { font: 700 36px/44px var(--m-font-head) !important; color: #fff !important; margin: 0 0 6px !important; }
+.m-newsletter__text { font: 500 14px/20px var(--m-font) !important; color: #fff !important; margin: 0 !important; }
+.m-newsletter__text a { color: #fff !important; text-decoration: underline; }
 .m-newsletter form { margin: 0 !important; min-width: 360px; }
 .m-newsletter form > fieldset { display: block !important; border: 0 !important; background: none !important; padding: 0 !important; margin: 0 !important; }
 .m-newsletter .smart-label-wrapper > label,
@@ -396,10 +448,16 @@ h1, .h1 {
 .m-newsletter .m-newsletter__field {
   display: flex !important; align-items: center; gap: 8px;
   background: #fff; border: var(--m-border); border-radius: 999px; padding: 6px 6px 6px 20px;
+}
 .m-newsletter input[type=email] {
+  flex: 1; border: 0 !important; box-shadow: none !important; background: transparent !important;
   font: 400 15px/20px var(--m-font) !important; padding: 8px 0 !important; height: auto !important; min-width: 0; outline: 0;
+}
 .m-newsletter button[type=submit] {
+  width: 40px !important; height: 40px !important; min-width: 40px; padding: 0 !important; border-radius: 50% !important; border: 0 !important;
+  background: var(--m-wine) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/20px no-repeat !important;
   font-size: 0 !important; color: transparent !important; box-shadow: none !important;
+}
 /* captcha sa ukáže až po kliknutí do poľa */
 .m-newsletter fieldset.box { display: none !important; }
 .m-newsletter.is-active fieldset.box {
@@ -409,7 +467,19 @@ h1, .h1 {
 }
 .m-newsletter fieldset.box .captcha-image img { display: block; border-radius: 8px; }
 .m-newsletter fieldset.box input { height: 40px !important; border: 2px solid #000 !important; border-radius: 999px !important; padding: 0 14px !important; font: 400 14px var(--m-font) !important; max-width: 160px; }
+
+@media (max-width: 991px) {
+  .benefitBanner.position--benefitHomepage { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; padding: 32px 0 !important; }
+  .benefitBanner .benefitBanner__title { font-size: 17px !important; line-height: 22px !important; }
+  .m-band { padding-top: 48px !important; padding-bottom: 48px !important; }
+  .m-band__deco { opacity: .5; }
   .m-band__deco--left { height: 360px; left: -90px; }
   .m-band__deco--right { height: 260px; right: -60px; }
+  .m-brands { gap: 24px; padding: 32px 16px; }
+  .m-brands__lead { font-size: 17px; }
+  .m-brands__logos { gap: 24px; }
   .m-brands__logos img { height: 48px; }
+  .m-newsletter { border-radius: 32px; padding: 32px 24px; }
+  .m-newsletter__title { font-size: 26px !important; line-height: 32px !important; }
   .m-newsletter form { width: 100%; min-width: 0; }
+}
