@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.6.2) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.7) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -367,7 +367,46 @@
     }
     head.appendChild(h1);
     info.insertBefore(head, info.firstChild);
+    careTab();
     tabsFix();
+  }
+
+  /* ---------- v0.7: časť „Starostlivosť“ z popisu ako samostatná záložka ---------- */
+  function careTab() {
+    var desc = document.getElementById('description');
+    var tabs = document.getElementById('p-detail-tabs');
+    if (!desc || !tabs || document.getElementById('m-care')) return;
+    var re = /^\s*starostlivos/i, sec = null, nodes = [];
+    Array.prototype.some.call(desc.querySelectorAll('.jj-section'), function (s) {
+      var h = s.querySelector('h2, h3');
+      if (s.querySelector('.jj-care-list') || (h && re.test(h.textContent))) { sec = s; return true; }
+      return false;
+    });
+    if (sec) {
+      nodes = [sec];
+    } else {
+      var h = Array.prototype.filter.call(desc.querySelectorAll('h2, h3, h4'), function (x) { return re.test(x.textContent); })[0];
+      if (!h) return;
+      var lvl = +h.tagName.charAt(1);
+      nodes = [h];
+      for (var n = h.nextElementSibling; n; n = n.nextElementSibling) {
+        if (/^H[1-4]$/.test(n.tagName) && +n.tagName.charAt(1) <= lvl) break;
+        nodes.push(n);
+      }
+    }
+    var pane = el('div', 'tab-pane fade');
+    pane.id = 'm-care';
+    pane.setAttribute('role', 'tabpanel');
+    var inner = el('div', 'description-inner m-care-inner');
+    var wrap = el('div', sec && sec.closest('.jj-wrap') ? 'jj-wrap' : '');
+    inner.appendChild(wrap);
+    pane.appendChild(inner);
+    nodes.forEach(function (x) { wrap.appendChild(x); });
+    desc.parentNode.insertBefore(pane, desc.nextSibling);
+    var li = el('li', 'shp-tab', '<a href="#m-care" class="shp-tab-link" role="tab" data-toggle="tab">Starostlivosť</a>');
+    li.setAttribute('role', 'none');
+    var first = tabs.querySelector('li');
+    tabs.insertBefore(li, first ? first.nextSibling : null);
   }
 
   /* ---------- v0.5: všetky záložky na detaile (Shoptet skrýva „Značka“ do menu) ---------- */
