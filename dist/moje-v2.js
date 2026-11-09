@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.5.1) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.5.3) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -272,7 +272,28 @@
     b.addEventListener('click', function () { document.body.classList.toggle('m-filters-open'); });
     h.parentNode.insertBefore(b, h.nextSibling);
   }
-  document.addEventListener('ShoptetDOMPageContentLoaded', function () { filtersBtn(); });
+  document.addEventListener('ShoptetDOMPageContentLoaded', function () { filtersBtn(); mergeFlags(); });
+
+  /* ---------- v0.5.3: zľava v jednom štítku s príznakom „Akcia“ ---------- */
+  function mergeFlags() {
+    Array.prototype.forEach.call(document.querySelectorAll('.flags-extra .flag-discount'), function (d) {
+      if (d.getAttribute('data-m2')) return;
+      d.setAttribute('data-m2', '1');
+      var box = d.closest('.image, .p-image-wrapper, .p-image, .product');
+      if (!box) return;
+      var act = box.querySelector('.flags-default .flag-action, .flags:not(.flags-extra) .flag-action');
+      var def = box.querySelector('.flags-default');
+      if (act) {
+        var s = d.querySelector('.price-save') || d;
+        act.insertAdjacentHTML('beforeend', ' <span class="m-save">' + txt(s) + '</span>');
+        d.style.display = 'none';
+      } else if (def) {
+        def.insertBefore(d, def.firstChild);
+      }
+      var ex = box.querySelector('.flags-extra');
+      if (ex && !Array.prototype.some.call(ex.querySelectorAll('.flag'), function (f) { return f.style.display !== 'none'; })) ex.classList.add('m-empty');
+    });
+  }
 
   /* ---------- v0.3: detail produktu ---------- */
   function pdp() {
@@ -281,7 +302,7 @@
     var h1 = document.querySelector('.p-detail-inner-header h1');
     if (!info || !h1 || info.querySelector('.m-pdp-head')) return;
     var head = el('div', 'm-pdp-head');
-    var flags = document.querySelectorAll('.p-detail .p-image-wrapper .flags .flag');
+    var flags = Array.prototype.filter.call(document.querySelectorAll('.p-detail .p-image-wrapper .flags .flag'), function (f) { return f.style.display !== 'none'; });
     if (flags.length) {
       head.appendChild(el('div', 'm-pdp-flags', Array.prototype.map.call(flags, function (f) { return '<span>' + txt(f) + '</span>'; }).join('')));
     }
@@ -346,6 +367,7 @@
     category();
     filtersBtn();
     subcatImages();
+    mergeFlags();
     window.addEventListener('load', subcatImages);
     pdp();
     newsletter();

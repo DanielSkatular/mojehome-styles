@@ -1067,3 +1067,51 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
   .type-detail .jj-wrap h2 { font-size: 26px !important; line-height: 32px !important; }
   .type-detail .jj-wrap h3 { font-size: 20px !important; line-height: 26px !important; }
 }
+
+/* =====================================================================
+   v0.5.3 – menu v hlavičke (Shoptet delí položky podľa „Viac“), mega menu,
+   príznak + zľava spolu, väčšie obrázky v kartách
+   ===================================================================== */
+@media (min-width: 992px) {
+  #header #navigation .menu-level-1 > li.splitted { visibility: hidden !important; }
+  #header nav#navigation { overflow: visible !important; }
+  #header .navigation-wrapper > .menu-helper.menu-helper { display: flex !important; align-items: center; grid-area: nav; top: auto !important; left: auto !important; right: auto !important; margin: 0 !important; height: 38px; align-self: center; justify-self: end; position: relative; background: transparent !important; }
+  #header .navigation-wrapper > .menu-helper:not(.visible) { visibility: hidden; pointer-events: none; }
+  #header .menu-helper > span { font: 500 15px/20px var(--m-font) !important; color: #000 !important; padding: 8px 12px; cursor: pointer; }
+  #header .navigation-wrapper { padding: 0 clamp(24px, calc(10vw - 88px), 56px) !important; column-gap: clamp(16px, calc(3.4vw - 16px), 33px) !important; }
+  #header .menu-level-1 > li > a { font-size: clamp(13px, calc(0.6vw + 6.4px), 15px) !important; padding: 8px clamp(6px, calc(3.125vw - 29px), 16px) 10px !important; }
+  #header .menu-level-1 > li > a::after { left: clamp(6px, calc(3.125vw - 29px), 16px); right: clamp(6px, calc(3.125vw - 29px), 16px); }
+  #header .search { width: clamp(180px, calc(25vw - 89px), 271px) !important; margin-right: clamp(80px, calc(14vw - 62px), 140px) !important; }
+
+  /* mega menu */
+  #header .menu-level-1 > li > .menu-level-2 {
+    background: #fff !important; border: 0 !important; border-bottom: var(--m-border) !important; box-shadow: none !important;
+    padding: 32px max(56px, calc(50vw - 744px)) 40px !important; gap: 28px 40px !important;
+    display: none; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start;
+  }
+  #header .menu-level-1 > li.exp > .menu-level-2 { display: grid !important; }
+  #header .menu-level-2 > li { display: block !important; width: auto !important; padding: 0 !important; margin: 0 !important; border: 0 !important; }
+  #header .menu-level-2 > li > .menu-image { display: none !important; }
+  #header .menu-level-2 > li > div { display: block !important; width: auto !important; padding: 0 !important; }
+  #header .menu-level-2 > li > div > a, #header .menu-level-2 > li > a:not(.menu-image) {
+    display: block; font: 700 16px/20px var(--m-font) !important; color: #000 !important; text-transform: none !important; margin: 0 0 10px !important; padding: 0 !important; text-decoration: none !important;
+  }
+  #header .menu-level-2 > li > div > a:hover, #header .menu-level-2 > li > a:hover { color: var(--m-wine) !important; }
+  #header .menu-level-3 { max-height: none !important; overflow: visible !important; display: flex !important; flex-direction: column; align-items: flex-start !important; gap: 6px; padding: 0 !important; margin: 0 !important; }
+  #header .menu-level-3 > li { display: block !important; font-size: 0 !important; padding: 0 !important; margin: 0 !important; }
+  #header .menu-level-3 > li > a { text-align: left !important; font: 400 14px/18px var(--m-font) !important; color: #333 !important; text-decoration: none !important; }
+  #header .menu-level-3 > li > a:hover { color: var(--m-wine) !important; text-decoration: underline !important; }
+  #header .menu-level-3 .more-items-trigger { display: none !important; }
+}
+
+/* príznak a zľava v jednom štítku */
+.flags .flag .m-save { font-weight: 700; margin-left: 4px; }
+.products-block.products .product .flags-extra.m-empty { display: none !important; }
+.products-block.products .product .flags-extra { top: 16px !important; }
+
+/* väčšie obrázky v produktových kartách */
+.products-block.products .product .p .image { height: 296px !important; padding: 12px 12px 0 !important; }
+.products-block.products .product .p .image img { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; object-fit: contain; }
+@media (max-width: 991px) {
+  .products-block.products .product .p .image { height: 200px !important; padding: 8px 6px 0 !important; }
+}
