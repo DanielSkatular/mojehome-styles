@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.5.3) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.6) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -272,7 +272,50 @@
     b.addEventListener('click', function () { document.body.classList.toggle('m-filters-open'); });
     h.parentNode.insertBefore(b, h.nextSibling);
   }
-  document.addEventListener('ShoptetDOMPageContentLoaded', function () { filtersBtn(); mergeFlags(); });
+  document.addEventListener('ShoptetDOMPageContentLoaded', function () { filtersBtn(); mergeFlags(); filtersFigma(); listTotal(); });
+
+  /* ---------- v0.6: filtre podľa Figmy – súčet v nadpise, zbaliť, „Zobraziť viac“ ---------- */
+  function filtersFigma() {
+    var f = document.getElementById('filters');
+    if (!f || f.getAttribute('data-m2')) return;
+    f.setAttribute('data-m2', '1');
+    Array.prototype.forEach.call(f.querySelectorAll('.filter-section'), function (sec) {
+      if (sec.classList.contains('filter-section-boolean') || sec.classList.contains('filter-section-count')) return;
+      var h = sec.querySelector('h4');
+      if (!h) return;
+      var sum = 0;
+      Array.prototype.forEach.call(sec.querySelectorAll('.filter-count'), function (c) { sum += parseInt(c.textContent.replace(/\D/g, ''), 10) || 0; });
+      if (sum) h.insertAdjacentHTML('beforeend', ' <span class="m-count">(' + sum + ')</span>');
+      var tg = el('button', 'm-ftoggle');
+      tg.type = 'button';
+      tg.setAttribute('aria-label', 'Zbaliť / rozbaliť');
+      h.appendChild(tg);
+      h.addEventListener('click', function () { sec.classList.toggle('m-closed'); });
+      var fs = sec.querySelector('fieldset');
+      var items = fs ? fs.querySelectorAll(':scope > div:not(.advanced-filters-wrapper)') : [];
+      if (items.length > 5) {
+        sec.classList.add('m-short');
+        var more = el('button', 'm-more', 'Zobraziť viac');
+        more.type = 'button';
+        more.addEventListener('click', function () {
+          var short = sec.classList.toggle('m-short');
+          more.textContent = short ? 'Zobraziť viac' : 'Zobraziť menej';
+        });
+        fs.appendChild(more);
+      }
+    });
+  }
+
+  /* „Počet položiek: 147“ */
+  function listTotal() {
+    Array.prototype.forEach.call(document.querySelectorAll('.listItemsTotal'), function (t) {
+      if (t.getAttribute('data-m2')) return;
+      var n = t.querySelector('strong');
+      if (!n) return;
+      t.innerHTML = 'Počet položiek: <strong>' + txt(n) + '</strong>';
+      t.setAttribute('data-m2', '1');
+    });
+  }
 
   /* ---------- v0.5.3: zľava v jednom štítku s príznakom „Akcia“ ---------- */
   function mergeFlags() {
@@ -366,6 +409,8 @@
     homepage2();
     category();
     filtersBtn();
+    filtersFigma();
+    listTotal();
     subcatImages();
     mergeFlags();
     window.addEventListener('load', subcatImages);
