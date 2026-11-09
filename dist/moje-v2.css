@@ -1115,3 +1115,73 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 @media (max-width: 991px) {
   .products-block.products .product .p .image { height: 200px !important; padding: 8px 6px 0 !important; }
 }
+
+/* =====================================================================
+   v0.5.4 – rozbaľovací košík v hlavičke, štítky v kartách podľa Figmy
+   ===================================================================== */
+/* košík: rám a zaoblenie ako karty, „mostík“ nad oknom, aby sa pri presune myši nezavrel */
+#cart-widget.popup-widget {
+  background: #fff !important; border: var(--m-border) !important; border-radius: var(--m-radius) !important;
+  box-shadow: none !important; overflow: visible !important; padding: 8px 0 20px !important; width: 430px; max-width: calc(100vw - 32px);
+}
+#cart-widget.popup-widget::before {
+  content: "" !important; display: block !important; position: absolute !important; left: 0 !important; right: 0 !important;
+  top: -32px !important; width: auto !important; height: 32px !important; background: transparent !important;
+  border: 0 !important; transform: none !important; box-shadow: none !important;
+}
+#cart-widget .cart-widget-inner, #cart-widget .cart-widget-products, #cart-widget .cart-widget-products-inner { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+#cart-widget .cart-widget-product { border: 0 !important; background: transparent !important; }
+#cart-widget .cart-widget-product > div { vertical-align: middle !important; padding: 10px 6px !important; border: 0 !important; }
+#cart-widget .cart-widget-product > div:first-child { padding-left: 20px !important; }
+#cart-widget .cart-widget-product > div:last-child { padding-right: 20px !important; }
+#cart-widget .cart-widget-product-image img { width: 56px !important; height: 56px !important; object-fit: contain; border-radius: 12px; }
+#cart-widget .cart-widget-product-unit { font: 400 13px/18px var(--m-font) !important; color: var(--m-muted) !important; }
+#cart-widget .cart-widget-product-name strong, #cart-widget .cart-widget-product-name a { font: 700 15px/20px var(--m-font) !important; color: var(--m-ink) !important; text-decoration: none !important; text-transform: none !important; }
+#cart-widget .cart-widget-product-name .product-appendix { font-weight: 400 !important; color: var(--m-muted) !important; }
+#cart-widget .cart-widget-product-name > span { display: block; margin-top: 4px; font: 700 15px/20px var(--m-font) !important; color: var(--m-wine) !important; }
+#cart-widget .remove-item { color: var(--m-wine) !important; border: 0 !important; background: transparent !important; }
+/* množstvo: −  1  + v jednej pilulke, bez rámčekov šípok */
+#cart-widget .quantity, .ordering-process .cart-table .quantity {
+  display: inline-flex !important; align-items: center; gap: 4px; height: 36px; padding: 0 4px !important;
+  border: 2px solid #000 !important; border-radius: 999px !important; background: #fff !important; position: relative;
+}
+#cart-widget .quantity label, .ordering-process .cart-table .quantity label { margin: 0 !important; display: block; }
+#cart-widget .quantity input.amount, .ordering-process .cart-table .quantity input.amount {
+  width: 30px !important; height: 28px !important; border: 0 !important; box-shadow: none !important; background: transparent !important;
+  padding: 0 !important; text-align: center; font: 700 15px/28px var(--m-font) !important; -moz-appearance: textfield; border-radius: 0 !important;
+}
+#cart-widget .quantity input.amount::-webkit-inner-spin-button, #cart-widget .quantity input.amount::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+#cart-widget .quantity .increase, #cart-widget .quantity .decrease,
+.ordering-process .cart-table .quantity .increase, .ordering-process .cart-table .quantity .decrease {
+  position: static !important; display: inline-flex !important; align-items: center; justify-content: center;
+  width: 24px !important; height: 24px !important; padding: 0 !important; margin: 0 !important; border: 0 !important; border-radius: 50% !important;
+  background: #f2f2f2 !important; color: #000 !important; font-size: 0 !important; cursor: pointer; transform: none !important;
+}
+#cart-widget .quantity .decrease, .ordering-process .cart-table .quantity .decrease { order: -1; }
+#cart-widget .quantity .increase::before, #cart-widget .quantity .decrease::before,
+.ordering-process .cart-table .quantity .increase::before, .ordering-process .cart-table .quantity .decrease::before {
+  content: "+" !important; font: 700 16px/1 var(--m-font) !important; color: #000 !important; position: static !important;
+  background: none !important; border: 0 !important; width: auto !important; height: auto !important; transform: none !important;
+}
+#cart-widget .quantity .decrease::before, .ordering-process .cart-table .quantity .decrease::before { content: "−" !important; }
+#cart-widget .quantity .increase::after, #cart-widget .quantity .decrease::after,
+.ordering-process .cart-table .quantity .increase::after, .ordering-process .cart-table .quantity .decrease::after { display: none !important; }
+#cart-widget .quantity .increase:hover, #cart-widget .quantity .decrease:hover { background: var(--m-lime) !important; }
+/* doprava zadarmo a tlačidlo */
+#cart-widget .cart-free-shipping { border: 0 !important; background: transparent !important; padding: 12px 20px 0 !important; text-align: center; font: 400 14px/20px var(--m-font) !important; color: #000 !important; }
+#cart-widget .cart-free-shipping strong { color: var(--m-wine) !important; }
+#cart-widget .cart-widget-button { padding: 16px 20px 0 !important; border: 0 !important; background: transparent !important; }
+#cart-widget #continue-order-button {
+  display: flex !important; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 52px; padding: 0 24px !important;
+  border-radius: 999px !important; font: 700 16px/20px var(--m-font) !important; text-transform: none !important; letter-spacing: 0 !important;
+}
+
+/* štítky v kartách podľa Figmy: jeden štítok, ikona pred textom */
+.products-block.products .product .flags-default .flag ~ .flag { display: none !important; }
+.flags .flag { display: inline-flex !important; align-items: center; gap: 6px; }
+.flags .flag.flag-action::before, .flags .flag.flag-new::before {
+  content: "" !important; display: inline-block !important; width: 16px; height: 16px; flex: none; position: static !important;
+  background: center/16px no-repeat; border: 0 !important;
+}
+.flags .flag.flag-action::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M21.41 11.58l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 .59 1.42l9 9a2 2 0 0 0 2.82 0l7-7a2 2 0 0 0 0-2.84zM6.5 8A1.5 1.5 0 1 1 8 6.5 1.5 1.5 0 0 1 6.5 8z'/%3E%3C/svg%3E"); }
+.flags .flag.flag-new::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z'/%3E%3C/svg%3E"); }
