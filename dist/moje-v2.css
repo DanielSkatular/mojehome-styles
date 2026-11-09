@@ -1339,3 +1339,9 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 }
 .type-category .listSorting__controls, .type-manufacturer-detail .listSorting__controls { flex-direction: column !important; flex-wrap: nowrap !important; align-items: stretch; }
 .type-category .listSorting::before, .type-manufacturer-detail .listSorting::before { white-space: nowrap; }
+/* v0.6.2 – zaškrtnutý filter vždy čierny (šablóna ho farbí hlavnou farbou) */
+.type-category #filters .filter-section input:checked + .filter-label::before,
+.type-category #filters input[type=checkbox]:checked + label.filter-label::before {
+  border-color: #000 !important; background: #000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/10px no-repeat !important;
+}
+.type-category #filters .filter-label::after { display: none !important; }
