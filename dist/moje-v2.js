@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.6) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.6.1) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -277,12 +277,11 @@
   /* ---------- v0.6: filtre podľa Figmy – súčet v nadpise, zbaliť, „Zobraziť viac“ ---------- */
   function filtersFigma() {
     var f = document.getElementById('filters');
-    if (!f || f.getAttribute('data-m2')) return;
-    f.setAttribute('data-m2', '1');
+    if (!f) return;
     Array.prototype.forEach.call(f.querySelectorAll('.filter-section'), function (sec) {
       if (sec.classList.contains('filter-section-boolean') || sec.classList.contains('filter-section-count')) return;
       var h = sec.querySelector('h4');
-      if (!h) return;
+      if (!h || h.querySelector('.m-ftoggle')) return;
       var sum = 0;
       Array.prototype.forEach.call(sec.querySelectorAll('.filter-count'), function (c) { sum += parseInt(c.textContent.replace(/\D/g, ''), 10) || 0; });
       if (sum) h.insertAdjacentHTML('beforeend', ' <span class="m-count">(' + sum + ')</span>');
@@ -304,6 +303,15 @@
         fs.appendChild(more);
       }
     });
+  }
+
+  /* Shoptet po filtrovaní/triedení prekreslí filtre – doplnky pridáme znova */
+  if (window.MutationObserver) {
+    var m2Timer;
+    new MutationObserver(function () {
+      clearTimeout(m2Timer);
+      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); }, 60);
+    }).observe(document.documentElement, { childList: true, subtree: true });
   }
 
   /* „Počet položiek: 147“ */

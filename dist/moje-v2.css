@@ -1324,3 +1324,18 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
   .type-category .category-header { border-radius: 24px !important; padding: 8px 16px !important; }
   .type-category .listSorting::before { display: none; }
 }
+
+/* v0.6.1 – panel filtrov 428 px s krémovým pozadím až k okraju (Figma), triedenie ako rozbaľovačka */
+@media (min-width: 992px) {
+  .type-category .content-wrapper-in { display: flex !important; }
+  .type-category .box-search .search-form, .type-category .box-search .search-form fieldset { width: 100% !important; max-width: none !important; }
+  .type-category .sidebar-left {
+    flex: 0 0 clamp(300px, 27vw, 428px) !important; width: clamp(300px, 27vw, 428px) !important; max-width: none !important;
+    padding: 40px 24px 400px !important; border-radius: 0 !important;
+    border-image: linear-gradient(var(--m-cream), var(--m-cream)) fill 0 / 0 / 0 0 0 100vw; clip-path: none !important;
+  }
+  .type-category .sidebar-left::after { left: -117px !important; bottom: 0 !important; width: 512px !important; height: 658px !important; opacity: 1 !important; }
+  .type-category main#content { flex: 1 1 auto !important; min-width: 0; padding: 0 0 0 56px !important; }
+}
+.type-category .listSorting__controls, .type-manufacturer-detail .listSorting__controls { flex-direction: column !important; flex-wrap: nowrap !important; align-items: stretch; }
+.type-category .listSorting::before, .type-manufacturer-detail .listSorting::before { white-space: nowrap; }
