@@ -1535,3 +1535,8 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 /* v0.8.1 – náhľady na detaile: bordová linka len pri hover, nie pri aktívnom náhľade */
 .type-detail .p-thumbnails-inner .p-thumbnail::before { opacity: 0 !important; transition: opacity .15s; }
 .type-detail .p-thumbnails-inner .p-thumbnail:hover::before { opacity: 1 !important; background-color: var(--m-wine) !important; }
+
+/* v0.8.2 – logá značiek jednotne čierne (prah cez grayscale + contrast, biele pozadie zmizne cez multiply); fotky v produktových kartách priblížené o 20 % */
+.m-brands__logos img, .m-spot__logo { filter: grayscale(1) contrast(8) !important; mix-blend-mode: multiply !important; }
+.products-block.products .product .p .image { overflow: hidden !important; }
+.products-block.products .product .p .image img { transform: scale(1.2); transform-origin: center; }
