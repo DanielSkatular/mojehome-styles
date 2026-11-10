@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.9.2) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.9.3) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -333,12 +333,13 @@
       ul.addEventListener('mouseenter', open);
       ul.addEventListener('mouseleave', function () { t = setTimeout(function () { ul.classList.remove('m-open'); }, 350); });
       ul.addEventListener('click', function (e) {
-        var b = e.target.closest('.listSorting__control');
-        if (b && b.classList.contains('listSorting__control--current')) {
+        /* aktuálne radenie má v Shoptete pointer-events: none – klik príde na li */
+        var li = e.target.closest('li');
+        if (li && li.querySelector('.listSorting__control--current')) {
           e.preventDefault();
           /* na dotyku príde mouseenter tesne pred klikom – vtedy panel nechaj otvorený */
           if (ul.classList.contains('m-open') && Date.now() - at > 400) ul.classList.remove('m-open'); else open();
-        } else ul.classList.remove('m-open');
+        } else if (e.target.closest('.listSorting__control')) ul.classList.remove('m-open');
       });
     });
   }
