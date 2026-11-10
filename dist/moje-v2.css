@@ -1422,3 +1422,31 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
   .breadcrumbs a, .breadcrumbs a span, .breadcrumbs > span > span { font-size: 14px !important; }
   .breadcrumbs > span { gap: 8px; }
 }
+
+/* v0.7.4 – akcie na detaile podľa Figmy (ikona vľavo, farba textu, hover bordová) + medzera pod mobilnou hlavičkou */
+.type-detail .link-icons { display: flex !important; flex-wrap: wrap; align-items: center; gap: 12px 32px; padding: 0 !important; margin: 16px 0 0 !important; border: 0 !important; background: none !important; }
+.type-detail .link-icons .link-icon.print, .type-detail .link-icons .link-icon.share { display: none !important; }
+.type-detail .link-icons .link-icon {
+  display: inline-flex !important; flex-direction: row !important; align-items: center; gap: 8px; width: auto !important; height: auto !important;
+  padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important;
+  font: 500 16px/20px var(--m-font) !important; text-transform: none !important; letter-spacing: 0 !important; color: #111 !important; text-decoration: none !important;
+}
+.type-detail .link-icons .link-icon span { font: inherit !important; color: inherit !important; text-transform: none !important; margin: 0 !important; padding: 0 !important; }
+.type-detail .link-icons .link-icon::before {
+  content: "" !important; display: block !important; position: static !important; width: 18px !important; height: 18px !important; flex: none;
+  margin: 0 !important; font-size: 0 !important; background: currentColor !important; transform: none !important;
+  -webkit-mask: var(--m-ico) center/18px 18px no-repeat; mask: var(--m-ico) center/18px 18px no-repeat;
+}
+.type-detail .link-icons .link-icon::after { display: none !important; }
+.type-detail .link-icons .link-icon:hover, .type-detail .link-icons .link-icon:focus-visible { color: var(--m-wine) !important; }
+.type-detail .link-icons .link-icon.chat { --m-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3.5c-4.97 0-9 3.36-9 7.5 0 2.1 1.04 4 2.72 5.36L5 20.5l4.3-2.03c.86.2 1.76.3 2.7.3 4.97 0 9-3.36 9-7.5S16.97 3.5 12 3.5z'/%3E%3C/svg%3E"); }
+.type-detail .link-icons .link-icon.watchdog { --m-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9a6 6 0 0 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z'/%3E%3Cpath d='M10 20a2.2 2.2 0 0 0 4 0'/%3E%3C/svg%3E"); }
+/* „Detailné informácie“ vo farbe textu */
+.type-detail .p-detail-info .chevron-after, .type-detail .chevron-after.chevron-down-after { color: #111 !important; }
+.type-detail .chevron-after.chevron-down-after::after { color: inherit !important; border-color: currentColor !important; }
+.type-detail .chevron-after.chevron-down-after:hover { color: var(--m-wine) !important; }
+/* mobil: lišta výhod je schovaná pod pevnou hlavičkou a robí prázdne miesto */
+@media (max-width: 991px) {
+  .top-info-bar { display: none !important; }
+  .overall-wrapper { padding-top: 74px !important; }
+}
