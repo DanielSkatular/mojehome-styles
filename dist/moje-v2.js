@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.9.1) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.9.2) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -322,13 +322,13 @@
       if (ul.getAttribute('data-m2s')) return;
       ul.setAttribute('data-m2s', '1');
       ul.classList.add('m-sort');
-      var t;
+      var t, at = 0;
       var mark = function () {
         var items = Array.prototype.filter.call(ul.children, function (li) { return !li.querySelector('.listSorting__control--current'); });
         Array.prototype.forEach.call(ul.children, function (li) { li.classList.remove('m-first', 'm-last'); });
         if (items.length) { items[0].classList.add('m-first'); items[items.length - 1].classList.add('m-last'); }
       };
-      var open = function () { clearTimeout(t); mark(); ul.classList.add('m-open'); };
+      var open = function () { clearTimeout(t); mark(); if (!ul.classList.contains('m-open')) at = Date.now(); ul.classList.add('m-open'); };
       mark();
       ul.addEventListener('mouseenter', open);
       ul.addEventListener('mouseleave', function () { t = setTimeout(function () { ul.classList.remove('m-open'); }, 350); });
@@ -336,7 +336,8 @@
         var b = e.target.closest('.listSorting__control');
         if (b && b.classList.contains('listSorting__control--current')) {
           e.preventDefault();
-          if (ul.classList.contains('m-open') && e.pointerType !== 'mouse') ul.classList.remove('m-open'); else open();
+          /* na dotyku príde mouseenter tesne pred klikom – vtedy panel nechaj otvorený */
+          if (ul.classList.contains('m-open') && Date.now() - at > 400) ul.classList.remove('m-open'); else open();
         } else ul.classList.remove('m-open');
       });
     });

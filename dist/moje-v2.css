@@ -1728,3 +1728,13 @@ body.id-404 .m-404__art::after {
   background: url("../assets/cmaranica-bordova-01.svg") center/contain no-repeat;
 }
 @media (max-width: 991px) { body.id-404 .m-404__num { font-size: 110px !important; } }
+
+/* v0.9.2 – mobil: podkategórie ako posúvateľný pás v 2 riadkoch (mriežka 2 × 7 bola príliš dlhá); triedenie bez 1 px škár medzi položkami */
+@media (max-width: 991px) {
+  .type-category .subcategories.with-image { grid-template-columns: none !important; grid-template-rows: repeat(2, auto); grid-auto-flow: column; grid-auto-columns: 128px; grid-auto-rows: auto; overflow-x: auto !important; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .type-category .subcategories.with-image::-webkit-scrollbar { display: none; }
+  .type-category .subcategories.with-image > li > a { height: 100% !important; }
+}
+.listSorting__controls.m-sort > li { padding: 0 !important; margin: 0 !important; line-height: 0 !important; border: 0 !important; }
+.listSorting__controls.m-sort > li:has(.listSorting__control--current) { margin-bottom: 6px !important; }
+.listSorting__controls.m-sort > li:not(.m-last):not(:has(.listSorting__control--current)) { margin-bottom: -1px !important; position: relative; }
