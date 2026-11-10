@@ -1531,3 +1531,7 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
   height: 44px; padding: 0 6px 0 18px !important; margin: 0 !important;
 }
 #header .search-form input.query-input { padding: 0 !important; height: 40px !important; line-height: 40px !important; }
+
+/* v0.8.1 – náhľady na detaile: bordová linka len pri hover, nie pri aktívnom náhľade */
+.type-detail .p-thumbnails-inner .p-thumbnail::before { opacity: 0 !important; transition: opacity .15s; }
+.type-detail .p-thumbnails-inner .p-thumbnail:hover::before { opacity: 1 !important; background-color: var(--m-wine) !important; }
