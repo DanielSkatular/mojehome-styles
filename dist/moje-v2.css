@@ -1540,3 +1540,14 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 .m-brands__logos img, .m-spot__logo { filter: grayscale(1) contrast(8) !important; mix-blend-mode: multiply !important; }
 .products-block.products .product .p .image { overflow: hidden !important; }
 .products-block.products .product .p .image img { transform: scale(1.2); transform-origin: center; }
+
+/* v0.8.3 – detail: príznaky Akcia/Novinka modré na hlavnej fotke (zľava v % len pri cene), pôvodná cena prečiarknutá pred akciovou */
+.type-detail .p-image-wrapper .p-image { position: relative; }
+.type-detail .p-image-wrapper .flags.m-img-flags {
+  display: flex !important; flex-wrap: wrap; gap: 8px; position: absolute; top: 20px; left: 20px; right: auto; z-index: 3; pointer-events: none;
+}
+.type-detail .m-img-flags .flag { padding: 4px 12px !important; font-size: 15px !important; }
+.type-detail .p-final-price-wrapper { display: flex !important; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.type-detail .p-final-price-wrapper .price-standard { order: -2 !important; font: 400 20px/24px var(--m-font) !important; color: #6f6f6f !important; text-decoration: line-through !important; }
+.type-detail .p-final-price-wrapper .price-standard span { font: inherit !important; color: inherit !important; text-decoration: inherit !important; }
+.type-detail .p-final-price-wrapper .price-save { order: 2; }

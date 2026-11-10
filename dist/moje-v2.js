@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.8) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.8.3) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -357,9 +357,20 @@
     if (!info || !h1 || info.querySelector('.m-pdp-head')) return;
     var head = el('div', 'm-pdp-head');
     var flags = Array.prototype.filter.call(document.querySelectorAll('.p-detail .p-image-wrapper .flags .flag, .p-detail .p-detail-info .flags .flag'), function (f) { return f.style.display !== 'none'; });
-    if (flags.length) {
-      head.appendChild(el('div', 'm-pdp-flags', Array.prototype.map.call(flags, function (f) { return '<span>' + txt(f) + '</span>'; }).join('')));
-    }
+    /* v0.8.3: príznaky (Akcia, Novinka…) modré na hlavnej fotke; zľavu v % ukazuje cena */
+    var seen = {}, html = '';
+    flags.forEach(function (f) {
+      if (f.classList.contains('flag-discount')) return;
+      var c = f.cloneNode(true);
+      Array.prototype.forEach.call(c.querySelectorAll('.m-save, .price-save'), function (x) { x.parentNode.removeChild(x); });
+      var t = txt(c);
+      if (!t || seen[t]) return;
+      seen[t] = 1;
+      var cls = Array.prototype.filter.call(f.classList, function (k) { return /^flag-/.test(k); }).join(' ');
+      html += '<span class="flag ' + cls + '">' + t + '</span>';
+    });
+    var pimg = document.querySelector('.p-detail .p-image-wrapper .p-image');
+    if (html && pimg && !pimg.querySelector('.m-img-flags')) pimg.appendChild(el('div', 'flags m-img-flags', html));
     var br = document.querySelector('.p-detail-info a[href*="/znacka/"]');
     if (br) {
       var bn = txt(br.querySelector('span')) || txt(br).replace(/^Značka:\s*/, '');
@@ -373,6 +384,14 @@
     careTab();
     paramsTab();
     tabsFix();
+    /* v0.8.3: súvisiace produkty až za záložky s popisom */
+    var tw = document.querySelector('.p-detail > .p-detail-tabs-wrapper');
+    var rp = document.querySelector('.p-detail > .products-related');
+    var rh = document.querySelector('.p-detail > .products-related-header');
+    if (tw && rp) {
+      tw.parentNode.insertBefore(rp, tw.nextSibling);
+      if (rh) tw.parentNode.insertBefore(rh, rp);
+    }
   }
 
   /* ---------- v0.7: časť „Starostlivosť“ z popisu ako samostatná záložka ---------- */
