@@ -1924,3 +1924,7 @@ a { transition: color .2s ease, background-color .2s ease, border-color .2s ease
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* v0.9.9 – kým JS neprestavia stránku (html.m2-ready), obsah je skrytý → bez posunu obsahu (CLS); poistka: zobrazí sa najneskôr po 3 s */
+html:not(.m2-ready) body:is(.type-index, .type-category, .type-detail) .overall-wrapper > .content-wrapper { visibility: hidden; animation: m2show 0s 3s forwards; }
+@keyframes m2show { to { visibility: visible; } }

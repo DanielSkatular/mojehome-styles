@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.9.8) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.9.9) — loader + doplnky DOM pre Shoptet šablónu 11
    Odporúčané vloženie do Záhlavia (fonty a CSS hneď v HTML, JS s defer):
    <style id="m2-fonts">…@font-face DokoSans + DokoSans Fallback…</style>
    <link rel="preload" href="/user/documents/upload/Fonts/DokoSans/DokoSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -679,5 +679,6 @@
     pdp();
     newsletter();
     footer();
+    document.documentElement.classList.add('m2-ready');
   });
 })();
