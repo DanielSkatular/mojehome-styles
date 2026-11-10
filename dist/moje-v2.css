@@ -1752,3 +1752,18 @@ body.id-404 .m-404__art::after {
   #header .menu-level-2 > li > div > a, #header .menu-level-2 > li > a:not(.menu-image) { padding-top: 2px !important; }
   #header .menu-level-2 > li:hover > .menu-image { border-color: var(--m-wine); }
 }
+
+/* v0.9.5 – menu Značky: dlaždice s čiernymi logami (82 Book bez loga – názov v Neulis) */
+#header .m-bm-logo { display: none; }
+@media (min-width: 992px) {
+  #header .menu-level-1 > li.exp > .menu-level-2.m-brand-menu { display: grid !important; columns: auto !important; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px !important; }
+  #header .m-brand-menu > li { display: block !important; margin: 0 !important; }
+  #header .menu-level-1 .menu-level-2.m-brand-menu > li > a:not(.menu-image) {
+    display: flex !important; flex-direction: column; align-items: center; gap: 10px; padding: 16px 12px 14px !important; margin: 0 !important;
+    border: 3px solid #000 !important; border-radius: 20px; background: #fff; text-align: center; font: 700 15px/20px var(--m-font) !important; color: #111 !important; transition: transform .15s;
+  }
+  #header .menu-level-1 .menu-level-2.m-brand-menu > li > a:not(.menu-image):hover { border-color: var(--m-wine) !important; transform: translateY(-2px); color: var(--m-wine) !important; }
+  #header .m-bm-logo { display: flex; align-items: center; justify-content: center; height: 56px; width: 100%; }
+  #header .m-bm-logo img { max-height: 56px; max-width: 130px; width: auto; height: auto; object-fit: contain; filter: grayscale(1) contrast(8); mix-blend-mode: multiply; }
+  #header .m-bm-logo--text { font: 700 24px/28px "Neulis", var(--m-font); color: var(--m-wine); }
+}

@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.9.4) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.9.5) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -422,6 +422,21 @@
     });
   }
 
+  /* ---------- v0.9.5: menu Značky ako dlaždice s logami (logá z kategórií mojehome.sk ako v páse značiek) ---------- */
+  function brandMenu() {
+    var logos = { amuse: 'logo-amuse-eps-black.png', barebones: 'barebones_logo_web.png', 'day-to-day': 'day-to-day-logo.png', dopper: 'dopper-logo.png', koziol: 'koziol-logo.png', tupperware: 'tupperware-logo.png' };
+    var ul = document.querySelector('#header .menu-level-1 > li.nav-manufacturers > .menu-level-2');
+    if (!ul || ul.classList.contains('m-brand-menu')) return;
+    ul.classList.add('m-brand-menu');
+    Array.prototype.forEach.call(ul.children, function (li) {
+      var a = li.querySelector('a');
+      if (!a) return;
+      var m = (a.getAttribute('href') || '').match(/\/znacka\/([^/]+)\//);
+      var f = m && logos[m[1]];
+      a.insertAdjacentHTML('afterbegin', f ? '<span class="m-bm-logo"><img src="' + BRANDS + f + '" alt="" loading="lazy"></span>' : '<span class="m-bm-logo m-bm-logo--text">' + txt(a) + '</span>');
+    });
+  }
+
   /* „Počet položiek: 147“ */
   function listTotal() {
     Array.prototype.forEach.call(document.querySelectorAll('.listItemsTotal'), function (t) {
@@ -615,6 +630,7 @@
     sortDrop();
     page404();
     menuImagesInit();
+    brandMenu();
     window.addEventListener('load', subcatImages);
     pdp();
     newsletter();
