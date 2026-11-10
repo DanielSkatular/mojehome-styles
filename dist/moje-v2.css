@@ -1510,3 +1510,24 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 .breadcrumbs, .breadcrumbs > span { align-items: baseline !important; }
 .breadcrumbs a { min-height: 0 !important; }
 .breadcrumbs .navigation-bullet { height: 8px !important; align-self: baseline; position: relative; top: 2px; background-position: center bottom !important; background-size: 12px 8px !important; }
+
+/* v0.8 – hlavička: menšie logo s odsadením, menu zarovnané s bannerom pod hlavičkou (1544 px mriežka homepage),
+   tučnejšie menu, vyhľadávanie v pilulke, košík s počtom na stred */
+@media (min-width: 992px) {
+  #header .navigation-wrapper { container-type: inline-size; min-height: 84px !important; }
+  #header .site-name-wrapper { padding: 12px 0 !important; }
+  #header .site-name img { height: 60px !important; }
+  /* 50cqw = polovica obsahu hlavičky (bez 2 × 56 px paddingu); 878 = 772 (polovica 1544) + 56 + 57 (logo) + 33 (medzera) + 16 (padding položky) − 56 */
+  #header nav#navigation { margin-left: max(0px, calc(50cqw - 878px)) !important; }
+  #header .menu-level-1 > li > a { font-weight: 700 !important; }
+  #header .navigation-buttons { margin-right: max(0px, calc(50cqw - 772px)) !important; }
+  #header .search { margin-right: calc(56px + max(0px, calc(50cqw - 772px))) !important; }
+  #header .navigation-buttons .btn.cart-count { display: inline-flex !important; align-items: center; justify-content: center; width: 40px !important; height: 40px !important; padding: 0 !important; }
+  #header .navigation-buttons .btn.cart-count::before { position: static !important; height: auto !important; width: auto !important; line-height: 1 !important; margin: 0 !important; }
+  #header .navigation-buttons .btn.cart-count i { top: -2px !important; right: -6px !important; left: auto !important; }
+}
+#header .search-form fieldset {
+  border: 2px solid #000 !important; border-radius: 999px !important; background: #fff !important;
+  height: 44px; padding: 0 6px 0 18px !important; margin: 0 !important;
+}
+#header .search-form input.query-input { padding: 0 !important; height: 40px !important; line-height: 40px !important; }

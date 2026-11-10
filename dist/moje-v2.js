@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.7.6) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.8) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -152,6 +152,8 @@
           '<a href="/tupperware/"><img src="' + BRANDS + 'tupperware-logo.png" alt="Tupperware"></a>' +
           '<a href="/koziol/"><img src="' + BRANDS + 'koziol-logo.png" alt="Koziol"></a>' +
           '<a href="/dopper/"><img src="' + BRANDS + 'dopper-logo.png" alt="Dopper"></a>' +
+          '<a href="/barebones/"><img src="' + BRANDS + 'barebones_logo_web.png" alt="Barebones"></a>' +
+          '<a href="/day-to-day/"><img src="' + BRANDS + 'day-to-day-logo.png" alt="Day to Day"></a>' +
         '</div>');
       bands[0].parentNode.insertBefore(brands, bands[0].nextSibling);
     }
