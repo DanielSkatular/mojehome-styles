@@ -1738,3 +1738,17 @@ body.id-404 .m-404__art::after {
 .listSorting__controls.m-sort > li { padding: 0 !important; margin: 0 !important; line-height: 0 !important; border: 0 !important; }
 .listSorting__controls.m-sort > li:has(.listSorting__control--current) { margin-bottom: 6px !important; }
 .listSorting__controls.m-sort > li:not(.m-last):not(:has(.listSorting__control--current)) { margin-bottom: -1px !important; position: relative; }
+
+/* v0.9.4 – mega menu s fotkami kategórií: štvorček 56 px s rámom vľavo od nadpisu skupiny */
+@media (min-width: 992px) {
+  #header .menu-level-2 > li { display: grid !important; grid-template-columns: 56px minmax(0, 1fr); column-gap: 14px; align-items: start; }
+  #header .menu-level-2 > li > .menu-image {
+    display: flex !important; align-items: center; justify-content: center; grid-column: 1; grid-row: 1; width: 56px !important; height: 56px !important;
+    margin: 0 !important; padding: 3px !important; border-radius: 14px; background: #fff; border: 2px solid #000; overflow: hidden;
+  }
+  #header .menu-level-2 > li > .menu-image img { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; object-fit: contain; border-radius: 10px; }
+  #header .menu-level-2 > li > .menu-image img[src*="banner-biela"] { content: url("../assets/logo-bordova.svg"); width: 34px !important; height: 34px !important; opacity: .35; }
+  #header .menu-level-2 > li > div, #header .menu-level-2 > li > a:not(.menu-image) { grid-column: 2; grid-row: 1; min-width: 0; }
+  #header .menu-level-2 > li > div > a, #header .menu-level-2 > li > a:not(.menu-image) { padding-top: 2px !important; }
+  #header .menu-level-2 > li:hover > .menu-image { border-color: var(--m-wine); }
+}

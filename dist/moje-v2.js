@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.9.3) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.9.4) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -388,6 +388,40 @@
     art.insertBefore(box, art.firstChild);
   }
 
+  /* ---------- v0.9.4: fotky kategórií v mega menu (Shoptet má len biele zástupné obrázky; rovnaká cache ako podkategórie) ---------- */
+  function menuImages() {
+    Array.prototype.forEach.call(document.querySelectorAll('#header .menu-level-2 > li > a.menu-image img'), function (img) {
+      var a = img.closest('a');
+      if (a.getAttribute('data-m2i')) return;
+      a.setAttribute('data-m2i', '1');
+      var src = img.getAttribute('data-src') || img.getAttribute('src') || '';
+      if (!/banner-biela/.test(src)) return;
+      var key = 'm2sc:' + a.getAttribute('href');
+      var set = function (u) { img.removeAttribute('srcset'); img.setAttribute('data-src', u); img.src = u; };
+      var c = null;
+      try { c = localStorage.getItem(key); } catch (e) {}
+      if (c) { set(c); return; }
+      if (!window.fetch || !window.DOMParser) return;
+      fetch(a.href, { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
+        var d = new DOMParser().parseFromString(t, 'text/html');
+        var p = d.querySelector('#products .product img') || d.querySelector('.products-page .product img') || d.querySelector('.products .product img');
+        if (!p) return;
+        var u = p.getAttribute('data-src') || p.getAttribute('src');
+        if (!u || /^data:/.test(u)) return;
+        try { localStorage.setItem(key, u); } catch (e) {}
+        set(u);
+      }).catch(function () {});
+    });
+  }
+  /* fotky sa načítajú až pri prvom otvorení menu (z cache hneď) */
+  function menuImagesInit() {
+    var once = function () { menuImages(); };
+    Array.prototype.forEach.call(document.querySelectorAll('#header .menu-level-1 > li.ext'), function (li) {
+      li.addEventListener('mouseenter', once);
+      li.addEventListener('focusin', once);
+    });
+  }
+
   /* „Počet položiek: 147“ */
   function listTotal() {
     Array.prototype.forEach.call(document.querySelectorAll('.listItemsTotal'), function (t) {
@@ -580,6 +614,7 @@
     mergeFlags();
     sortDrop();
     page404();
+    menuImagesInit();
     window.addEventListener('load', subcatImages);
     pdp();
     newsletter();
