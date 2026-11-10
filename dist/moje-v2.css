@@ -22,8 +22,8 @@
   --m-radius: 24px;
   --m-radius-sm: 12px;
   --m-border: 3px solid var(--m-line);
-  --m-font: "DokoSans", "Ubuntu", sans-serif;
-  --m-font-head: "Neulis", "DokoSans", sans-serif;
+  --m-font: "DokoSans", "DokoSans Fallback", "Ubuntu", sans-serif;
+  --m-font-head: "Neulis", "DokoSans", "DokoSans Fallback", sans-serif;
   --m-container: 1488px;
 }
 

@@ -1,8 +1,13 @@
-/* MOJE WEB 2.0 (v0.9.6) — loader + doplnky DOM pre Shoptet šablónu 11
-   V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
-   <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
-   Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
-   DOM úpravy spraví po načítaní stránky. */
+/* MOJE WEB 2.0 (v0.9.8) — loader + doplnky DOM pre Shoptet šablónu 11
+   Odporúčané vloženie do Záhlavia (fonty a CSS hneď v HTML, JS s defer):
+   <style id="m2-fonts">…@font-face DokoSans + DokoSans Fallback…</style>
+   <link rel="preload" href="/user/documents/upload/Fonts/DokoSans/DokoSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+   <link rel="preload" href="/user/documents/upload/Fonts/DokoSans/DokoSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
+   <link rel="stylesheet" href="/user/documents/upload/Fonts/moje-neulis.css">
+   <link id="m2-css" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.min.css">
+   <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js" defer></script>
+   Ak #m2-fonts / #m2-css na stránke chýbajú, skript ich doplní sám (záložné správanie).
+   Zdrojové CSS je dist/moje-v2.css, na web ide minifikované dist/moje-v2.min.css. */
 (function () {
   'use strict';
   var BASE = (document.currentScript && document.currentScript.src || '').replace(/[^/]*$/, '');
@@ -19,7 +24,9 @@
     var st = document.createElement('style');
     st.id = 'm2-fonts';
     st.textContent = ff(300, 'DokoSans-Light') + ff(400, 'DokoSans-Regular') + ff(500, 'DokoSans-Medium') +
-      ff('600 700', 'DokoSans-Bold') + ff('800 900', 'DokoSans-Black');
+      ff('600 900', 'DokoSans-Bold') +
+      '@font-face{font-family:"DokoSans Fallback";src:local("Arial"),local("ArialMT");font-weight:100 500;size-adjust:91.7%;ascent-override:104.7%;descent-override:26.2%;line-gap-override:0%}' +
+      '@font-face{font-family:"DokoSans Fallback";src:local("Arial Bold"),local("Arial-BoldMT");font-weight:600 900;size-adjust:88.5%;ascent-override:109.6%;descent-override:26%;line-gap-override:0%}';
     head.appendChild(st);
     var neulis = document.createElement('link');
     neulis.rel = 'stylesheet';
@@ -31,13 +38,13 @@
   if (BASE && !document.getElementById('m2-css')) {
     /* počas parsovania hlavičky blokujúco (Shoptet potom meria menu a záložky už s našimi štýlmi) */
     if (document.readyState === 'loading') {
-      document.write('<link id="m2-css" rel="stylesheet" href="' + BASE + 'moje-v2.css">');
+      document.write('<link id="m2-css" rel="stylesheet" href="' + BASE + 'moje-v2.min.css">');
     }
     if (!document.getElementById('m2-css')) {
       var link = document.createElement('link');
       link.id = 'm2-css';
       link.rel = 'stylesheet';
-      link.href = BASE + 'moje-v2.css';
+      link.href = BASE + 'moje-v2.min.css';
       head.appendChild(link);
     }
   }
