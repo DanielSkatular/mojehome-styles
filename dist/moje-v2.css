@@ -1558,3 +1558,9 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 .type-detail .p-info-wrapper > .availability-value + table.detail-parameters td { padding: 0 !important; border: 0 !important; }
 .type-detail .p-info-wrapper > .availability-value + table.detail-parameters .delivery-time-label,
 .type-detail .p-info-wrapper > .availability-value + table.detail-parameters .delivery-time { display: inline !important; }
+
+/* v0.8.5 – hlavná fotka na detaile: zaoblenie rámu 32 px podľa Figmy (8:1091), fotka s rovnakým vnútorným zaoblením 29 px (32 − 3 px rám),
+   aby sa zaoblenia kryli aj v prehliadačoch, kde overflow + radius neoreže fotku so zoomom */
+.type-detail .p-image-wrapper .p-image { border-radius: 32px !important; isolation: isolate; }
+.type-detail .p-image-wrapper .p-image > div, .type-detail .p-image-wrapper .p-image a.p-main-image,
+.type-detail .p-image-wrapper .p-image img { border-radius: 29px !important; }
