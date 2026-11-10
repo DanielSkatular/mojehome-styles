@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.9) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.9.1) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -346,12 +346,44 @@
     Array.prototype.forEach.call(document.querySelectorAll('.m-sort.m-open'), function (u) { u.classList.remove('m-open'); });
   });
 
-  /* ---------- v0.9: stránka 404 – rýchle odkazy do kategórií (text a zľavu spravuje Shoptet) ---------- */
+  /* ---------- v0.9.1: stránka 404 – moderný layout (text a zľavu spravuje Shoptet, JS ich len preusporiada) ---------- */
   function page404() {
-    var ab = document.querySelector('body.id-404 [itemprop="about"]');
-    if (!ab || ab.querySelector('.m-404-cats')) return;
+    var art = document.querySelector('body.id-404 .pageArticleDetail');
+    if (!art || art.querySelector('.m-404')) return;
+    var head = art.querySelector('header');
+    var ab = art.querySelector('[itemprop="about"]');
+    if (!ab) return;
+    var box = el('div', 'm-404');
+    var pic = el('div', 'm-404__art', '<span class="m-404__label">Chyba 404</span><span class="m-404__num">4<i></i>4</span>');
+    var body = el('div', 'm-404__body');
+    if (head) body.appendChild(head);
+    body.appendChild(ab);
+    /* zľavový kód z textu Shoptetu ako „lístok“ s kopírovaním */
+    var strong = Array.prototype.filter.call(ab.querySelectorAll('strong'), function (s) { return /k[oó]d/i.test(s.textContent); })[0];
+    if (strong) {
+      var t = strong.textContent.replace(/\s+/g, ' ');
+      var code = (t.match(/k[oó]d\s*:?\s*([A-Za-z0-9\-_]+)/i) || [])[1];
+      var pct = (t.match(/(\d+\s*%)/) || [])[1];
+      if (code) {
+        var p = strong.closest('p');
+        if (p) p.classList.add('m-404__lead');
+        var ticket = el('div', 'm-404__ticket',
+          '<div class="m-404__pct">' + (pct ? pct.replace(/\s+/g, ' ') : '') + '<small>zľava na nákup</small></div>' +
+          '<div class="m-404__code"><small>Zľavový kód</small><strong>' + code + '</strong></div>' +
+          '<button type="button" class="m-404__copy">Kopírovať</button>');
+        ticket.querySelector('.m-404__copy').addEventListener('click', function () {
+          var b = this;
+          var done = function () { b.textContent = 'Skopírované ✓'; setTimeout(function () { b.textContent = 'Kopírovať'; }, 2000); };
+          if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done();
+        });
+        (p && p.nextSibling ? p.parentNode.insertBefore(ticket, p.nextSibling) : ab.appendChild(ticket));
+      }
+    }
     var links = [['Kompletná ponuka', '/e-shop/'], ['Skladovanie', '/skladovanie-potravin/'], ['Varenie', '/kuchynske-pomocky/'], ['Na cesty', '/na-cesty/'], ['Pre deti', '/pre-deti/'], ['Akcia', '/akciova-ponuka/']];
-    ab.appendChild(el('div', 'm-404-cats', links.map(function (x) { return '<a href="' + x[1] + '">' + x[0] + '</a>'; }).join('')));
+    ab.appendChild(el('div', 'm-404-cats', '<span>Alebo rovno do kategórie:</span>' + links.map(function (x) { return '<a href="' + x[1] + '">' + x[0] + '</a>'; }).join('')));
+    box.appendChild(pic);
+    box.appendChild(body);
+    art.insertBefore(box, art.firstChild);
   }
 
   /* „Počet položiek: 147“ */

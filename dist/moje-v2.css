@@ -1660,3 +1660,71 @@ body.id-404 [itemprop=about] .m-404-cats a:hover { background: var(--m-lime); }
   body.id-404 .pageArticleDetail > header::after { width: 110px; height: 170px; }
   body.id-404 .pageArticleDetail h1 { font-size: 28px !important; line-height: 34px !important; }
 }
+
+/* =====================================================================
+   v0.9.1 – stránka 404 v modernom layoute: vľavo limetkový panel s veľkým „404“ (nula je čmáranica Moje),
+   vpravo text zo Shoptetu, zľavový kód ako lístok s kopírovaním, tlačidlá a kategórie
+   ===================================================================== */
+body.id-404 .pageArticleDetail { max-width: 1240px !important; padding: 32px 16px 80px !important; text-align: left !important; }
+body.id-404 .pageArticleDetail > header::before, body.id-404 .pageArticleDetail > header::after,
+body.id-404 .m-404 header::before, body.id-404 .m-404 header::after { content: none !important; display: none !important; }
+body.id-404 .m-404 header { padding: 0 !important; margin: 0 0 12px !important; }
+body.id-404 .m-404 {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); border: 3px solid #000; border-radius: 32px; overflow: hidden; background: #fff;
+}
+body.id-404 .m-404__art {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  background: var(--m-lime); padding: 48px 24px; min-height: 420px; border-right: 3px solid #000; overflow: hidden;
+}
+body.id-404 .m-404__label {
+  font: 700 14px/20px var(--m-font); letter-spacing: 1.2px; text-transform: uppercase; color: #111;
+  padding: 6px 14px; border: 2px solid #000; border-radius: 999px; background: #fff;
+}
+body.id-404 .m-404__num { display: flex; align-items: center; font: 700 clamp(120px, 14vw, 200px)/1 "Neulis", var(--m-font); color: var(--m-wine); letter-spacing: -4px; }
+body.id-404 .m-404__num i {
+  display: inline-block; width: .62em; height: .9em; margin: 0 .04em; flex: none;
+  background: url("../assets/logo-bordova.svg") center/contain no-repeat;
+}
+body.id-404 .m-404__body { padding: 48px 56px; display: flex; flex-direction: column; justify-content: center; }
+body.id-404 .m-404 h1 { font: 700 40px/46px "Neulis", var(--m-font) !important; text-align: left !important; margin: 0 !important; color: #111 !important; }
+body.id-404 .m-404 [itemprop=about] { text-align: left !important; }
+body.id-404 .m-404 [itemprop=about] h2:not(:has(img)):not(:empty) { margin: 0 0 20px !important; }
+body.id-404 .m-404 [itemprop=about] h2, body.id-404 .m-404 [itemprop=about] h2 * { text-align: left !important; font: 500 20px/28px var(--m-font) !important; color: #6f6f6f !important; }
+body.id-404 .m-404 [itemprop=about] p { text-align: left !important; }
+body.id-404 .m-404 [itemprop=about] p:nth-of-type(1) { background: none !important; border: 0 !important; border-radius: 0 !important; padding: 0 !important; margin: 0 0 20px !important; }
+body.id-404 .m-404 [itemprop=about] p:nth-of-type(1) strong { display: inline; margin: 0; font-size: inherit; color: #111 !important; }
+body.id-404 .m-404 [itemprop=about] p:nth-of-type(2), body.id-404 .m-404 [itemprop=about] p:nth-of-type(2) * { font: 700 13px/18px var(--m-font) !important; letter-spacing: .8px; color: #6f6f6f !important; margin: 0 0 12px !important; }
+body.id-404 .m-404 [itemprop=about] p:has(.btn) { display: flex !important; flex-wrap: wrap; gap: 12px; margin: 0 !important; }
+body.id-404 .m-404__ticket {
+  position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px;
+  margin: 0 0 24px; padding: 20px 24px; border: 2px dashed var(--m-wine); border-radius: 20px; background: var(--m-cream);
+}
+body.id-404 .m-404__pct { font: 700 44px/1 "Neulis", var(--m-font); color: var(--m-wine); display: flex; flex-direction: column; gap: 6px; padding-right: 24px; border-right: 2px dashed var(--m-wine); }
+body.id-404 .m-404__pct small, body.id-404 .m-404__code small { font: 500 13px/16px var(--m-font); color: #6f6f6f; letter-spacing: .3px; }
+body.id-404 .m-404__code { display: flex; flex-direction: column; gap: 4px; }
+body.id-404 .m-404__code strong { font: 700 28px/32px var(--m-font); letter-spacing: 3px; color: #111; }
+body.id-404 .m-404__copy {
+  height: 44px; padding: 0 20px; border: 2px solid #000; border-radius: 999px; background: #fff; color: #111;
+  font: 700 15px/20px var(--m-font); cursor: pointer; white-space: nowrap;
+}
+body.id-404 .m-404__copy:hover { background: var(--m-lime); }
+body.id-404 .m-404 .m-404-cats { justify-content: flex-start !important; align-items: center; margin-top: 28px !important; padding-top: 24px; border-top: 1px solid #e3ddc8; }
+body.id-404 .m-404 .m-404-cats span { width: 100%; font: 500 14px/20px var(--m-font); color: #6f6f6f; margin-bottom: 2px; }
+@media (max-width: 991px) {
+  body.id-404 .m-404 { grid-template-columns: 1fr; border-radius: 24px; }
+  body.id-404 .m-404__art { min-height: 0; padding: 28px 16px; border-right: 0; border-bottom: 3px solid #000; }
+  body.id-404 .m-404__num { font-size: 110px; letter-spacing: -2px; }
+  body.id-404 .m-404__body { padding: 28px 20px; }
+  body.id-404 .m-404 h1 { font-size: 28px !important; line-height: 34px !important; }
+  body.id-404 .m-404__ticket { grid-template-columns: auto 1fr; gap: 14px 18px; padding: 16px; }
+  body.id-404 .m-404__pct { font-size: 34px; padding-right: 18px; }
+  body.id-404 .m-404__copy { grid-column: 1 / -1; width: 100%; }
+}
+body.id-404 .content-inner { max-width: none !important; width: auto !important; }
+body.id-404 .m-404__num { font-size: clamp(96px, 9.5vw, 168px) !important; }
+body.id-404 .m-404__art > * { position: relative; z-index: 1; }
+body.id-404 .m-404__art::after {
+  content: ""; position: absolute; right: -60px; bottom: -80px; width: 260px; height: 380px; transform: rotate(24deg); z-index: 0; opacity: .12;
+  background: url("../assets/cmaranica-bordova-01.svg") center/contain no-repeat;
+}
+@media (max-width: 991px) { body.id-404 .m-404__num { font-size: 110px !important; } }
