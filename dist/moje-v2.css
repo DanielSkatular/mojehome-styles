@@ -1806,3 +1806,121 @@ body.id-404 .m-404__art::after {
 .type-category .subcategories.with-image > li { align-self: stretch !important; display: flex !important; }
 .type-category .subcategories.with-image > li > a { flex: 1 1 auto; height: auto !important; }
 .type-category .subcategories .m-sc-count { display: block; margin-top: -6px; min-height: 16px; font: 400 13px/16px var(--m-font); color: #6f6f6f; }
+
+/* =====================================================================
+   v0.9.7 – sekundárne tlačidlá, stránkovanie, jemné hover efekty na celom webe
+   ===================================================================== */
+/* sekundárne tlačidlo: biela pilulka s čiernym obrysom, hover limetková */
+.btn.btn-secondary:not(.pagination__link), .btn.btn-default {
+  display: inline-flex !important; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; height: auto !important; padding: 12px 28px !important;
+  background: #fff !important; color: #111 !important; border: 3px solid #000 !important; border-radius: 999px !important;
+  font: 700 16px/20px var(--m-font) !important; text-transform: none !important; letter-spacing: 0 !important; text-decoration: none !important;
+  box-shadow: none !important; cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease !important;
+}
+.btn.btn-secondary:not(.pagination__link):hover, .btn.btn-default:hover,
+.btn.btn-secondary:not(.pagination__link):focus-visible, .btn.btn-default:focus-visible { background: var(--m-lime) !important; color: #000 !important; transform: translateY(-2px); }
+.btn.btn-secondary:not(.pagination__link):active, .btn.btn-default:active { transform: translateY(0); }
+
+/* prázdna kategória */
+.type-category .category-content-wrapper .btn.btn-default, .type-category #content .btn[data-testid=buttonBackToShop] { margin-top: 8px; }
+
+/* ovládanie pod výpisom: Načítať ďalšie / Hore · stránkovanie · počet */
+.type-category .listingControls {
+  display: grid !important; grid-template-columns: 1fr auto 1fr; grid-template-areas: "more more more" "top pag total";
+  align-items: center; gap: 24px 16px; margin-top: 48px !important; padding-top: 0;
+}
+.type-category .listingControls .loadMore { grid-area: more; display: flex; justify-content: center; }
+.type-category .listingControls .pagination { grid-area: pag; justify-self: center; margin: 0 !important; }
+.type-category .listingControls .goToTop { grid-area: top; justify-self: start; margin: 0 !important; }
+.type-category .listingControls .itemsTotal { grid-area: total; justify-self: end; margin: 0 !important; color: #636363 !important; }
+.type-category .listingControls .itemsTotal strong { color: #111; }
+.type-category .loadMore__button.btn {
+  text-decoration: none !important; padding-right: 24px !important;
+}
+.type-category .loadMore__button.btn::after {
+  content: ""; width: 18px; height: 18px; flex: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14M6 13l6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+  transition: transform .2s ease;
+}
+.type-category .loadMore__button.btn:hover::after { transform: translateY(2px); }
+.type-category .loadMore__button.btn::before { display: none !important; }
+/* Hore – textový odkaz so šípkou */
+.goToTop .goToTop__button.btn {
+  min-height: 40px; padding: 0 !important; border: 0 !important; background: transparent !important; gap: 8px;
+  font: 700 15px/20px var(--m-font) !important; text-transform: none !important; color: #111 !important;
+}
+.goToTop .goToTop__button.btn::before {
+  content: "" !important; position: static !important; display: inline-block; width: 40px; height: 40px; border: 3px solid #000; border-radius: 50%; box-sizing: border-box; margin: 0 !important;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 19V5M6 11l6-6 6 6'/%3E%3C/svg%3E") center/18px no-repeat;
+  transition: background-color .2s ease, transform .2s ease;
+}
+.goToTop .goToTop__button.btn:hover { background: transparent !important; color: var(--m-wine) !important; transform: none; }
+.goToTop .goToTop__button.btn:hover::before { background-color: var(--m-lime); transform: translateY(-2px); }
+
+/* stránkovanie – okrúhle čísla */
+.pagination__list { display: flex !important; align-items: center; gap: 8px !important; margin: 0 !important; padding: 0 !important; list-style: none; }
+.pagination__list li { margin: 0 !important; padding: 0 !important; }
+.pagination__list li:has(.pagination__link--prev) { order: -1; margin-right: 8px !important; }
+.pagination__list li:has(.pagination__link--next) { order: 99; margin-left: 8px !important; }
+.pagination__list a, .pagination__list .pagination__currentPage, .pagination__list span {
+  display: inline-flex !important; align-items: center; justify-content: center; box-sizing: border-box;
+  min-width: 40px; height: 40px !important; padding: 0 10px !important; border-radius: 999px !important;
+  font: 700 15px/20px var(--m-font) !important; color: #111 !important; text-decoration: none !important;
+  background: transparent !important; border: 3px solid transparent !important;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+.pagination__list a:hover { border-color: #000 !important; background: var(--m-lime) !important; }
+.pagination__list .pagination__currentPage { background: var(--m-wine) !important; border-color: var(--m-wine) !important; color: #fff !important; }
+.pagination__list .pagination__link--next, .pagination__list .pagination__link--prev {
+  width: 40px; padding: 0 !important; border-color: #000 !important; background: #fff !important; font-size: 0 !important;
+}
+.pagination__list .pagination__link--next::before, .pagination__list .pagination__link--prev::before {
+  content: "" !important; position: static !important; display: block; width: 18px; height: 18px; margin: 0 !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.pagination__list .pagination__link--prev::before { transform: rotate(180deg); }
+.pagination__list .pagination__link--next::after, .pagination__list .pagination__link--prev::after { display: none !important; }
+.pagination__list .pagination__link--next:hover, .pagination__list .pagination__link--prev:hover { background: var(--m-lime) !important; }
+
+@media (max-width: 767px) {
+  .type-category .listingControls { grid-template-columns: 1fr auto; grid-template-areas: "more more" "pag pag" "top total"; gap: 20px 12px; }
+  .type-category .loadMore__button.btn { width: 100%; }
+}
+
+/* ---------- jemné efekty na celom webe ---------- */
+a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, opacity .2s ease; }
+.btn, button { transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+.btn-primary:hover, .btn.btn-conversion:hover, .add-to-cart-button:hover { transform: translateY(-1px); }
+/* karty produktov: obrys bordový, fotka sa jemne priblíži, názov bordový */
+.products-block.products .product .p { transition: transform .2s ease, border-color .2s ease !important; }
+.products-block.products .product .p:hover { border-color: var(--m-wine) !important; }
+.products-block.products .product .p .image img { transition: transform .35s ease !important; }
+.products-block.products .product .p:hover .image img { transform: scale(1.26) !important; }
+.products-block.products .product .p .name, .products-block.products .product .p .name span { transition: color .2s ease; }
+.products-block.products .product .p:hover .name, .products-block.products .product .p:hover .name > span:first-child { color: var(--m-wine) !important; }
+.products-block.products .product .btn-cart { transition: background-color .2s ease, transform .2s ease !important; }
+.products-block.products .product .btn-cart:hover { transform: scale(1.08); }
+/* dlaždice, hero, blog */
+.m-cat, .m-hero__card { transition: transform .2s ease, border-color .2s ease !important; }
+.m-cat:hover, .m-hero__card:hover { border-color: var(--m-wine) !important; }
+.m-cat:hover .m-cat__img img { transform: scale(1.05); }
+.m-cat__img img { transition: transform .3s ease; }
+.m-hero__card img { transition: transform .4s ease; }
+.m-hero__card:hover img { transform: scale(1.03); }
+.type-category .subcategories.with-image > li > a { transition: transform .2s ease, border-color .2s ease, color .2s ease !important; }
+.type-category .subcategories.with-image > li > a:hover { transform: translateY(-3px); border-color: var(--m-wine) !important; color: var(--m-wine) !important; }
+.news-wrapper .news-item, .blog-wrapper .news-item { transition: transform .2s ease; }
+.news-wrapper .news-item:hover, .blog-wrapper .news-item:hover { transform: translateY(-3px); }
+.news-item .title, .news-item h2 a { transition: color .2s ease; }
+.news-item:hover .title, .news-item:hover h2 a { color: var(--m-wine) !important; }
+/* logá značiek, pätička, filtre, drobčeky */
+.m-brands__logos a:hover img, .m-brands__logos img:hover { transform: scale(1.06); }
+#footer a:hover { color: var(--m-wine) !important; }
+.type-category #filters label { transition: color .2s ease; }
+.type-category #filters label:hover { color: var(--m-wine) !important; }
+.breadcrumbs a:hover, #navigation-breadcrumbs a:hover { color: var(--m-wine) !important; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
