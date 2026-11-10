@@ -1551,3 +1551,10 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 .type-detail .p-final-price-wrapper .price-standard { order: -2 !important; font: 400 20px/24px var(--m-font) !important; color: #6f6f6f !important; text-decoration: line-through !important; }
 .type-detail .p-final-price-wrapper .price-standard span { font: inherit !important; color: inherit !important; text-decoration: inherit !important; }
 .type-detail .p-final-price-wrapper .price-save { order: 2; }
+
+/* v0.8.4 – detail: dostupnosť („Skladom“) a „Môžeme doručiť do“ v jednom riadku */
+.type-detail .p-info-wrapper > .availability-value { display: inline-flex !important; align-items: center; vertical-align: middle; width: auto !important; margin: 0 16px 24px 0 !important; }
+.type-detail .p-info-wrapper > .availability-value + table.detail-parameters { display: inline-table !important; vertical-align: middle; width: auto !important; margin: 0 0 24px !important; }
+.type-detail .p-info-wrapper > .availability-value + table.detail-parameters td { padding: 0 !important; border: 0 !important; }
+.type-detail .p-info-wrapper > .availability-value + table.detail-parameters .delivery-time-label,
+.type-detail .p-info-wrapper > .availability-value + table.detail-parameters .delivery-time { display: inline !important; }
