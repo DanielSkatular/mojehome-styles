@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.9.5) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.9.6) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -312,7 +312,7 @@
     var m2Timer;
     new MutationObserver(function () {
       clearTimeout(m2Timer);
-      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); sortDrop(); }, 60);
+      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); sortDrop(); sliderLabels(); }, 60);
     }).observe(document.documentElement, { childList: true, subtree: true });
   }
 
@@ -434,6 +434,41 @@
       var m = (a.getAttribute('href') || '').match(/\/znacka\/([^/]+)\//);
       var f = m && logos[m[1]];
       a.insertAdjacentHTML('afterbegin', f ? '<span class="m-bm-logo"><img src="' + BRANDS + f + '" alt="" loading="lazy"></span>' : '<span class="m-bm-logo m-bm-logo--text">' + txt(a) + '</span>');
+    });
+  }
+
+  /* ---------- v0.9.6: ceny posuvníka nad úchytmi (Figma) – Shoptet ich mení podľa id, presun nevadí ---------- */
+  function sliderLabels() {
+    Array.prototype.forEach.call(document.querySelectorAll('#filters .slider-wrapper'), function (w) {
+      var hs = w.querySelectorAll('.ui-slider-handle');
+      var from = w.querySelector('.slider-header .from'), to = w.querySelector('.slider-header .to');
+      if (hs.length < 2 || !from || !to) return;
+      w.classList.add('m-slider');
+      hs[0].appendChild(from);
+      hs[1].appendChild(to);
+    });
+  }
+
+  /* ---------- v0.9.6: počet produktov v dlaždiciach podkategórií (z „Počet položiek“ na stránke kategórie, cache 12 h) ---------- */
+  function subcatCounts() {
+    var word = function (n) { return n === 1 ? 'produkt' : (n >= 2 && n <= 4 ? 'produkty' : 'produktov'); };
+    Array.prototype.forEach.call(document.querySelectorAll('.type-category .subcategories.with-image > li > a'), function (a) {
+      if (a.querySelector('.m-sc-count')) return;
+      var span = el('span', 'm-sc-count');
+      a.appendChild(span);
+      var show = function (n) { n = parseInt(n, 10); if (!isNaN(n)) span.textContent = n + ' ' + word(n); };
+      var key = 'm2cnt:' + a.getAttribute('href'), c = null;
+      try { c = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+      if (c && Date.now() - c.t < 12 * 3600e3) { show(c.n); return; }
+      if (!window.fetch || !window.DOMParser) return;
+      fetch(a.href, { credentials: 'same-origin' }).then(function (r) { return r.text(); }).then(function (t) {
+        var d = new DOMParser().parseFromString(t, 'text/html');
+        var s = d.querySelector('.listItemsTotal strong');
+        var n = s ? parseInt(s.textContent.replace(/\D/g, ''), 10) : NaN;
+        if (isNaN(n)) return;
+        try { localStorage.setItem(key, JSON.stringify({ n: n, t: Date.now() })); } catch (e) {}
+        show(n);
+      }).catch(function () {});
     });
   }
 
@@ -631,6 +666,8 @@
     page404();
     menuImagesInit();
     brandMenu();
+    sliderLabels();
+    subcatCounts();
     window.addEventListener('load', subcatImages);
     pdp();
     newsletter();

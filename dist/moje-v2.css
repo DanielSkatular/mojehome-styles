@@ -1767,3 +1767,42 @@ body.id-404 .m-404__art::after {
   #header .m-bm-logo img { max-height: 56px; max-width: 130px; width: auto; height: auto; object-fit: contain; filter: grayscale(1) contrast(8); mix-blend-mode: multiply; }
   #header .m-bm-logo--text { font: 700 24px/28px "Neulis", var(--m-font); color: var(--m-wine); }
 }
+
+/* =====================================================================
+   v0.9.6 – kategória: užší bočný panel, posuvník ceny 1:1 podľa Figmy (8:1966), rovnaké medzery vo filtroch,
+   počty produktov pri filtroch aj v podkategóriách
+   ===================================================================== */
+@media (min-width: 992px) {
+  .type-category .sidebar-left { flex-basis: clamp(280px, 22vw, 360px) !important; width: clamp(280px, 22vw, 360px) !important; padding-left: 20px !important; padding-right: 20px !important; }
+  .type-category main#content { padding-left: 40px !important; }
+}
+/* posuvník: čierna linka 2 px, úchyty 24 px (ľavý biely, pravý bordový) s ryskami, ceny nad úchytmi (JS sliderLabels) */
+.type-category #filters .slider-wrapper.m-slider { padding-bottom: 16px !important; }
+.type-category #filters .slider-wrapper.m-slider .slider-header { display: none !important; }
+.type-category #filters .slider-wrapper.m-slider h4 { margin-bottom: 8px !important; }
+.type-category #filters .m-slider .slider-content { padding: 28px 12px 4px !important; margin: 0 !important; background: transparent !important; border: 0 !important; box-shadow: none !important; }
+.type-category #filters .m-slider #slider { height: 2px !important; background: #000 !important; border: 0 !important; border-radius: 0 !important; margin: 0 !important; }
+.type-category #filters .m-slider .ui-slider-range { background: #000 !important; height: 2px !important; top: 0 !important; border: 0 !important; }
+.type-category #filters .m-slider .ui-slider-handle {
+  width: 24px !important; height: 24px !important; top: -11px !important; margin-left: -12px !important; border: 0 !important; border-radius: 50% !important; outline: none;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='12' viewBox='0 0 10 12' fill='%23e4e4e4'%3E%3Crect width='2' height='12' rx='1'/%3E%3Crect x='4' width='2' height='12' rx='1'/%3E%3Crect x='8' width='2' height='12' rx='1'/%3E%3C/svg%3E") center/10px 12px no-repeat !important;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .25) !important; cursor: grab;
+}
+.type-category #filters .m-slider .ui-slider-handle:last-of-type { background-color: var(--m-wine) !important; }
+.type-category #filters .m-slider .ui-slider-handle::before, .type-category #filters .m-slider .ui-slider-handle::after { display: none !important; }
+.type-category #filters .m-slider .ui-slider-handle .from, .type-category #filters .m-slider .ui-slider-handle .to {
+  position: absolute; bottom: calc(100% + 4px); width: max-content !important; white-space: nowrap; pointer-events: none;
+  font: 700 16px/20px var(--m-font) !important; color: #111 !important;
+}
+.type-category #filters .m-slider .ui-slider-handle .from { left: 0; }
+.type-category #filters .m-slider .ui-slider-handle .to { right: 0; }
+.type-category #filters .m-slider .ui-slider-handle .from span, .type-category #filters .m-slider .ui-slider-handle .to span { font: inherit !important; }
+/* medzery: každá položka 8 px (aj „Na sklade“ → „Akcia“, ktoré sú v Shoptete v inom formulári) */
+.type-category #filters .filter-section-boolean form + form { margin-top: 8px !important; }
+.type-category #filters fieldset > div { margin: 0 !important; }
+/* počty produktov pri položkách filtrov */
+.type-category #filters .filter-count { display: inline !important; margin-left: 4px; font: 400 14px/20px var(--m-font) !important; color: #6f6f6f !important; background: none !important; }
+/* podkategórie: rovnako vysoké dlaždice + počet produktov (JS subcatCounts) */
+.type-category .subcategories.with-image > li { align-self: stretch !important; display: flex !important; }
+.type-category .subcategories.with-image > li > a { flex: 1 1 auto; height: auto !important; }
+.type-category .subcategories .m-sc-count { display: block; margin-top: -6px; min-height: 16px; font: 400 13px/16px var(--m-font); color: #6f6f6f; }
