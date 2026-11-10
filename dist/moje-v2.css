@@ -1564,3 +1564,12 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 .type-detail .p-image-wrapper .p-image { border-radius: 32px !important; isolation: isolate; }
 .type-detail .p-image-wrapper .p-image > div, .type-detail .p-image-wrapper .p-image a.p-main-image,
 .type-detail .p-image-wrapper .p-image img { border-radius: 29px !important; }
+
+/* v0.8.6 – mobil: limetkový pás hlavičky (#header) sa pri skrolovaní nadol skryje spolu s hornou lištou (Shoptet dáva html.scrolled-down);
+   náhľady na detaile 100 × 100 px vrátane rámu – rám 3 px ich predtým natiahol na 106 px a kontajner 100 px orezal spodok */
+.type-detail .p-thumbnails-inner .p-thumbnail { box-sizing: border-box !important; width: 100px !important; height: 100px !important; }
+.type-detail .p-thumbnails-inner .p-thumbnail img { width: 100% !important; height: 100% !important; }
+@media (max-width: 991px) {
+  #header { transition: transform .15s; }
+  html.scrolled-down #header { transform: translateY(-80px); }
+}
