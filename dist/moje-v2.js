@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.8.3) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.9) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -312,8 +312,46 @@
     var m2Timer;
     new MutationObserver(function () {
       clearTimeout(m2Timer);
-      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); }, 60);
+      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); sortDrop(); }, 60);
     }).observe(document.documentElement, { childList: true, subtree: true });
+  }
+
+  /* ---------- v0.9: triedenie ako rozbaľovací panel (otvorí sa hoverom aj klikom, zatvára sa s oneskorením) ---------- */
+  function sortDrop() {
+    Array.prototype.forEach.call(document.querySelectorAll('.listSorting__controls'), function (ul) {
+      if (ul.getAttribute('data-m2s')) return;
+      ul.setAttribute('data-m2s', '1');
+      ul.classList.add('m-sort');
+      var t;
+      var mark = function () {
+        var items = Array.prototype.filter.call(ul.children, function (li) { return !li.querySelector('.listSorting__control--current'); });
+        Array.prototype.forEach.call(ul.children, function (li) { li.classList.remove('m-first', 'm-last'); });
+        if (items.length) { items[0].classList.add('m-first'); items[items.length - 1].classList.add('m-last'); }
+      };
+      var open = function () { clearTimeout(t); mark(); ul.classList.add('m-open'); };
+      mark();
+      ul.addEventListener('mouseenter', open);
+      ul.addEventListener('mouseleave', function () { t = setTimeout(function () { ul.classList.remove('m-open'); }, 350); });
+      ul.addEventListener('click', function (e) {
+        var b = e.target.closest('.listSorting__control');
+        if (b && b.classList.contains('listSorting__control--current')) {
+          e.preventDefault();
+          if (ul.classList.contains('m-open') && e.pointerType !== 'mouse') ul.classList.remove('m-open'); else open();
+        } else ul.classList.remove('m-open');
+      });
+    });
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('.listSorting__controls')) return;
+    Array.prototype.forEach.call(document.querySelectorAll('.m-sort.m-open'), function (u) { u.classList.remove('m-open'); });
+  });
+
+  /* ---------- v0.9: stránka 404 – rýchle odkazy do kategórií (text a zľavu spravuje Shoptet) ---------- */
+  function page404() {
+    var ab = document.querySelector('body.id-404 [itemprop="about"]');
+    if (!ab || ab.querySelector('.m-404-cats')) return;
+    var links = [['Kompletná ponuka', '/e-shop/'], ['Skladovanie', '/skladovanie-potravin/'], ['Varenie', '/kuchynske-pomocky/'], ['Na cesty', '/na-cesty/'], ['Pre deti', '/pre-deti/'], ['Akcia', '/akciova-ponuka/']];
+    ab.appendChild(el('div', 'm-404-cats', links.map(function (x) { return '<a href="' + x[1] + '">' + x[0] + '</a>'; }).join('')));
   }
 
   /* „Počet položiek: 147“ */
@@ -506,6 +544,8 @@
     listTotal();
     subcatImages();
     mergeFlags();
+    sortDrop();
+    page404();
     window.addEventListener('load', subcatImages);
     pdp();
     newsletter();

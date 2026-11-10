@@ -1573,3 +1573,90 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
   #header { transition: transform .15s; }
   html.scrolled-down #header { transform: translateY(-80px); }
 }
+
+/* =====================================================================
+   v0.9 – podkategórie v jednotnej mriežke, triedenie ako panel, mega menu v stĺpcoch, stránka 404
+   ===================================================================== */
+/* podkategórie: rovnaké dlaždice, obrázok 72 px, celý názov na stred */
+.type-category .subcategories.with-image { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; grid-auto-rows: 1fr; gap: 12px !important; padding: 16px !important; overflow: visible !important; }
+.type-category .subcategories.with-image > li { width: auto !important; max-width: none !important; flex: none !important; margin: 0 !important; padding: 0 !important; float: none !important; height: auto !important; }
+.type-category .subcategories.with-image > li > a { display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-start !important; gap: 10px !important; height: 100% !important; min-height: 0 !important; padding: 16px 10px 14px !important; text-align: center !important; }
+.type-category .subcategories.with-image > li > a .image { display: flex !important; align-items: center; justify-content: center; width: 72px !important; height: 72px !important; flex: none !important; margin: 0 !important; }
+.type-category .subcategories.with-image > li > a .image img { width: 72px !important; height: 72px !important; object-fit: contain !important; max-height: none !important; mix-blend-mode: multiply; }
+.type-category .subcategories.with-image > li > a .text { padding: 0 !important; margin: 0 !important; white-space: normal !important; overflow: visible !important; text-overflow: clip !important; max-height: none !important; height: auto !important; display: block !important; width: 100% !important; font: 500 15px/19px var(--m-font) !important; color: #111 !important; overflow-wrap: anywhere; text-align: center !important; }
+.type-category .subcategories.with-image > li > a:hover .text { color: var(--m-wine) !important; }
+/* kategória bez fotky: logo Moje namiesto bieleho zástupného obrázka */
+.type-category .subcategories .image img[src*="banner-biela"] { visibility: visible !important; content: url("../assets/logo-bordova.svg"); width: 56px !important; height: 56px !important; opacity: .35; mix-blend-mode: normal !important; }
+@media (max-width: 991px) {
+  .type-category .subcategories.with-image { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; padding: 8px !important; }
+  .type-category .subcategories.with-image > li > a { padding: 12px 8px !important; }
+  .type-category .subcategories.with-image > li > a .image, .type-category .subcategories.with-image > li > a .image img { width: 56px !important; height: 56px !important; }
+  .type-category .subcategories.with-image > li > a .text { font-size: 14px !important; line-height: 18px !important; }
+}
+
+/* triedenie: aktuálne radenie ako bordová pilulka, ostatné v bielom paneli pod ňou (JS sortDrop) */
+.listSorting__controls.m-sort { height: 32px !important; gap: 0 !important; z-index: 30; }
+.listSorting__controls.m-sort > li { display: none !important; }
+.listSorting__controls.m-sort > li:has(.listSorting__control--current), .listSorting__controls.m-sort.m-open > li { display: block !important; }
+.listSorting__controls.m-sort > li:has(.listSorting__control--current) { margin-bottom: 6px !important; }
+.listSorting__controls.m-sort .listSorting__control--current { height: 32px !important; min-width: 210px !important; font-size: 15px !important; }
+.listSorting__controls.m-sort > li:not(:has(.listSorting__control--current)) .listSorting__control {
+  height: 40px !important; min-width: 210px !important; padding: 0 18px !important; border: 0 !important; border-left: 2px solid #000 !important; border-right: 2px solid #000 !important;
+  border-radius: 0 !important; background: #fff !important; font: 500 15px/20px var(--m-font) !important; color: #111 !important;
+}
+.listSorting__controls.m-sort > li.m-first .listSorting__control { border-top: 2px solid #000 !important; border-radius: 16px 16px 0 0 !important; height: 44px !important; padding-top: 4px !important; }
+.listSorting__controls.m-sort > li.m-last .listSorting__control { border-bottom: 2px solid #000 !important; border-radius: 0 0 16px 16px !important; height: 44px !important; padding-bottom: 4px !important; }
+.listSorting__controls.m-sort > li.m-first.m-last .listSorting__control { border-radius: 16px !important; }
+.listSorting__controls.m-sort > li:not(:has(.listSorting__control--current)) .listSorting__control:hover { background: var(--m-lime) !important; }
+
+/* mega menu: skupiny v stĺpcoch pod sebou (bez prázdnych miest), mostík proti zatváraniu */
+@media (min-width: 992px) {
+  #header .menu-level-1 > li > a::before { content: "" !important; display: block !important; position: absolute; left: 0; right: 0; top: 100%; height: 34px; background: transparent; }
+  #header .menu-level-1 > li > .menu-level-2 {
+    display: none; columns: 5 200px; column-gap: 48px !important; gap: 0 48px !important;
+    padding: 36px max(56px, calc(50vw - 772px)) 44px !important;
+    max-height: calc(100vh - 140px); overflow-y: auto !important;
+    box-shadow: 0 24px 40px -24px rgba(0, 0, 0, .25) !important;
+  }
+  #header .menu-level-1 > li.exp > .menu-level-2 { display: block !important; }
+  #header .menu-level-2 > li { break-inside: avoid; page-break-inside: avoid; display: inline-block !important; width: 100% !important; margin: 0 0 28px !important; }
+  #header .menu-level-2 > li > div > a, #header .menu-level-2 > li > a:not(.menu-image) { font-size: 17px !important; line-height: 22px !important; margin-bottom: 12px !important; padding-bottom: 8px !important; border-bottom: 2px solid var(--m-lime) !important; }
+  #header .menu-level-3 { gap: 8px !important; }
+  #header .menu-level-3 > li > a { font-size: 15px !important; line-height: 20px !important; }
+}
+
+/* stránka 404 – veľké „404“ s čmáranicou, text zo Shoptetu v brand štýle, zľava v krémovom boxe */
+body.id-404 .content-inner { padding: 0 !important; }
+body.id-404 .pageArticleDetail { max-width: 880px; margin: 0 auto !important; padding: 40px 16px 80px !important; text-align: center; position: relative; }
+body.id-404 .pageArticleDetail > header { position: relative; padding-top: 230px; margin-bottom: 8px; }
+body.id-404 .pageArticleDetail > header::before {
+  content: "404"; position: absolute; left: 50%; top: 0; transform: translateX(-50%); z-index: 1;
+  font: 700 220px/220px "Neulis", var(--m-font); color: var(--m-wine); letter-spacing: -6px;
+}
+body.id-404 .pageArticleDetail > header::after {
+  content: ""; position: absolute; left: 50%; top: -10px; width: 170px; height: 260px; transform: translateX(-10%) rotate(18deg); z-index: 0;
+  background: url("../assets/cmaranica-bordova-01.svg") center/contain no-repeat; opacity: .14;
+}
+body.id-404 .pageArticleDetail h1 { position: relative; z-index: 1; font: 700 40px/48px "Neulis", var(--m-font) !important; margin: 0 0 16px !important; color: #111 !important; }
+body.id-404 [itemprop=about] h2:has(img), body.id-404 [itemprop=about] h2:empty { display: none !important; }
+body.id-404 [itemprop=about] span { font-family: inherit !important; font-size: inherit !important; color: inherit !important; }
+body.id-404 [itemprop=about] h2, body.id-404 [itemprop=about] h2 span { font: 700 22px/30px var(--m-font) !important; color: #111 !important; margin: 0 0 24px !important; }
+body.id-404 [itemprop=about] p { font: 400 17px/26px var(--m-font) !important; color: #111 !important; margin: 0 0 16px !important; }
+body.id-404 [itemprop=about] p a:not(.btn) { color: var(--m-wine) !important; text-decoration: underline !important; }
+body.id-404 [itemprop=about] p:nth-of-type(1) { background: var(--m-cream); border: 3px solid #000; border-radius: 24px; padding: 24px 28px !important; margin: 8px 0 20px !important; }
+body.id-404 [itemprop=about] p:nth-of-type(1) strong { display: block; margin-top: 10px; font-size: 19px; color: var(--m-wine) !important; }
+body.id-404 [itemprop=about] p:nth-of-type(2) { font: 700 14px/20px var(--m-font) !important; letter-spacing: .6px; }
+body.id-404 [itemprop=about] .btn {
+  display: inline-flex !important; align-items: center; height: 52px; padding: 0 32px !important; border-radius: 999px !important; border: 0 !important;
+  background: var(--m-wine) !important; color: #fff !important; font: 700 17px/20px var(--m-font) !important; text-transform: none !important; letter-spacing: 0 !important; text-decoration: none !important;
+}
+body.id-404 [itemprop=about] .btn:hover { background: var(--m-wine-dark, #5e002b) !important; }
+body.id-404 [itemprop=about] .m-404-cats { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px; }
+body.id-404 [itemprop=about] .m-404-cats a { padding: 8px 18px; border: 2px solid #000; border-radius: 999px; font: 500 15px/20px var(--m-font); color: #111 !important; text-decoration: none !important; background: #fff; }
+body.id-404 [itemprop=about] .m-404-cats a:hover { background: var(--m-lime); }
+@media (max-width: 767px) {
+  body.id-404 .pageArticleDetail > header { padding-top: 140px; }
+  body.id-404 .pageArticleDetail > header::before { font-size: 130px; line-height: 130px; letter-spacing: -3px; }
+  body.id-404 .pageArticleDetail > header::after { width: 110px; height: 170px; }
+  body.id-404 .pageArticleDetail h1 { font-size: 28px !important; line-height: 34px !important; }
+}
