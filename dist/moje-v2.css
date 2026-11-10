@@ -1462,3 +1462,26 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 .benefitBanner img[src*="banners/input_boxesasset_2bowl.svg"] {
   width: auto !important; height: 62px !important; max-width: 100px !important; max-height: none !important; object-fit: contain;
 }
+
+/* v0.7.6 – záložky detailu na celú šírku, nová záložka „Dodatočné parametre“ */
+.type-detail #tab-content .description-inner { display: block !important; width: 100% !important; max-width: none !important; }
+.type-detail #description .basic-description, .type-detail #tab-content .description-inner > .jj-wrap,
+.type-detail #description .basic-description .jj-wrap { width: 100% !important; max-width: none !important; flex: none !important; float: none !important; }
+.type-detail #description .extended-description { display: none !important; }
+.type-detail #m-params .extended-description { display: block !important; width: 100% !important; max-width: none !important; float: none !important; padding: 8px 0 0 !important; margin: 0 !important; }
+.type-detail #m-params .extended-description > h3 { display: none !important; }
+.type-detail #m-params .detail-parameters { width: 100% !important; max-width: none !important; border-collapse: collapse; border: 0 !important; }
+.type-detail #m-params .detail-parameters tr { border: 0 !important; border-bottom: 1px solid #e3ddc8 !important; background: none !important; }
+.type-detail #m-params .detail-parameters tr:first-child { border-top: 1px solid #e3ddc8 !important; }
+.type-detail #m-params .detail-parameters th, .type-detail #m-params .detail-parameters td {
+  padding: 16px 0 !important; border: 0 !important; background: none !important; vertical-align: top; text-align: left;
+  font: 400 17px/24px var(--m-font) !important; color: #111 !important; text-transform: none !important; letter-spacing: 0 !important;
+}
+.type-detail #m-params .detail-parameters th { width: 33%; padding-right: 24px !important; font-weight: 700 !important; }
+.type-detail #m-params .detail-parameters th .row-header-label { font: inherit !important; text-transform: none !important; color: inherit !important; }
+.type-detail #m-params .detail-parameters th .row-header-label-colon { display: none; }
+.type-detail #m-params .detail-parameters td a { color: var(--m-wine) !important; text-decoration: underline !important; text-underline-offset: 3px; }
+@media (max-width: 991px) {
+  .type-detail #m-params .detail-parameters th, .type-detail #m-params .detail-parameters td { font-size: 15px !important; line-height: 20px !important; padding: 12px 0 !important; }
+  .type-detail #m-params .detail-parameters th { width: 45%; padding-right: 12px !important; }
+}

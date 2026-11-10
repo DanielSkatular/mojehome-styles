@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.7.1) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.7.6) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -369,6 +369,7 @@
     head.appendChild(h1);
     info.insertBefore(head, info.firstChild);
     careTab();
+    paramsTab();
     tabsFix();
   }
 
@@ -408,6 +409,29 @@
     li.setAttribute('role', 'none');
     var first = tabs.querySelector('li');
     tabs.insertBefore(li, first ? first.nextSibling : null);
+  }
+
+  /* ---------- v0.7.6: záložka „Dodatočné parametre“ (z pravého stĺpca popisu) ---------- */
+  function paramsTab() {
+    var desc = document.getElementById('description');
+    var tabs = document.getElementById('p-detail-tabs');
+    if (!desc || !tabs || document.getElementById('m-params')) return;
+    var ext = desc.querySelector('.extended-description');
+    if (!ext || !ext.querySelector('.detail-parameters tr')) return;
+    var pane = el('div', 'tab-pane fade');
+    pane.id = 'm-params';
+    pane.setAttribute('role', 'tabpanel');
+    var inner = el('div', 'description-inner m-params-inner');
+    inner.appendChild(ext);
+    pane.appendChild(inner);
+    var care = document.getElementById('m-care');
+    var after = care || desc;
+    after.parentNode.insertBefore(pane, after.nextSibling);
+    var li = el('li', 'shp-tab', '<a href="#m-params" class="shp-tab-link" role="tab" data-toggle="tab">Dodatočné parametre</a>');
+    li.setAttribute('role', 'none');
+    var ref = tabs.querySelector('a[href="#m-care"]');
+    ref = ref ? ref.parentNode : tabs.querySelector('li');
+    tabs.insertBefore(li, ref ? ref.nextSibling : null);
   }
 
   /* ---------- v0.5: všetky záložky na detaile (Shoptet skrýva „Značka“ do menu) ---------- */
