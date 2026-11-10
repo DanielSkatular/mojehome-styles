@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.7) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v0.7.1) — loader + doplnky DOM pre Shoptet šablónu 11
    V Shoptete stačí 1 riadok (bez defer, na konci Záhlavia):
    <script src="https://cdn.jsdelivr.net/gh/DanielSkatular/mojehome-styles@VERZIA/dist/moje-v2.js"></script>
    Skript hneď pripojí fonty (z domény e-shopu) a moje-v2.css z tej istej verzie,
@@ -333,6 +333,7 @@
       var box = d.closest('.image, .p-image-wrapper, .p-image, .product');
       if (!box) return;
       var act = box.querySelector('.flags-default .flag-action, .flags:not(.flags-extra) .flag-action');
+      if (!act && box.classList.contains('p-image-wrapper')) act = document.querySelector('.p-detail-info .flag-action');
       var def = box.querySelector('.flags-default');
       if (act) {
         var s = d.querySelector('.price-save') || d;
@@ -353,7 +354,7 @@
     var h1 = document.querySelector('.p-detail-inner-header h1');
     if (!info || !h1 || info.querySelector('.m-pdp-head')) return;
     var head = el('div', 'm-pdp-head');
-    var flags = Array.prototype.filter.call(document.querySelectorAll('.p-detail .p-image-wrapper .flags .flag'), function (f) { return f.style.display !== 'none'; });
+    var flags = Array.prototype.filter.call(document.querySelectorAll('.p-detail .p-image-wrapper .flags .flag, .p-detail .p-detail-info .flags .flag'), function (f) { return f.style.display !== 'none'; });
     if (flags.length) {
       head.appendChild(el('div', 'm-pdp-flags', Array.prototype.map.call(flags, function (f) { return '<span>' + txt(f) + '</span>'; }).join('')));
     }

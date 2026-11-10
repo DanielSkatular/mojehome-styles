@@ -1349,3 +1349,9 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
 .type-detail .m-care-inner { display: block !important; max-width: 860px; }
 .type-detail .m-care-inner .jj-section { margin-top: 0 !important; }
 .type-detail .m-care-inner .jj-section > h2:first-child, .type-detail .m-care-inner .jj-section > h3:first-child, .type-detail .m-care-inner > div > h2:first-child, .type-detail .m-care-inner > div > h3:first-child { display: none !important; }
+/* v0.7.1 – hlavný obrázok na detaile vyplní celý rám (zaoblenie 1:1), štítky iba nad názvom */
+.type-detail .p-image-wrapper .p-image { padding: 0 !important; overflow: hidden !important; border: var(--m-border) !important; border-radius: var(--m-radius) !important; background: #fff; aspect-ratio: 1 / 1; }
+.type-detail .p-image-wrapper .p-image #wrap, .type-detail .p-image-wrapper .p-image a.p-main-image { display: block !important; width: 100% !important; height: 100% !important; }
+.type-detail .p-image-wrapper .p-image a.p-main-image img { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; object-fit: cover !important; display: block; }
+.type-detail .p-image-wrapper .flags, .type-detail .p-detail-info .flags { display: none !important; }
+.type-detail .p-thumbnail img { object-fit: cover; }
