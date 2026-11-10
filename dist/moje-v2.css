@@ -1485,3 +1485,15 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
   .type-detail #m-params .detail-parameters th, .type-detail #m-params .detail-parameters td { font-size: 15px !important; line-height: 20px !important; padding: 12px 0 !important; }
   .type-detail #m-params .detail-parameters th { width: 45%; padding-right: 12px !important; }
 }
+
+/* v0.7.7 – bordová čmáranica „M“ vpravo pri detaile produktu podľa Figmy (asset z repozitára, cesta relatívna k CSS) */
+@media (min-width: 1200px) {
+  .type-detail .p-detail-inner { position: relative; }
+  .type-detail .p-detail-inner::after {
+    content: ""; position: absolute; z-index: 0; pointer-events: none; top: 70px; right: calc(50% - 50vw - 120px);
+    width: 300px; height: 500px; background: url("../assets/cmaranica-bordova-01.svg") center/contain no-repeat;
+    transform: rotate(24deg);
+  }
+  .type-detail .p-detail-inner > * { position: relative; z-index: 1; }
+  .type-detail .p-info-wrapper > * { max-width: 540px; }
+}
