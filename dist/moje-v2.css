@@ -1387,3 +1387,38 @@ body.ordering-process, .ordering-process .overall-wrapper, .ordering-process .co
   .type-detail .add-to-cart .add-to-cart-button { font-size: 18px !important; padding: 0 16px !important; }
   .type-detail .add-to-cart .quantity { padding: 0 12px !important; }
 }
+/* v0.7.3 – drobčeková navigácia 1:1 podľa Figmy (8:1647): „Domov → … → aktuálna stránka“ */
+.breadcrumbs-wrapper { border: 0 !important; }
+.breadcrumbs {
+  display: flex !important; flex-wrap: wrap; align-items: center; gap: 12px; min-height: 62px;
+  padding: 22px 28px !important; margin: 0 !important; border: 0 !important; background: transparent !important;
+  font: 400 17px/18px var(--m-font) !important; letter-spacing: -.51px; color: #111 !important;
+}
+.breadcrumbs::before, .breadcrumbs::after { display: none !important; content: none !important; }
+.breadcrumbs > span { display: inline-flex !important; align-items: center; gap: 12px; float: none !important; margin: 0 !important; padding: 0 !important; background: none !important; }
+.breadcrumbs a, .breadcrumbs a span, .breadcrumbs > span > span {
+  position: static !important; font: 400 17px/18px var(--m-font) !important; letter-spacing: -.51px; color: #111 !important;
+  padding: 0 !important; margin: 0 !important; background: none !important; border: 0 !important;
+}
+.breadcrumbs a { text-decoration: underline !important; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.breadcrumbs a:hover { color: var(--m-wine) !important; }
+.breadcrumbs a::before, .breadcrumbs a::after { display: none !important; content: none !important; }
+/* „Domov“ namiesto ikonky domčeka */
+.breadcrumbs .navigation-home-icon { padding: 0 !important; width: auto !important; height: auto !important; }
+.breadcrumbs .navigation-home-icon .sr-only {
+  position: static !important; width: auto !important; height: auto !important; margin: 0 !important; overflow: visible !important;
+  clip: auto !important; clip-path: none !important; white-space: nowrap !important;
+}
+/* šípka 11 px */
+.breadcrumbs .navigation-bullet {
+  display: inline-block !important; width: 12px; height: 18px; flex: none; font-size: 0 !important; margin: 0 !important; color: transparent !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23111' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M.5 4h11M8 .5 11.5 4 8 7.5'/%3E%3C/svg%3E") center/12px 8px no-repeat !important;
+}
+.breadcrumbs .navigation-bullet::before, .breadcrumbs .navigation-bullet::after { display: none !important; content: none !important; }
+/* aktuálna stránka tučne, bez podčiarknutia */
+.breadcrumbs > span:last-child > span[itemprop=name], .breadcrumbs > span:last-child > span:last-child { font-weight: 700 !important; text-decoration: none !important; }
+@media (max-width: 991px) {
+  .breadcrumbs { padding: 14px 16px !important; gap: 8px; min-height: 0; font-size: 14px !important; }
+  .breadcrumbs a, .breadcrumbs a span, .breadcrumbs > span > span { font-size: 14px !important; }
+  .breadcrumbs > span { gap: 8px; }
+}
