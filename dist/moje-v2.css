@@ -1943,3 +1943,44 @@ html:not(.m2-ready) body:is(.type-index, .type-category, .type-detail) .overall-
 .products-block.products .product .prices { display: flex !important; flex-direction: column; align-items: flex-start; gap: 0; }
 .products-block.products .product .m-price-old { order: -1; font: 500 15px/18px var(--m-font); color: #6f6f6f; text-decoration: line-through; }
 @media (max-width: 767px) { .products-block.products .product .m-price-old { font-size: 13px; line-height: 16px; } }
+
+/* v1.0.2 – lupa vo vyhľadávaní: len čierna ikona, hover bordová; bez rámčeka pri kliknutí do poľa (zvýrazní sa celá pilulka); farby vo filtri ako guľôčky */
+.type-category .box-search .search-form fieldset button.btn, .type-category .box-search .search-form fieldset button, #header .search-form fieldset button.btn, #header .search-form fieldset button {
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") center/26px no-repeat !important;
+  border: 0 !important; box-shadow: none !important; min-height: 0 !important; padding: 0 !important; transform: none !important;
+  font-size: 0 !important; color: transparent !important; cursor: pointer; transition: background-image .2s ease !important;
+}
+.type-category .box-search .search-form fieldset button.btn:hover, .type-category .box-search .search-form fieldset button:hover, .type-category .box-search .search-form fieldset button:focus-visible,
+#header .search-form fieldset button.btn:hover, #header .search-form fieldset button:hover, #header .search-form fieldset button:focus-visible {
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%2381003b' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") center/26px no-repeat !important;
+  transform: none !important;
+}
+.type-category .box-search .search-form fieldset button::before, .type-category .box-search .search-form fieldset button::after { display: none !important; }
+#header .search-form input, #header .search-form input:focus, #header .search-form input:focus-visible,
+.box-search .search-form input, .box-search .search-form input:focus, .box-search .search-form input:focus-visible {
+  outline: none !important; box-shadow: none !important; border-color: transparent !important; background: transparent !important;
+}
+#header .search-form fieldset, .type-category .box-search .search-form fieldset { transition: border-color .2s ease; }
+#header .search-form fieldset:focus-within, .type-category .box-search .search-form fieldset:focus-within { border-color: var(--m-wine) !important; }
+
+/* farby ako guľôčky (JS colorDots dáva sekcii .m-colors a každej farbe --c) */
+.type-category #filters .m-colors fieldset { display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; gap: 10px !important; padding: 4px 2px !important; }
+.type-category #filters .m-colors.m-colors.m-short fieldset > div:not(.advanced-filters-wrapper):nth-of-type(n),
+.type-category #filters .m-colors.m-colors fieldset > div:not(.advanced-filters-wrapper):nth-of-type(n) { display: block !important; flex: none !important; width: auto !important; min-height: 0; margin: 0 !important; background: none !important; }
+.type-category #filters .m-colors .advanced-filters-wrapper:empty, .type-category #filters .m-colors .m-more { display: none !important; }
+.type-category #filters .m-colors .filter-label {
+  display: block !important; width: 30px !important; height: 30px; padding: 0 !important; font-size: 0 !important; line-height: 0 !important; color: transparent !important;
+}
+.type-category #filters .m-colors .filter-count { display: none !important; }
+.type-category #filters .m-colors .filter-label::before,
+.type-category #filters .m-colors input[type=checkbox] + label.filter-label::before {
+  left: 0 !important; top: 0 !important; transform: none !important; width: 30px !important; height: 30px !important; border-radius: 50% !important;
+  border: 1px solid rgba(0, 0, 0, .25) !important; background: var(--c, #ddd) !important; box-sizing: border-box;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.type-category #filters .m-colors .filter-label:hover::before { transform: scale(1.1) !important; }
+.type-category #filters .m-colors input[type=checkbox]:checked + label.filter-label::before {
+  background: var(--c, #ddd) !important; border-color: rgba(0, 0, 0, .25) !important; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--m-wine);
+}
+.type-category #filters .m-colors input:focus-visible + label.filter-label::before { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000; }
+.type-category #filters .m-colors .filter-label.disabled::before { opacity: .3; }

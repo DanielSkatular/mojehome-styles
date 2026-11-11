@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v1.0) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v1.0.2) — loader + doplnky DOM pre Shoptet šablónu 11
    Odporúčané vloženie do Záhlavia (fonty a CSS hneď v HTML, JS s defer):
    <style id="m2-fonts">…@font-face DokoSans + DokoSans Fallback…</style>
    <link rel="preload" href="/user/documents/upload/Fonts/DokoSans/DokoSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -319,7 +319,7 @@
     var m2Timer;
     new MutationObserver(function () {
       clearTimeout(m2Timer);
-      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); sortDrop(); sliderLabels(); cardOldPrice(); }, 60);
+      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); sortDrop(); sliderLabels(); cardOldPrice(); colorDots(); }, 60);
     }).observe(document.documentElement, { childList: true, subtree: true });
   }
 
@@ -731,6 +731,38 @@
     });
   }
 
+  /* ---------- v1.0.2: farby vo filtri ako guľôčky (názov ostáva v title) ---------- */
+  var COLORS = {
+    'bezova': '#d8c3a0', 'biela': '#ffffff', 'cierna': '#111111', 'modra': '#3a6fd8', 'zelena': '#4f9a5c', 'hneda': '#7a4f2a',
+    'ruzova': '#f2a7c3', 'strieborna': 'linear-gradient(135deg, #f4f4f4, #a9a9a9)', 'tyrkysova': '#26b3b0', 'cervena': '#d7262e',
+    'koralova': '#f47a63', 'zlata': 'linear-gradient(135deg, #f6dc8a, #b8892b)', 'mentolova': '#a6e3c9', 'bordova': '#81003b',
+    'oranzova': '#f28c28', 'seda': '#9b9b9b', 'zlta': '#f5d33a', 'fialova': '#8a5bc4', 'svetlomodra': '#8fc3f2', 'tmavomodra': '#1f3a73',
+    'olivova': '#7d8b3a', 'kremova': '#f6efd9', 'transparentna': 'linear-gradient(135deg, #ffffff 45%, #dfe7ec 55%)',
+    'vzorovana': 'conic-gradient(#d7262e, #f5d33a, #4f9a5c, #3a6fd8, #8a5bc4, #d7262e)',
+    'viacfarebna': 'conic-gradient(#d7262e, #f5d33a, #4f9a5c, #3a6fd8, #8a5bc4, #d7262e)'
+  };
+  function colorKey(s) {
+    return String(s).toLowerCase().normalize('NFD').replace(/[^a-z]/g, '');
+  }
+  function colorDots() {
+    Array.prototype.forEach.call(document.querySelectorAll('#filters .filter-section-parametric'), function (sec) {
+      var h = sec.querySelector('h4 span') || sec.querySelector('h4');
+      if (!h || !/^farb/i.test(h.textContent.trim())) return;
+      sec.classList.add('m-colors');
+      Array.prototype.forEach.call(sec.querySelectorAll('input[type=checkbox]'), function (inp) {
+        var lab = sec.querySelector('label[for="' + inp.id.replace(/"/g, '\\"') + '"]');
+        if (!lab || lab.getAttribute('data-m2c')) return;
+        var name = inp.value || lab.textContent;
+        var c = COLORS[colorKey(name)];
+        lab.setAttribute('data-m2c', '1');
+        var cnt = lab.querySelector('.filter-count');
+        lab.title = name + (cnt ? ' (' + cnt.textContent.trim() + ')' : '');
+        lab.setAttribute('aria-label', lab.title);
+        if (c) lab.style.setProperty('--c', c);
+      });
+    });
+  }
+
   ready(function () {
     document.documentElement.classList.add('m2');
     headerLogo();
@@ -753,6 +785,7 @@
     newsletter();
     footer();
     cardOldPrice();
+    colorDots();
     document.documentElement.classList.add('m2-ready');
   });
 })();
