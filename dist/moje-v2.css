@@ -2140,3 +2140,13 @@ body.in-registracia #register-form .stay-in-touch label, body.in-registracia #re
 /* kroky košíka – čísla v krúžkoch na stred (Doko Sans má číslice o ~0,07 em nižšie) */
 .cart-header .step span::before { display: inline-flex !important; align-items: center !important; justify-content: center !important; line-height: 1 !important; padding: 0 0 .14em !important; vertical-align: middle; }
 .cart-header .step span { display: inline-flex !important; align-items: center; gap: 0; }
+/* v1.0.9 – okno Strážny pes: formulár na celú šírku okna, nadpis ako v ostatných oknách, „(Už je skladom)“ v riadku; šírka formulárových okien 520 px */
+#colorbox .content-modal { width: 520px; max-width: 100%; box-sizing: border-box; }
+#colorbox .content-modal form { width: 100% !important; max-width: none !important; }
+#colorbox .content-modal .watchdog-title { font: 400 28px/34px var(--m-font-head) !important; color: #000 !important; text-align: left !important; margin: 0 0 12px !important; padding: 0 48px 0 0 !important; }
+#colorbox .content-modal .watchdog-title strong { font-weight: 700 !important; }
+#colorbox .content-modal .form-group > input[type=checkbox] + label { display: inline-block !important; margin: 0 !important; font: 400 15px/22px var(--m-font) !important; }
+#colorbox .content-modal .form-group > input[type=checkbox]:disabled + label { opacity: .45; }
+#colorbox .content-modal span.disclaimer { display: inline; margin-left: 6px; font: 400 13px/22px var(--m-font) !important; color: #6f6f6f !important; }
+#colorbox .content-modal #priceUnder { margin-top: 8px !important; }
+@media (max-width: 767px) { #colorbox .content-modal { width: auto; } }
