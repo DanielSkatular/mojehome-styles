@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v0.9.9) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v1.0) — loader + doplnky DOM pre Shoptet šablónu 11
    Odporúčané vloženie do Záhlavia (fonty a CSS hneď v HTML, JS s defer):
    <style id="m2-fonts">…@font-face DokoSans + DokoSans Fallback…</style>
    <link rel="preload" href="/user/documents/upload/Fonts/DokoSans/DokoSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -319,7 +319,7 @@
     var m2Timer;
     new MutationObserver(function () {
       clearTimeout(m2Timer);
-      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); sortDrop(); sliderLabels(); }, 60);
+      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); sortDrop(); sliderLabels(); cardOldPrice(); }, 60);
     }).observe(document.documentElement, { childList: true, subtree: true });
   }
 
@@ -658,6 +658,72 @@
     });
   }
 
+  /* ---------- v1.0: pôvodná cena v kartách – Shoptet ju vo výpise neposiela, berie sa z detailu
+     (len akciové karty, až keď sú blízko obrazovky, čítanie HTML sa zastaví hneď za cenou, cache 12 h) ---------- */
+  var oldQ = [], oldRun = 0, oldIO = null;
+  function oldNum(s) { return parseFloat(String(s).replace(/[^\d,.]/g, '').replace(',', '.')); }
+  function oldFetch(url) {
+    return fetch(url, { credentials: 'same-origin' }).then(function (r) {
+      if (!r.body || !window.TextDecoder) return r.text();
+      var rd = r.body.getReader(), dec = new TextDecoder(), buf = '';
+      function pump() {
+        return rd.read().then(function (x) {
+          if (x.done) return buf;
+          buf += dec.decode(x.value, { stream: true });
+          var w = buf.indexOf('p-final-price-wrapper');
+          if (w > -1 && buf.length - w > 2500) { rd.cancel(); return buf; }
+          return pump();
+        });
+      }
+      return pump();
+    }).then(function (t) {
+      var m = t.match(/class="price-standard"[^>]*>\s*<span[^>]*>([^<]+)</);
+      return m ? m[1].replace(/\s+/g, ' ').trim() : '';
+    });
+  }
+  function oldSet(p, v) {
+    if (!v || p.querySelector('.m-price-old')) return;
+    var fin = p.querySelector('.price-final'), pr = p.querySelector('.prices');
+    if (!fin || !pr || !(oldNum(v) > oldNum(fin.textContent))) return;
+    var s = el('span', 'm-price-old');
+    s.textContent = v;
+    pr.insertBefore(s, pr.firstChild);
+  }
+  function oldNext() {
+    while (oldRun < 3 && oldQ.length) {
+      (function (job) {
+        oldRun++;
+        oldFetch(job.url).then(function (v) {
+          try { localStorage.setItem('m2old:' + job.url, JSON.stringify({ v: v, t: Date.now() })); } catch (e) {}
+          oldSet(job.p, v);
+        }).catch(function () {}).then(function () { oldRun--; oldNext(); });
+      })(oldQ.shift());
+    }
+  }
+  function oldQueue(p) {
+    var a = p.querySelector('a.name') || p.querySelector('a.image');
+    if (!a || !window.fetch) return;
+    var url = a.getAttribute('href'), c = null;
+    try { c = JSON.parse(localStorage.getItem('m2old:' + url) || 'null'); } catch (e) {}
+    if (c && Date.now() - c.t < 432e5) { oldSet(p, c.v); return; }
+    oldQ.push({ p: p, url: url });
+    oldNext();
+  }
+  function cardOldPrice() {
+    var cards = document.querySelectorAll('.products-block .product .p:not([data-m2old])');
+    if (!cards.length) return;
+    if (!oldIO && window.IntersectionObserver) {
+      oldIO = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { oldIO.unobserve(e.target); oldQueue(e.target); } });
+      }, { rootMargin: '400px 0px' });
+    }
+    Array.prototype.forEach.call(cards, function (p) {
+      p.setAttribute('data-m2old', '1');
+      if (!p.querySelector('.flag-action, .flag-discount')) return;
+      if (oldIO) oldIO.observe(p); else oldQueue(p);
+    });
+  }
+
   ready(function () {
     document.documentElement.classList.add('m2');
     headerLogo();
@@ -679,6 +745,7 @@
     pdp();
     newsletter();
     footer();
+    cardOldPrice();
     document.documentElement.classList.add('m2-ready');
   });
 })();

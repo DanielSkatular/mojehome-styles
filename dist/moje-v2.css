@@ -1928,3 +1928,18 @@ a { transition: color .2s ease, background-color .2s ease, border-color .2s ease
 /* v0.9.9 – kým JS neprestavia stránku (html.m2-ready), obsah je skrytý → bez posunu obsahu (CLS); poistka: zobrazí sa najneskôr po 3 s */
 html:not(.m2-ready) body:is(.type-index, .type-category, .type-detail) .overall-wrapper > .content-wrapper { visibility: hidden; animation: m2show 0s 3s forwards; }
 @keyframes m2show { to { visibility: visible; } }
+
+/* v1.0 – karty produktov: fotka bez priblíženia, štvorcová, zaoblená ako karta (vnútorný polomer 21 px); pôvodná cena */
+.products-block.products .product .p .image { height: auto !important; padding: 12px 12px 0 !important; overflow: visible !important; }
+.products-block.products .product .p .image img {
+  width: 100% !important; height: auto !important; aspect-ratio: 1 / 1; object-fit: cover !important;
+  border-radius: 21px; transform: none !important; transition: transform .35s ease !important;
+}
+.products-block.products .product .p:hover .image img { transform: scale(1.03) !important; }
+@media (max-width: 767px) {
+  .products-block.products .product .p .image { height: auto !important; padding: 8px 8px 0 !important; }
+  .products-block.products .product .p .image img { border-radius: 16px; }
+}
+.products-block.products .product .prices { display: flex !important; flex-direction: column; align-items: flex-start; gap: 0; }
+.products-block.products .product .m-price-old { order: -1; font: 500 15px/18px var(--m-font); color: #6f6f6f; text-decoration: line-through; }
+@media (max-width: 767px) { .products-block.products .product .m-price-old { font-size: 13px; line-height: 16px; } }
