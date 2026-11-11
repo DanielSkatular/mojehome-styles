@@ -2028,3 +2028,115 @@ html:not(.m2-ready) body:is(.type-index, .type-category, .type-detail) .overall-
 #header .menu-level-1 > li > a[href*="akciova-ponuka"], #navigation .menu-level-1 > li > a[href*="akciova-ponuka"],
 #header .menu-level-1 > li > a[href*="akciova-ponuka"] b, #navigation .menu-level-1 > li > a[href*="akciova-ponuka"] b { color: var(--m-wine) !important; }
 #header .menu-level-1 li.nav-manufacturers, #navigation .menu-level-1 li.nav-manufacturers { display: none !important; }
+/* v1.0.8 – registrácia a vyskakovacie okná (Opýtať sa, Strážny pes, Pridané do košíka): formulár v bielej karte (3 px rám, radius 24) na stred, polia 48 px s radius 12 a bordovým focusom,
+   typ zákazníka ako dve dlaždice, bordové tlačidlo; zároveň všetky .btn-primary bordové (staré béžové #dacaa4 zo Záhlavia) */
+body button.btn.btn-primary, body a.btn.btn-primary, body input.btn.btn-primary {
+  background: var(--m-wine) !important; border-color: var(--m-wine) !important; color: #fff !important; border-radius: 999px !important;
+}
+body button.btn.btn-primary span, body a.btn.btn-primary span { color: #fff !important; }
+body button.btn.btn-primary:hover, body a.btn.btn-primary:hover, body input.btn.btn-primary:hover { background: var(--m-wine-dark) !important; border-color: var(--m-wine-dark) !important; }
+
+body.in-registracia .content-inner { max-width: 720px !important; width: 100% !important; margin: 0 auto !important; padding: 8px 16px 72px !important; }
+body.in-registracia .content-inner > h1 { font: 700 40px/48px var(--m-font-head) !important; margin: 8px 0 24px !important; color: #000 !important; }
+body.in-registracia #register-form { width: 100% !important; max-width: none !important; box-sizing: border-box; background: #fff; border: var(--m-border); border-radius: 24px; padding: 32px 40px 36px; }
+body.in-registracia #register-form fieldset, body.in-registracia #register-form .co-box, body.in-registracia #register-form .box {
+  border: 0 !important; background: transparent !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; width: auto !important; max-width: none !important;
+}
+body.in-registracia #register-form h2 { font: 700 20px/26px var(--m-font) !important; color: #000 !important; margin: 0 0 16px !important; padding: 0 !important; border: 0 !important; text-transform: none !important; }
+body.in-registracia #register-form > fieldset:not(:first-of-type), body.in-registracia #register-form > .co-box:not(.js-hidden):not(fieldset), body.in-registracia #register-form > h2 { margin-top: 28px !important; }
+body.in-registracia #register-form > fieldset:first-of-type { margin-top: 0 !important; }
+body.in-registracia #register-form > .co-box:not(.js-hidden):not(fieldset), body.in-registracia #register-form > h2, body.in-registracia #register-form > fieldset:last-of-type {
+  padding-top: 28px !important; border-top: 1px solid #e3ddc8 !important;
+}
+body.in-registracia #register-form > h2 + fieldset { padding-top: 0 !important; border-top: 0 !important; margin-top: 0 !important; }
+body.in-registracia #register-form .form-legend { font: 400 13px/18px var(--m-font) !important; color: #6f6f6f !important; text-align: right; margin: -40px 0 18px !important; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) .form-group { margin: 0 0 16px !important; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) .form-control-wrapper { max-width: none !important; width: 100% !important; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) .form-group > label:not(.whole-width) { display: block; font: 500 14px/20px var(--m-font) !important; color: #111 !important; margin: 0 0 6px !important; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) .required-asterisk::after, :is(body.in-registracia #register-form, #colorbox .content-modal) .required-asterisk::before { color: var(--m-wine) !important; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) .form-control {
+  width: 100% !important; max-width: none !important; box-sizing: border-box !important; height: 48px !important; border: 2px solid #000 !important; border-radius: 12px !important; padding: 0 16px !important; background: #fff !important;
+  font: 400 16px/20px var(--m-font) !important; color: #000 !important; box-shadow: none !important; outline: none !important; transition: border-color .2s ease;
+}
+:is(body.in-registracia #register-form, #colorbox .content-modal) .form-control:focus { border-color: var(--m-wine) !important; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) input[type=radio], :is(body.in-registracia #register-form, #colorbox .content-modal) input[type=checkbox] { accent-color: var(--m-wine); }
+/* typ zákazníka – dve dlaždice vedľa seba */
+body.in-registracia #register-form > fieldset:first-of-type { display: grid !important; grid-template-columns: 1fr 1fr; gap: 12px; }
+body.in-registracia #register-form > fieldset:first-of-type > h2 { grid-column: 1 / -1; }
+body.in-registracia #register-form > fieldset:first-of-type > .form-group {
+  position: relative; margin: 0 !important; border: 2px solid #000; border-radius: 12px; background: #fff; transition: border-color .2s ease, background-color .2s ease;
+}
+body.in-registracia #register-form > fieldset:first-of-type > .form-group:hover { border-color: var(--m-wine); }
+body.in-registracia #register-form > fieldset:first-of-type > .form-group:has(input:checked) { border-color: var(--m-wine); background: var(--m-cream); }
+body.in-registracia #register-form > fieldset:first-of-type label.whole-width {
+  display: flex !important; align-items: center; min-height: 52px; margin: 0 !important; padding: 12px 14px 12px 44px !important; cursor: pointer; font-size: 0 !important;
+}
+body.in-registracia #register-form > fieldset:first-of-type label.whole-width strong { font: 700 15px/20px var(--m-font) !important; color: #000; }
+body.in-registracia #register-form > fieldset:first-of-type label.whole-width::before { left: 14px !important; top: 50% !important; transform: translateY(-50%); margin: 0 !important; }
+body.in-registracia #register-form > fieldset:first-of-type label.whole-width::after { left: 18px !important; top: 50% !important; transform: translateY(-50%); margin: 0 !important; }
+body.in-registracia #register-form .stay-in-touch label, body.in-registracia #register-form .company-shopping label { font: 400 15px/20px var(--m-font) !important; color: #111 !important; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) .consents .label, :is(body.in-registracia #register-form, #colorbox .content-modal) .consents p { font: 400 14px/21px var(--m-font) !important; color: #6f6f6f !important; margin: 0 0 20px !important; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) .consents a { color: var(--m-wine) !important; text-decoration: underline; text-underline-offset: 3px; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) .submit-wrapper { margin: 0 !important; }
+:is(body.in-registracia #register-form, #colorbox .content-modal) .submit-wrapper .btn {
+  width: 100%; height: 52px; padding: 0 32px !important; font: 700 16px/20px var(--m-font) !important; text-transform: none !important; letter-spacing: 0 !important;
+}
+@media (max-width: 767px) {
+  body.in-registracia .content-inner > h1 { font-size: 28px !important; line-height: 34px !important; margin-bottom: 16px !important; }
+  body.in-registracia #register-form { padding: 22px 18px 24px; border-radius: 20px; }
+  body.in-registracia #register-form > fieldset:first-of-type { grid-template-columns: 1fr; }
+  body.in-registracia #register-form .form-legend { margin: 0 0 12px !important; text-align: left; }
+}
+
+/* vyskakovacie okná (colorbox) – biela karta s čiernym rámom, zaoblená, krúžok na zatvorenie */
+#cboxOverlay { background: #111 !important; opacity: .5 !important; }
+#cboxContent { background: #fff !important; border: 1px solid #000 !important; border-radius: 24px !important; overflow: hidden !important; box-shadow: inset 0 0 0 2px #000 !important; }
+#cboxLoadedContent { border-radius: 22px; }
+#cboxClose {
+  top: 14px !important; right: 14px !important; width: 40px !important; height: 40px !important; border: 2px solid #000 !important; border-radius: 50% !important;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E") center/18px no-repeat !important;
+  font-size: 0 !important; color: transparent !important; z-index: 5; cursor: pointer; transition: background-color .2s ease;
+}
+#cboxClose::before, #cboxClose::after { display: none !important; }
+#cboxClose:hover { background-color: var(--m-lime) !important; }
+#colorbox .content-modal { padding: 32px 36px 32px !important; text-align: left !important; }
+#colorbox .content-modal h1 { font: 700 28px/34px var(--m-font-head) !important; color: #000 !important; text-align: left !important; margin: 0 0 18px !important; padding: 0 48px 0 0 !important; }
+#colorbox .content-modal h1 * { font: inherit !important; }
+#colorbox .content-modal fieldset { border: 0 !important; padding: 0 !important; margin: 0 !important; }
+#colorbox .content-modal .form-legend { font: 400 13px/18px var(--m-font) !important; color: #6f6f6f !important; text-align: left !important; margin: 0 0 14px !important; }
+#colorbox .content-modal textarea.form-control { height: auto !important; min-height: 130px; padding: 12px 16px !important; resize: vertical; }
+#colorbox .content-modal .form-group:not(.smart-label-wrapper):not(.consents):not(.submit-wrapper) { margin: 0 0 10px !important; }
+#colorbox .content-modal p, #colorbox .content-modal .form-group > p { font: 400 14px/21px var(--m-font) !important; color: #6f6f6f !important; }
+#colorbox .content-modal label { font-family: var(--m-font) !important; }
+#colorbox .content-modal input[type=checkbox] + label, #colorbox .content-modal input[type=radio] + label { font: 400 15px/20px var(--m-font) !important; color: #111 !important; }
+@media (max-width: 767px) {
+  #colorbox .content-modal { padding: 24px 18px !important; }
+  #colorbox .content-modal h1 { font-size: 24px !important; line-height: 30px !important; }
+}
+/* okno „Pridané do košíka“ */
+#colorbox .colorbox-html-content { padding: 32px 36px !important; }
+#colorbox .advanced-order .h1 { font: 700 28px/34px var(--m-font-head) !important; color: #000 !important; text-align: center !important; margin: 0 0 8px !important; padding: 0 48px !important; }
+#colorbox .advanced-order > .h2 { font: 400 17px/24px var(--m-font) !important; color: #111 !important; text-align: center !important; margin: 0 0 12px !important; }
+#colorbox .advanced-order .extras-wrap { margin: 0 0 4px !important; }
+#colorbox .advancedOrder__buttons { display: flex !important; justify-content: center !important; flex-wrap: wrap; gap: 12px !important; margin: 16px 0 0 !important; }
+#colorbox .advancedOrder__buttons .btn {
+  display: inline-flex !important; align-items: center; justify-content: center; height: 48px !important; min-height: 48px; padding: 0 28px !important; margin: 0 !important;
+  border-radius: 999px !important; font: 700 16px/20px var(--m-font) !important; text-transform: none !important; letter-spacing: 0 !important; text-decoration: none !important;
+  transition: background-color .2s ease, transform .2s ease;
+}
+#colorbox .advancedOrder__buttons .next-step-back { background: #fff !important; color: #111 !important; border: 3px solid #000 !important; }
+#colorbox .advancedOrder__buttons .next-step-back::before { display: none !important; }
+#colorbox .advancedOrder__buttons .next-step-back:hover { background: var(--m-lime) !important; transform: translateY(-2px); }
+#colorbox .advancedOrder__buttons .btn-conversion { background: var(--m-wine) !important; color: #fff !important; border: 3px solid var(--m-wine) !important; }
+#colorbox .advancedOrder__buttons .btn-conversion:hover { background: var(--m-wine-dark) !important; border-color: var(--m-wine-dark) !important; transform: translateY(-2px); }
+#colorbox .advanced-order .advanced-order-suggestion { margin: 28px 0 20px !important; padding: 28px 0 0 !important; border-top: 1px solid #e3ddc8 !important; font-size: 26px !important; }
+#colorbox .advanced-order #products { grid-template-columns: repeat(auto-fit, minmax(170px, 210px)) !important; justify-content: center !important; gap: 16px !important; margin: 0 !important; }
+@media (max-width: 767px) {
+  #colorbox .colorbox-html-content { padding: 24px 16px !important; }
+  #colorbox .advanced-order .h1 { font-size: 22px !important; line-height: 28px !important; }
+  #colorbox .advancedOrder__buttons .btn { flex: 1 1 100%; }
+  #colorbox .advanced-order #products { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+}
+/* kroky košíka – čísla v krúžkoch na stred (Doko Sans má číslice o ~0,07 em nižšie) */
+.cart-header .step span::before { display: inline-flex !important; align-items: center !important; justify-content: center !important; line-height: 1 !important; padding: 0 0 .14em !important; vertical-align: middle; }
+.cart-header .step span { display: inline-flex !important; align-items: center; gap: 0; }
