@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v1.0.4) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v1.0.7) — loader + doplnky DOM pre Shoptet šablónu 11
    Odporúčané vloženie do Záhlavia (fonty a CSS hneď v HTML, JS s defer):
    <style id="m2-fonts">…@font-face DokoSans + DokoSans Fallback…</style>
    <link rel="preload" href="/user/documents/upload/Fonts/DokoSans/DokoSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -763,6 +763,19 @@
     });
   }
 
+  /* ---------- v1.0.7: logo na celé pixely (SVG na polovičnom pixeli sa vykreslí rozmazane) ---------- */
+  function logoSnap() {
+    var img = document.querySelector('#header .site-name img');
+    if (!img || !img.getBoundingClientRect) return;
+    img.style.transform = '';
+    var r = img.getBoundingClientRect();
+    var dx = Math.round(r.left) - r.left, dy = Math.round(r.top) - r.top;
+    if (Math.abs(dx) > .01 || Math.abs(dy) > .01) img.style.transform = 'translate(' + dx.toFixed(3) + 'px, ' + dy.toFixed(3) + 'px)';
+  }
+  var logoTimer;
+  window.addEventListener('resize', function () { clearTimeout(logoTimer); logoTimer = setTimeout(logoSnap, 150); });
+  window.addEventListener('load', logoSnap);
+
   ready(function () {
     document.documentElement.classList.add('m2');
     headerLogo();
@@ -786,6 +799,7 @@
     footer();
     cardOldPrice();
     colorDots();
+    logoSnap();
     document.documentElement.classList.add('m2-ready');
   });
 })();

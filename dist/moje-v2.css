@@ -2013,3 +2013,18 @@ html:not(.m2-ready) body:is(.type-index, .type-category, .type-detail) .overall-
 #header .menu-level-1 > li > a, #navigation .menu-level-1 > li > a { font-weight: 700 !important; }
 #header .menu-level-1 > li > a b, #header .menu-level-1 > li > a > span, #navigation .menu-level-1 > li > a b { font-weight: inherit !important; }
 .top-info-bar, .top-info-bar span { font-weight: 700 !important; }
+/* v1.0.7 – logo v pomere strán (na mobile bolo stlačené na 34 × 46) a na celé pixely; čísla v krúžkoch (košík, stránkovanie) opticky na stred;
+   v menu Akcia bordovou, Značky skryté */
+#header .site-name img { object-fit: contain !important; flex: none !important; min-width: 0; }
+@media (min-width: 992px) { #header .site-name img { height: 60px !important; width: 57px !important; } }
+@media (max-width: 991px) { #header .site-name img { height: 46px !important; width: 44px !important; } }
+/* Doko Sans má číslice nad účiarím posunuté nadol o ~0,07 em → spodný padding 0,14 em ich vycentruje */
+#header .navigation-buttons .btn.cart-count i {
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  line-height: 1 !important; padding: 0 5px .14em !important; box-sizing: border-box !important;
+}
+.pagination__list > li > a.pagination__link:not(.pagination__link--next):not(.pagination__link--prev),
+.pagination__list > li > strong.pagination__currentPage { padding-bottom: .14em !important; }
+#header .menu-level-1 > li > a[href*="akciova-ponuka"], #navigation .menu-level-1 > li > a[href*="akciova-ponuka"],
+#header .menu-level-1 > li > a[href*="akciova-ponuka"] b, #navigation .menu-level-1 > li > a[href*="akciova-ponuka"] b { color: var(--m-wine) !important; }
+#header .menu-level-1 li.nav-manufacturers, #navigation .menu-level-1 li.nav-manufacturers { display: none !important; }
