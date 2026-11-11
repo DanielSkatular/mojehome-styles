@@ -2159,3 +2159,5 @@ body.in-registracia #register-form .stay-in-touch label, body.in-registracia #re
 .cart-table thead.m-cart-head .m-ch-name { text-align: left; }
 .cart-table thead.m-cart-head .m-ch-total { text-align: right; padding-right: 39px !important; }
 @media (max-width: 767px) { .cart-table thead.m-cart-head { display: none !important; } }
+/* v1.1.1 – v nadpisoch filtrov bez súčtu v zátvorke (ostáva len napr. OBJEM) */
+.type-category #filters h4 .m-count, #filters h4 .m-count { display: none !important; }
