@@ -660,7 +660,7 @@
 
   /* ---------- v1.0: pôvodná cena v kartách – Shoptet ju vo výpise neposiela, berie sa z detailu
      (len akciové karty, až keď sú blízko obrazovky, čítanie HTML sa zastaví hneď za cenou, cache 12 h) ---------- */
-  var oldQ = [], oldRun = 0, oldIO = null;
+  var oldQ = [], oldRun = 0, oldIO = null, oldSeen = window.WeakSet ? new WeakSet() : null, oldBusy = {};
   function oldNum(s) { return parseFloat(String(s).replace(/[^\d,.]/g, '').replace(',', '.')); }
   function oldFetch(url) {
     return fetch(url, { credentials: 'same-origin' }).then(function (r) {
@@ -681,13 +681,17 @@
       return m ? m[1].replace(/\s+/g, ' ').trim() : '';
     });
   }
-  function oldSet(p, v) {
-    if (!v || p.querySelector('.m-price-old')) return;
-    var fin = p.querySelector('.price-final'), pr = p.querySelector('.prices');
-    if (!fin || !pr || !(oldNum(v) > oldNum(fin.textContent))) return;
-    var s = el('span', 'm-price-old');
-    s.textContent = v;
-    pr.insertBefore(s, pr.firstChild);
+  function oldSet(url, v) {
+    if (!v) return;
+    Array.prototype.forEach.call(document.querySelectorAll('.products-block .product .p'), function (p) {
+      var a = p.querySelector('a.name') || p.querySelector('a.image');
+      if (!a || a.getAttribute('href') !== url || p.querySelector('.m-price-old')) return;
+      var fin = p.querySelector('.price-final'), pr = p.querySelector('.prices');
+      if (!fin || !pr || !(oldNum(v) > oldNum(fin.textContent))) return;
+      var s = el('span', 'm-price-old');
+      s.textContent = v;
+      pr.insertBefore(s, pr.firstChild);
+    });
   }
   function oldNext() {
     while (oldRun < 3 && oldQ.length) {
@@ -695,8 +699,8 @@
         oldRun++;
         oldFetch(job.url).then(function (v) {
           try { localStorage.setItem('m2old:' + job.url, JSON.stringify({ v: v, t: Date.now() })); } catch (e) {}
-          oldSet(job.p, v);
-        }).catch(function () {}).then(function () { oldRun--; oldNext(); });
+          oldSet(job.url, v);
+        }).catch(function () {}).then(function () { oldRun--; delete oldBusy[job.url]; oldNext(); });
       })(oldQ.shift());
     }
   }
@@ -705,21 +709,24 @@
     if (!a || !window.fetch) return;
     var url = a.getAttribute('href'), c = null;
     try { c = JSON.parse(localStorage.getItem('m2old:' + url) || 'null'); } catch (e) {}
-    if (c && Date.now() - c.t < 432e5) { oldSet(p, c.v); return; }
-    oldQ.push({ p: p, url: url });
+    if (c && Date.now() - c.t < 432e5) { oldSet(url, c.v); return; }
+    if (oldBusy[url]) return;
+    oldBusy[url] = 1;
+    oldQ.push({ url: url });
     oldNext();
   }
   function cardOldPrice() {
-    var cards = document.querySelectorAll('.products-block .product .p:not([data-m2old])');
-    if (!cards.length) return;
+    var cards = document.querySelectorAll('.products-block .product .p');
+    if (!cards.length || !oldSeen) return;
     if (!oldIO && window.IntersectionObserver) {
       oldIO = new IntersectionObserver(function (es) {
         es.forEach(function (e) { if (e.isIntersecting) { oldIO.unobserve(e.target); oldQueue(e.target); } });
       }, { rootMargin: '400px 0px' });
     }
     Array.prototype.forEach.call(cards, function (p) {
-      p.setAttribute('data-m2old', '1');
-      if (!p.querySelector('.flag-action, .flag-discount')) return;
+      if (oldSeen.has(p) || !p.querySelector('.prices')) return;
+      oldSeen.add(p);
+      if (!p.querySelector('.flag-action, .flag-discount') || p.querySelector('.m-price-old')) return;
       if (oldIO) oldIO.observe(p); else oldQueue(p);
     });
   }
