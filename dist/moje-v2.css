@@ -2003,3 +2003,9 @@ html:not(.m2-ready) body:is(.type-index, .type-category, .type-detail) .overall-
 .type-category #filters .m-colors input[type=checkbox] + label.filter-label[data-tip]:hover::after,
 .type-category #filters .m-colors input:focus-visible + label.filter-label[data-tip]::after { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
 .type-category #filters .m-colors, .type-category #filters .m-colors form, .type-category #filters .m-colors fieldset { overflow: visible !important; }
+/* v1.0.5 – zarovnanie na stred: triedenie v krémovom páse (tlačidlo malo 1 px okraj navyše), šípky stránkovania v rovine s číslami */
+#category-header { align-items: center !important; }
+#category-header .listSorting, #category-header .listSorting__controls { align-self: center !important; margin-top: 0 !important; margin-bottom: 0 !important; }
+.listSorting__control--current { margin-top: 0 !important; margin-bottom: 0 !important; }
+.pagination__list > li { display: flex !important; align-items: center !important; line-height: 0 !important; }
+.pagination__list > li > a, .pagination__list > li > strong { vertical-align: middle; }
