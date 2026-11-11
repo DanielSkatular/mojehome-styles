@@ -1988,3 +1988,18 @@ html:not(.m2-ready) body:is(.type-index, .type-category, .type-detail) .overall-
 .type-category .sidebar-left { overflow: clip !important; }
 .type-category #filters fieldset > div:not(.advanced-filters-wrapper) { position: relative; }
 .type-category #filters fieldset > div > input[type=checkbox] { left: 0; top: 0; width: 1px; height: 1px; }
+/* v1.0.4 – farebné guľôčky o 20 % menšie (24 px) a vlastný tooltip s názvom farby */
+.type-category #filters .m-colors fieldset { gap: 8px !important; }
+.type-category #filters .m-colors .filter-label { width: 24px !important; height: 24px; position: relative !important; }
+.type-category #filters .m-colors .filter-label::before,
+.type-category #filters .m-colors input[type=checkbox] + label.filter-label::before { width: 24px !important; height: 24px !important; }
+.type-category #filters .m-colors input[type=checkbox] + label.filter-label[data-tip]::after {
+  content: attr(data-tip) !important; display: block !important; position: absolute; left: 50%; bottom: calc(100% + 8px); top: auto;
+  transform: translate(-50%, 4px); padding: 4px 10px; border-radius: 8px; background: #111; color: #fff;
+  font: 500 13px/18px var(--m-font); white-space: nowrap; pointer-events: none; z-index: 5;
+  opacity: 0; visibility: hidden; transition: opacity .15s ease, transform .15s ease, visibility .15s;
+  width: auto; height: auto; border: 0; box-shadow: none;
+}
+.type-category #filters .m-colors input[type=checkbox] + label.filter-label[data-tip]:hover::after,
+.type-category #filters .m-colors input:focus-visible + label.filter-label[data-tip]::after { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.type-category #filters .m-colors, .type-category #filters .m-colors form, .type-category #filters .m-colors fieldset { overflow: visible !important; }
