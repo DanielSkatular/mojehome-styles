@@ -2009,3 +2009,7 @@ html:not(.m2-ready) body:is(.type-index, .type-category, .type-detail) .overall-
 .listSorting__control--current { margin-top: 0 !important; margin-bottom: 0 !important; }
 .pagination__list > li { display: flex !important; align-items: center !important; line-height: 0 !important; }
 .pagination__list > li > a, .pagination__list > li > strong { vertical-align: middle; }
+/* v1.0.6 – texty v hlavičke tučnejšie: názvy v menu sú v <b>, ktorému Shoptet dáva font-weight 400 → dedia 700 z odkazu; horná lišta 700 */
+#header .menu-level-1 > li > a, #navigation .menu-level-1 > li > a { font-weight: 700 !important; }
+#header .menu-level-1 > li > a b, #header .menu-level-1 > li > a > span, #navigation .menu-level-1 > li > a b { font-weight: inherit !important; }
+.top-info-bar, .top-info-bar span { font-weight: 700 !important; }
