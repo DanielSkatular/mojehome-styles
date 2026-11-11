@@ -2150,3 +2150,12 @@ body.in-registracia #register-form .stay-in-touch label, body.in-registracia #re
 #colorbox .content-modal span.disclaimer { display: inline; margin-left: 6px; font: 400 13px/22px var(--m-font) !important; color: #6f6f6f !important; }
 #colorbox .content-modal #priceUnder { margin-top: 8px !important; }
 @media (max-width: 767px) { #colorbox .content-modal { width: auto; } }
+/* v1.1 – košík: názvy stĺpcov nad tabuľkou (vkladá JS cartHead), na mobile skryté – tam sú popisky v bunkách */
+.cart-table thead.m-cart-head th {
+  font: 600 12px/16px var(--m-font) !important; letter-spacing: .6px; text-transform: uppercase; color: #6f6f6f !important;
+  padding: 12px 5px 10px !important; border: 0 !important; border-bottom: 1px solid #e3ddc8 !important; background: none !important;
+  text-align: center; white-space: nowrap; vertical-align: bottom;
+}
+.cart-table thead.m-cart-head .m-ch-name { text-align: left; }
+.cart-table thead.m-cart-head .m-ch-total { text-align: right; padding-right: 39px !important; }
+@media (max-width: 767px) { .cart-table thead.m-cart-head { display: none !important; } }

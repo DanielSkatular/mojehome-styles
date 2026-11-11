@@ -1,4 +1,4 @@
-/* MOJE WEB 2.0 (v1.0.7) — loader + doplnky DOM pre Shoptet šablónu 11
+/* MOJE WEB 2.0 (v1.1) — loader + doplnky DOM pre Shoptet šablónu 11
    Odporúčané vloženie do Záhlavia (fonty a CSS hneď v HTML, JS s defer):
    <style id="m2-fonts">…@font-face DokoSans + DokoSans Fallback…</style>
    <link rel="preload" href="/user/documents/upload/Fonts/DokoSans/DokoSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -319,7 +319,7 @@
     var m2Timer;
     new MutationObserver(function () {
       clearTimeout(m2Timer);
-      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); sortDrop(); sliderLabels(); cardOldPrice(); colorDots(); }, 60);
+      m2Timer = setTimeout(function () { filtersFigma(); listTotal(); filtersBtn(); mergeFlags(); subcatImages(); sortDrop(); sliderLabels(); cardOldPrice(); colorDots(); cartHead(); }, 60);
     }).observe(document.documentElement, { childList: true, subtree: true });
   }
 
@@ -776,6 +776,16 @@
   window.addEventListener('resize', function () { clearTimeout(logoTimer); logoTimer = setTimeout(logoSnap, 150); });
   window.addEventListener('load', logoSnap);
 
+  /* ---------- v1.1: názvy stĺpcov v košíku (Shoptet tabuľka nemá hlavičku; na mobile sú popisky priamo v bunkách) ---------- */
+  function cartHead() {
+    Array.prototype.forEach.call(document.querySelectorAll('table.cart-table'), function (t) {
+      if (t.querySelector('thead.m-cart-head') || !t.querySelector('tbody tr .p-total')) return;
+      var th = el('thead', 'm-cart-head', '<tr><th colspan="2" class="m-ch-name">Produkt</th><th class="m-ch-av">Dostupnosť</th>' +
+        '<th class="m-ch-qty">Množstvo</th><th class="m-ch-price">Cena za kus</th><th class="m-ch-total">Spolu</th></tr>');
+      t.insertBefore(th, t.firstChild);
+    });
+  }
+
   ready(function () {
     document.documentElement.classList.add('m2');
     headerLogo();
@@ -800,6 +810,7 @@
     cardOldPrice();
     colorDots();
     logoSnap();
+    cartHead();
     document.documentElement.classList.add('m2-ready');
   });
 })();
