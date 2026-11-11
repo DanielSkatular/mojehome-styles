@@ -1984,3 +1984,7 @@ html:not(.m2-ready) body:is(.type-index, .type-category, .type-detail) .overall-
 }
 .type-category #filters .m-colors input:focus-visible + label.filter-label::before { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000; }
 .type-category #filters .m-colors .filter-label.disabled::before { opacity: .3; }
+/* v1.0.3 – klik na filter neposúva bočný panel do strany (skrytý checkbox bral fokus mimo panelu) */
+.type-category .sidebar-left { overflow: clip !important; }
+.type-category #filters fieldset > div:not(.advanced-filters-wrapper) { position: relative; }
+.type-category #filters fieldset > div > input[type=checkbox] { left: 0; top: 0; width: 1px; height: 1px; }
